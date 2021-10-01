@@ -1,0 +1,2 @@
+# Aprendizados da semana <h1>
+Nessa semana de onboarding da **Labenu**, aprendi os comandos básicos para mexer no terminal. Aprendi também a usar o **git** e o **github** que pelo que percebi são ferramentas cruciais para pessoas que estão nessa área de programação.
