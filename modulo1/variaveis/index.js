@@ -91,3 +91,4 @@ y = anoNascimentoNumber*idadeNumber
 
 console.log ("Estamos no ano de", x)
 console.log ("A multiplicação do seu ano pela sua idade é", y)
+
