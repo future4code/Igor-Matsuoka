@@ -122,23 +122,26 @@ function retornaPessoasNaoAutorizadas(pessoas) {
 
 // EXERCÍCIO 14
 function retornaContasComSaldoAtualizado(contas) {
-    const array = [...contas]
-    let adicionarSaldo = array.map((item) => {
-        let somaCompras = 
+    return contas.map((conta)=>{
+        let soma = conta.compras.reduce((acc,cur) => acc+ cur, 0);
+        let saldo = conta.saldoTotal
+        return {...conta, saldoTotal: saldo-soma, compras: []}
     })
-    return adicionarSaldo
 }
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
-    const array = [...consultas]
-    let ordenarNomes = array.map((item)=>{
-        return item.nome.toUpperCase()
+    /* const array = [...consultas]
+    let nomesMaiusculos = array.toUpperCase()
+    let ordenarNomes = nomesMaiusculos.filter((item) => {
+        return item.sort()
     })
-    return ordenarNomes.sort()
+    return ordenarNomes */
 }
 
 // EXERCÍCIO 15B
 function retornaArrayOrdenadoPorData(consultas) {
-   
+   return consultas.sort((primeira, segunda)=>{
+       return new Date(primeira.dataDaConsulta.split("/").reverse()).getTime() - new Date(segunda.dataDaConsulta.split("/").reverse()).getTime()
+   })
 }
