@@ -73,19 +73,36 @@ function classificaTriangulo(ladoA, ladoB, ladoC) {
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
+    array.sort((a,b) => a-b)
+    if (array.length === 2){
+        return [array[0], array[1]]
+    }
+    array.pop()
+    array.shift()
+    return [array[array.length-1], array[0]]
 }
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
-
+    const objeto = {}
+    return `Venha assistir ao filme ${filme.nome}, de 2006, dirigido por ${filme.diretor} e estrelado por ${filme.atores}.`
 }
 
 // EXERCÍCIO 12
 function retornaPessoaAnonimizada(pessoa) {
+    let objeto = {
+        ...pessoa
+    }
+    let pessoaAnonima = {
+        ...objeto, 
+        nome: "ANÔNIMO"
+    }
+    return pessoaAnonima
 }
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
+
 }
 
 // EXERCÍCIO 13B
