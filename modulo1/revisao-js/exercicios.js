@@ -104,26 +104,38 @@ function retornaPessoaAnonimizada(pessoa) {
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
-    let array = [...pessoas]
-    const pessoasPermitidas = array.map((item) => {
-        item.altura > 1.5 && 60 > item.idade >14
+    const array = [...pessoas]
+    let pessoasPermitidas = array.filter((item) => {
+        return item.altura > 1.5 && 60 > item.idade && 14 < item.idade
     })
     return pessoasPermitidas
 }
 
 // EXERCÍCIO 13B
 function retornaPessoasNaoAutorizadas(pessoas) {
-  
+    const array = [...pessoas]
+    let pessoasNaoPermitidas = array.filter((item) => {
+        return item.altura < 1.5 || 60 < item.idade || 14 >= item.idade
+    })
+    return pessoasNaoPermitidas
 }
 
 // EXERCÍCIO 14
 function retornaContasComSaldoAtualizado(contas) {
-
+    const array = [...contas]
+    let adicionarSaldo = array.map((item) => {
+        let somaCompras = 
+    })
+    return adicionarSaldo
 }
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
-  
+    const array = [...consultas]
+    let ordenarNomes = array.map((item)=>{
+        return item.nome.toUpperCase()
+    })
+    return ordenarNomes.sort()
 }
 
 // EXERCÍCIO 15B
