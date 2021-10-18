@@ -84,8 +84,10 @@ function retornaSegundoMaiorESegundoMenor(array) {
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
-    const objeto = {}
-    return `Venha assistir ao filme ${filme.nome}, de 2006, dirigido por ${filme.diretor} e estrelado por ${filme.atores}.`
+    const objeto = {
+        ...filme
+    }
+    return `Venha assistir ao filme ${filme.nome}, de 2006, dirigido por ${filme.diretor} e estrelado por ${filme.atores.join(", ")}.`
 }
 
 // EXERCÍCIO 12
@@ -102,7 +104,11 @@ function retornaPessoaAnonimizada(pessoa) {
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
-
+    let array = [...pessoas]
+    const pessoasPermitidas = array.map((item) => {
+        item.altura > 1.5 && 60 > item.idade >14
+    })
+    return pessoasPermitidas
 }
 
 // EXERCÍCIO 13B
