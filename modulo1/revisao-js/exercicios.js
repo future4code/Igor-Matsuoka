@@ -131,12 +131,11 @@ function retornaContasComSaldoAtualizado(contas) {
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
-    /* const array = [...consultas]
-    let nomesMaiusculos = array.toUpperCase()
-    let ordenarNomes = nomesMaiusculos.filter((item) => {
-        return item.sort()
-    })
-    return ordenarNomes */
+    return consultas.sort(function(x,y){
+        let a = x.nome.toUpperCase()
+        let b = y.nome.toUpperCase()
+        return a == b ? 0 : a > b ? 1 : -1
+    })    
 }
 
 // EXERCÍCIO 15B
