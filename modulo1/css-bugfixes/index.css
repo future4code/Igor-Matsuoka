@@ -77,18 +77,26 @@ div img {
   *
   **/
 
+.container{
+    padding: 50px;
+}
+
 #container-de-descricao {
     background-color: #2274a5;
     color: white;
     margin: auto;
     padding: auto;
-    padding: 10px;
+}
+
+.apresentacao{
+    margin: auto;
+    padding: auto;
 }
 
 #container-de-descricao>ol {
-    padding: auto;
+    padding: 10px;
     margin: auto;
-    width: 15%;
+    width: 12%;
     text-align: center;
 }
 
