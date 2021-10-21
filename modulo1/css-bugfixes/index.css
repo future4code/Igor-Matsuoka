@@ -7,6 +7,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: "roboto";
 }
 
 h2 {
@@ -58,7 +59,7 @@ div img {
 }
 
 .icone {
-    height: 15px;
+    height: 20px;
     width: 20px;
 }
 
@@ -71,7 +72,7 @@ div img {
 #container-de-descricao {
     background-color: #2274a5;
     color: white;
-    padding: 100px 840px 0px 840px;
+    padding: 100px 825px 0px 825px;
 }
 
 #container-de-descricao>ol {
@@ -95,6 +96,7 @@ div img {
   *
   **/
 
+
 div:nth-child(2),
 div:last-child {
     text-align: center;
@@ -102,11 +104,11 @@ div:last-child {
 
 #barra-de-busca{
     border:none;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
 }
 
 table {
-    width: 100%;
+    width: 50%;
     text-align: center;
     margin: auto;
 }
@@ -132,6 +134,7 @@ td button {
     border-radius: 5px;
     font-size: 10px;
     color: black;
+    margin: 50px 910px;
 }
 
 #back-button:hover {
