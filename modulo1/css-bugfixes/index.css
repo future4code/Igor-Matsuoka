@@ -108,7 +108,7 @@ div:last-child {
 table {
     width: 100%;
     text-align: center;
-    margin: 2%;
+    margin: auto;
 }
 
 td button {
@@ -136,4 +136,9 @@ td button {
 
 #back-button:hover {
     background-color: #635a3d
+}
+
+.botao-comprar:hover {
+    background-color: rgb(131, 131, 7);
+    color: white;
 }
