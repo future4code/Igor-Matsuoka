@@ -63,13 +63,15 @@ div img {
     width: 20px;
 }
 
+#lupa:active {
+    color:black;
+    background-color: black;
+}
+
 .icone:hover {
     opacity: 0.4;
 }
 
-.icone:active {
-    color:black;
-}
 
 /** 
   *
