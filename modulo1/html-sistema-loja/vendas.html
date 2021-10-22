@@ -19,23 +19,47 @@
         </ul>
     </div>
 </header>
+
 <body>
     <div>
         <p>Tacida Sabores Caseiros</p>
     </div>
-    <h2>Funcionários</h2>
-    <ul>
-        <dt>Aparecida Avelar</dt>
-            <dd>Sócia-proprietária</dd>
-            <dd>Confeiteira</dd>
-            <br>
-        <dt>Caroline Avelar</dt>
-            <dd>Sócia-proprietária</dd>
-            <dd>Confeiteira</dd>
-            <dd>Responsável pelo financeiro</dd>
-    </ul>
+    
+    <h2>VENDAS</h2>
+    <form action="URL">
+        <div class="custom-select">
+            <label for="seleionar">Selecione o bolo</label>
+            <select>
+              <option value="0">Escolha o bolo:</option>
+              <option value="1">Bolo de chocolate</option>
+              <option value="2">Bolo de cenoura</option>
+              <option value="3">bolo de laranja</option>
+              <option value="4">bolo de churros</option>
+              <option value="5">bolo Salgado</option>
+            </select>
+          </div>
         
+        <div class="custom-select">
+            <label for="descricao">Quantidade desejada: </label>
+            <input type="text" id="descricao" name="descrição">
+        </div>
+
+        <div class="custom-select">
+            <label>Forma de pagamento: </label>
+            <select>
+                <option value="0">forma de pagamento</option>
+                <option value="1">Dinheiro</option>
+                <option value="2">cartão</option>
+            </select>
+        </div>
+
+        <div class="form-add">
+            <button type="submit">Adicionar</button>
+        </div>
+
+    </form>
 </body>
+
 <footer>
     <div>
         <p id="chamada">Siga-nos nas redes sociais!</p>
