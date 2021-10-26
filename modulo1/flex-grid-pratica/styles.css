@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: orange;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    align-items: center;
+    padding: 20px;
+}
+
+#txtBusca {
+    height: 20px;
+    margin-right: 20px;
+}
+
+#galeria-videos {
+    display: grid;
+    flex-direction: row;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 10px;
+    column-gap: 10px;
+    margin: 50px;
+    margin-bottom: 400px;
+    margin-top: 20px;
+    flex-grow: 1;
+    height:50%;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    justify-content: flex-end;
+    border: 3px solid black;
+    flex-wrap: nowrap;
+}
+
+img{
+    height: 100%;
+    width: 100%; 
+} 
+
+h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer {
+    background-color: salmon;
+    display: flex;
+    font-size: 25px;
+    justify-content: center;
+    width: 100%;
+}
+
+#video{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.titulo-video{
+    display: flex;
+    width: 85%;
+    align-items: flex-start;
+    padding-top: 20px;
+}
+
+.video{
+    display: flex;
+    width: 85%;
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
