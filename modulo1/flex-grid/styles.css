@@ -1,0 +1,111 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    background-color: mediumvioletred;
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    align-items: center;
+}
+
+.logo{
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    align-items: flex-start;
+    margin-left: 20px;
+}
+
+h1 {
+    width: 100%;
+    margin-left: 20px;
+    font-size: 40px;
+}
+
+.botao-login{
+    justify-content: flex-end;
+    margin-right: 20px;
+    padding: 5px;
+}
+
+
+#conteudo{
+    display: flex;
+    justify-content: flex-start;
+}
+
+#menu-total{
+    background-color: #f2d0e0;
+    flex-grow: 1;
+}
+
+#menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    background-color: #f2d0e0;
+}
+
+.logo-menu{
+    align-items: center;
+    height: 25px;
+    width: 25px;
+    align-items: flex-start;
+    margin-left: 20px;
+}
+
+.menu{
+    align-items: center;
+    align-items: flex-start;
+    margin-left: 10px;
+    font-size: 15px;
+    padding: 10px;
+    width: 100%;
+}
+
+.direcionador{
+    justify-content: flex-end;
+    height: 15px;
+    width: 15px;
+}
+
+#galeria{
+    display: grid;
+    grid-template-rows: 0.5fr 0.5fr;
+    grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr;
+    row-gap: 15px;
+    column-gap: 15px;
+    background-color: darkgray;
+    padding: 15px;
+    flex-grow: 1;
+}
+
+#produto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+}
+
+.produto{   
+    height: 100%;
+    width: 100%;
+}
+
+.descricao-produto{
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+footer{
+    background-color: mediumvioletred;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    justify-content: space-around;
+}
