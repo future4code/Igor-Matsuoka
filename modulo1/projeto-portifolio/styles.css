@@ -1,0 +1,491 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Raleway", sans-serif;
+}
+
+header{
+    background-color: #7B68EE;
+    border: 1px solid black;
+    width: 40%;
+    text-align: center;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+body{
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/8/80/Backgorund.gif);
+}
+
+.pagina-contato{
+    background-image: url(https://i.pinimg.com/originals/12/b2/3a/12b23a7752e8a7a4464c1ff5e596237f.gif);
+}
+
+.pagina-projetos{
+    background-image: url(https://wallpapercave.com/wp/wp2729921.gif);
+}
+
+.pagina-experiencias{
+    background-image: url(http://beeimg.com/images/t74879778523.gif);
+}
+
+#foto-perfil {
+    display: block;
+    height: 250px;
+    width: 250px;
+    border-style: solid;
+    border-radius: 200px;
+    border-color: white;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+}
+
+#apresentacao {
+    width: 100%;
+    text-align: center;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 100px;
+}
+
+.apresentacao-resp{
+    border: 1px solid black;
+    width: 30%;
+    text-align: center;
+    color: black;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1%;
+    margin-top: 1%;
+    background-color: white;
+    border-radius: 30px;
+}
+
+.nome{
+    color: red;
+}
+
+#menu{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+}
+
+.menu0:hover{
+    background-color: #7B68EE;
+    color: white;
+}
+
+.menu1:hover{
+    background-color: #7B68EE;
+    color: white;
+}
+
+.menu2:hover{
+    background-color: #7B68EE;
+    color: white;
+}
+
+.menu3:hover{
+    background-color: #7B68EE;
+    color: white;
+}
+
+
+.menu0{
+    text-align: center;
+    display: inline;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: white;
+    width: 100%;
+    padding: 0.3%;
+    margin-right:auto;
+    margin-left: auto;
+    color:black;
+    text-decoration: none;
+    margin-right: 1%;
+    font-size: 25px;
+}
+
+.menu1{
+    text-align: center;
+    display: inline;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: white;
+    width: 100%;
+    padding: 0.3%;
+    margin-right:auto;
+    margin-left: auto;
+    color:black;
+    text-decoration: none;
+    margin-right: 1%;
+    font-size: 25px;
+}
+
+.menu2{
+    text-align: center;
+    display: inline;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: white;
+    width: 100%;
+    padding: 0.3%;
+    color:black;
+    text-decoration: none;
+    margin-right: 1%;
+    font-size: 25px;
+}
+
+.menu3{
+    text-align: center;
+    display: inline;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: white;
+    width: 100%;
+    padding: 0.3%;
+    color:black;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.contatoh2{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    font-size: 30px;
+    background-color: white;
+    width: 22%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+form {
+    text-align: center;
+    width:100%;
+    color: black;
+    font-size: 20px;
+    background-color: white;
+    width: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+input{
+    width:300px
+  }
+
+.tamanho-mensagem{
+    height: 200px;
+}
+
+#botao-social1{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+}
+
+#botao-social2{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+}
+
+#botao-social3{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+}
+
+#botao-social4{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+}
+
+.social-nome1{
+    width: 10%;
+    text-align: center;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.1%;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.social-nome1-contato{
+    width: 10%;
+    text-align: center;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.1%;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 0.5%;
+}
+
+.social-nome1:hover{
+    background-color: #7B68EE;
+    color: white;
+}
+
+.social-nome1-contato:hover{
+    background-color: #7B68EE;
+    color: white;
+}
+
+.social-nome2:hover{
+    background-color: #7B68EE;
+    color: white;
+}
+
+.social-nome2-contato:hover{
+    background-color: #7B68EE;
+    color: white;
+}
+
+.social-nome2{
+    width: 10%;
+    text-align: center;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.1%;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.social-nome2-contato{
+    width: 10%;
+    text-align: center;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.1%;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.social-nome3{
+    width: 10%;
+    text-align: center;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.1%;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.social-nome4{
+    width: 10%;
+    text-align: center;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.1%;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 4%;
+}
+
+#social1 {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+#social1-social {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+#social1-social-contato {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    margin-top: 4%;
+}
+
+#social2 {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+#social3 {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+#social4 {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+.blackjack{
+    height: 40px;
+    width: 40px;
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 300px;
+    margin-top: 2%;
+    margin-bottom: 1% ;
+}
+
+.link-rede{
+    color: white;
+}
+
+footer{
+    display: block;
+    background-color: #483D8B;
+    margin: auto;
+    width: 101%;
+    bottom: 0;
+    position: fixed;
+    height: 20px;
+    padding: 1%;
+}
+
+#experi{
+    border: 1px solid black;
+    width: 30%;
+    text-align: center;
+    color: black;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1%;
+    margin-top: 1%;
+    background-color: white;
+    border-radius: 30px;
+    padding: 0.5%;
+}
+
+h3{
+    margin-top: 2%;
+}
+
+.p1{
+    margin-bottom:1%;
+}
+
+.p2{
+    margin-bottom:2%;
+}
+
+.imagem-blackjack{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+    width: 30%;
+    height: 1000px;
+    width: 1300px;
+}
+
+#crafted{
+    height: 40px;
+    width: 97%;
+    text-align: center;
+    color: white;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.expericlass{
+    margin-bottom: 5%;
+}
+
+li{
+    display: block;
+    padding: 1%;
+}
+
