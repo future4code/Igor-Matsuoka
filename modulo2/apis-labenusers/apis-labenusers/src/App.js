@@ -14,6 +14,7 @@ export default class App extends React.Component{
       case false:
         return <ListaUsuarios/>;
       default:
+        return <div>Página não encontrada</div>
     }
   }
 

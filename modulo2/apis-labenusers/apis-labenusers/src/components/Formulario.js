@@ -6,11 +6,6 @@ export default class Formulario extends React.Component{
   state = {
     name: "",
     email: "",
-    users: [],
-  }
-
-  componentDidMount(){
-    this.getUsers();
   }
 
   onChangeInputName = (e) => {
@@ -20,24 +15,6 @@ export default class Formulario extends React.Component{
   onChangeInputEmail = (e) => {
     this.setState({email: e.target.value})
   }
-
-  getUsers = () => {
-    axios
-      .get(
-        "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users",
-        {
-          headers: {
-            Authorization: "Igor-Matsuoka-Carver"
-          }
-        }
-      )
-      .then((response) => {
-        this.setState({ users: Response.data });
-      })
-      .catch((error) => {
-        alert(error.response)
-      });
-  };
 
   createUser = () => {
     const body = {
@@ -55,32 +32,15 @@ export default class Formulario extends React.Component{
         }
       )
       .then(() => {
-        this.getUsers()
         this.setState({name: '' })
         this.setState({email: ''})
         alert("Usuário criado!")
       })
-      .catch(() => {
-        alert("Vimos que colocou alguma informação errada!");
+      .catch((err) => {
+        alert(err.response.data.message);
       });
       this.setState({name:'', email:''})
   };
-
-  deleteUser = (id) => {
-    axios.delete("https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/:id", {
-      headers: {
-        Authorization: "Igor-Matsuoka-Carver"
-      }
-    })
-    .then(()=>{
-      alert("Usuário deletado!")
-      this.getUserList()
-    })
-    .catch((error)=>{
-      alert("Erro!")
-      console.log(error.response)
-    })
-  }
 
   render(){
     return (
