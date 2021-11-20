@@ -1,5 +1,52 @@
 import React from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const Body = styled.div`
+    display: flex;
+    height: 100vh;
+    background-color: black;
+`
+
+const Criar = styled.div`
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60vw;
+    height: 60vh;
+    justify-content: center;
+    background-color: orange;
+    border-radius: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    margin-bottom: auto;
+    margin-top: auto;
+`
+const InputCriar = styled.input`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40vw;
+    height: 5vh;
+    justify-content: center;
+    margin: 10px;
+    font-size: 20px;
+`
+const ButtonCriar = styled.button`
+  height: 50px;
+  width: 180px;
+  margin-top: 20px;
+`
+
+const Labefy = styled.h1`
+    font-size: 60px;
+`
+
+const CreateTitulo = styled.h2`
+    font-size: 50px;
+`
 
 export default class CreatePlaylist extends React.Component {
     state = {
@@ -29,15 +76,18 @@ export default class CreatePlaylist extends React.Component {
 
     render(){
       return (
-        <div>
-          <h2>Crie sua Playlist</h2>
-        <input
+        <Body>
+        <Criar>
+            <Labefy>LABEFY</Labefy>
+          <CreateTitulo>CRIE SUA PLAYLIST!</CreateTitulo>
+        <InputCriar
           placeholder={"Nome da Playlist"}
           value={this.state.playlist}
           onChange={this.onChangeInputPlaylist}
         />
-        <button onClick={this.createPlaylist}>Criar Playlist</button>
-        </div>
+        <ButtonCriar onClick={this.createPlaylist}>CRIAR PLAYLIST</ButtonCriar>
+        </Criar>
+        </Body>
       );
     }    
 }

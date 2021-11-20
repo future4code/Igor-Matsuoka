@@ -1,6 +1,21 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
 import CreatePlaylist from './components/CreatePlaylist';
 import ListaPlaylists from './components/ListaPlaylists';
+
+const ButtonDisplay = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 10vh;
+  align-content: center;
+  justify-content: space-around;
+  background-color: orange;
+`
+const ButtonRenderiza = styled.button`
+  height: 50px;
+  width: 160px;
+`
 
 export default class App extends React.Component {
   state={
@@ -25,14 +40,17 @@ export default class App extends React.Component {
   paginaLista = () => {
     return this.setState({pagina: "ListaPlaylists"})
   }
-  
 
   render(){
     return (
       <div>
+        <ButtonDisplay>
+        <ButtonRenderiza onClick={this.paginaLista}>MINHAS PLAYLISTS</ButtonRenderiza>
+        <ButtonRenderiza onClick={this.paginaCriar}>CRIE SUA PLAYLIST</ButtonRenderiza>
+        </ButtonDisplay>
+        <div>
         {this.renderizaPagina()}
-        <button onClick={this.paginaLista}>Minhas Playlists</button>
-        <button onClick={this.paginaCriar}>Crie sua Playlist</button>
+        </div>
       </div>
     );
   }
