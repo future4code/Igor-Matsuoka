@@ -12,7 +12,7 @@ const TelaContainer = styled.div`
 
 const TelaInicial = (props) => {
 
-    const[perfil, setPerfil] = useState({})
+   const[perfil, setPerfil] = useState({})
 
     const getProfile = () => {
         axios.get(`https://us-central1-missao-newton.cloudfunctions.net/astroMatch/igor/person`)
@@ -29,7 +29,7 @@ const TelaInicial = (props) => {
         getProfile()
     }, [])
 
-    const escolheProfile = (pegaId) => {
+    const aceitaProfile = (pegaId) => {
         const body = {
             id: pegaId,
             choice: true
@@ -55,7 +55,7 @@ const TelaInicial = (props) => {
         .catch((err)=>{
             console.log(err)
         })
-    }
+    } 
 
     return <div>
        <p>TelaInicial</p>
@@ -66,7 +66,7 @@ const TelaInicial = (props) => {
        <p>{perfil.age}</p>
        <p>{perfil.bio}</p>
        <button onClick={()=>recusaPerfil(perfil.id)}>não</button>
-       <button onClick={()=>escolheProfile(perfil.id)}>sim</button>
+       <button onClick={()=>aceitaProfile(perfil.id)}>sim</button>
        </TelaContainer>) : (<p>Carregando...</p>)}
     </div>
 }

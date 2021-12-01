@@ -3,23 +3,23 @@ import React, { useEffect, useState } from 'react'
 
 const Matches = (props) => {
 
-    const [matches, setMatches] = useState([])
+    const [listaMatches, setListaMatches] = useState([])
 
     useEffect(()=>{
-        pegaMatches()
+        getMatches()
     },[])
 
-    const pegaMatches = () => {
+    const getMatches = () => {
         axios.get('https://us-central1-missao-newton.cloudfunctions.net/astroMatch/igor/matches')
         .then((res)=>{
-            setMatches(res.data.matches)
+            setListaMatches(res.data.matches)
         })
         .catch((err)=>{
             console.log(err)
         })
-    }
+    } 
 
-    const mapMatches = matches.map((perfil)=>{
+    const mapMatches = listaMatches.map((perfil)=>{
         return <div key={perfil.id}>
             <img src={perfil.photo} alt={perfil.name}/>
             <p>{perfil.name}</p>
@@ -29,9 +29,9 @@ const Matches = (props) => {
     return <div>
         <p>Matches</p>
         <button onClick={props.renderTelaInicial}>Profiles</button>
-        {matches ? (<div>
+        {listaMatches.length > 0 ? (<div>
             {mapMatches}
-        </div>) : (<p>Você ainda não possui matches =/</p>)}
+        </div>) : (<p>Você ainda não possui matches!</p>)}
     </div>
 }
 
