@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {TelaContainer, TelaProfile, Header, Info, PersonalInfo, ButtonChoice} from './StyledTelaInicial';
+import {TelaContainer, TelaProfile, Header, Info, PersonalInfo, ButtonChoice, Foto} from './StyledTelaInicial';
 import Button from '@material-ui/core/Button';
 
 const TelaInicial = (props) => {
@@ -53,10 +53,10 @@ const TelaInicial = (props) => {
     return <TelaProfile>
         <Header>
         <h3>ASTROMATCH</h3>
-        <Button size="small" variant="contained" color="secondary" onClick={props.renderMatch}>Matches</Button>
+        <Button size="small" variant="contained" color="success" onClick={props.renderMatch}>Matches &#9993;</Button>
         </Header>
         {perfil ? (<TelaContainer>
-        <img src={perfil.photo} alt={perfil.id} width="300" height="320"/>
+        <Foto src={perfil.photo} alt={perfil.id}/>
         <Info>
         <PersonalInfo>{perfil.name}</PersonalInfo>
         <PersonalInfo>{perfil.age}</PersonalInfo>

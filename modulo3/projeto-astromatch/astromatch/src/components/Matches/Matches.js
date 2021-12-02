@@ -31,7 +31,7 @@ const Matches = (props) => {
     return <TelaMatches>
         <Header>
         <h3>ASTROMATCH</h3>
-        <Button size="small" variant="contained" color="secondary" onClick={props.renderTelaInicial}>Profiles</Button>
+        <Button size="small" variant="contained" color="success" onClick={props.renderTelaInicial}>Profiles &#128269;</Button>
         </Header>
         <ListaMatches>
         {listaMatches.length > 0 ? (<div>

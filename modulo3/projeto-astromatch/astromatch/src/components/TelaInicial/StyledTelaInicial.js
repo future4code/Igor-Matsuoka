@@ -55,4 +55,10 @@ const ButtonChoice = styled.div`
     height: 40px;
 `
 
-export {TelaContainer, TelaProfile, Header, Info, PersonalInfo, ButtonChoice}
+const Foto = styled.img`
+    border-radius: 10px;
+    width: 300px;
+    height: 320px;
+`
+
+export {TelaContainer, TelaProfile, Header, Info, PersonalInfo, ButtonChoice, Foto}
