@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import {TelaContainer, TelaProfile, Header, Info, PersonalInfo, Button} from './StyledTelaInicial'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import {TelaContainer, TelaProfile, Header, Info, PersonalInfo, ButtonChoice} from './StyledTelaInicial';
+import Button from '@material-ui/core/Button';
 
 const TelaInicial = (props) => {
 
@@ -52,7 +53,7 @@ const TelaInicial = (props) => {
     return <TelaProfile>
         <Header>
         <h3>ASTROMATCH</h3>
-        <button onClick={props.renderMatch}>Matches</button>
+        <Button size="small" variant="contained" color="secondary" onClick={props.renderMatch}>Matches</Button>
         </Header>
         {perfil ? (<TelaContainer>
         <img src={perfil.photo} alt={perfil.id} width="300" height="320"/>
@@ -62,10 +63,10 @@ const TelaInicial = (props) => {
         <PersonalInfo>{perfil.bio}</PersonalInfo>
         </Info>
         </TelaContainer>) : (<p>Carregando...</p>)}
-        <Button>
-        <button onClick={()=>recusaPerfil(perfil.id)}>não</button>
-        <button onClick={()=>aceitaProfile(perfil.id)}>sim</button>
-        </Button>
+        <ButtonChoice>
+        <Button size="small" variant="contained" color="error" onClick={()=>recusaPerfil(perfil.id)}>&#120;</Button>
+        <Button size="small" variant="contained" color="success" onClick={()=>aceitaProfile(perfil.id)}>&#10084;</Button>
+        </ButtonChoice>
     </TelaProfile>
 }
 

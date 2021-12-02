@@ -33,6 +33,7 @@ const ImagemMatch = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 30px;
+    margin-right: 10px;
 `
 
 const MatchesAtivos = styled.div`

@@ -31,9 +31,9 @@ function Display() {
 
     return <DisplayContainer>
         {trocaTela}
-        <ButtonReset>
-        <button onClick={()=>limpaMatches()}>Limpar Matches</button>
-        </ButtonReset>
+        <div>
+        <ButtonReset onClick={()=>limpaMatches()}>Limpar Matches</ButtonReset>
+        </div>
     </DisplayContainer>
 }
 

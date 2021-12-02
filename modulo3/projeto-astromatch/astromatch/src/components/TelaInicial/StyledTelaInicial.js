@@ -30,24 +30,29 @@ const Header = styled.div`
 `
 
 const Info = styled.div`
-    height: 200px;
+    height: 90px;
     font-size: 13px;
     font-weight: bold;
-    margin: 5px;
+    margin-top: 10px;
     z-index: -1;
-`
-
-const PersonalInfo = styled.div`
-    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
 `
 
-const Button = styled.div`
+const PersonalInfo = styled.div`
+    margin: 8px;
+    height: 5px;
+    display: flex;
+    flex-direction: column;
+`
+
+const ButtonChoice = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     height: 40px;
 `
 
-export {TelaContainer, TelaProfile, Header, Info, PersonalInfo, Button}
+export {TelaContainer, TelaProfile, Header, Info, PersonalInfo, ButtonChoice}

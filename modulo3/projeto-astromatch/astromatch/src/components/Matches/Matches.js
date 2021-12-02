@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {TelaMatches, Header, ListaMatches, ImagemMatch, MatchesAtivos, Aviso} from './StyledMatches';
+import Button from '@material-ui/core/Button';
 
 const Matches = (props) => {
 
@@ -30,7 +31,7 @@ const Matches = (props) => {
     return <TelaMatches>
         <Header>
         <h3>ASTROMATCH</h3>
-        <button onClick={props.renderTelaInicial}>Profiles</button>
+        <Button size="small" variant="contained" color="secondary" onClick={props.renderTelaInicial}>Profiles</Button>
         </Header>
         <ListaMatches>
         {listaMatches.length > 0 ? (<div>
