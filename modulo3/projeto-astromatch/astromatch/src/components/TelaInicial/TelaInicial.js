@@ -1,14 +1,6 @@
-import styled from "styled-components"
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
-const TelaContainer = styled.div`
-    border: 1px solid black;
-    height: 500px;
-    width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-`
+import {TelaContainer, TelaProfile, Header, Info, PersonalInfo, Button} from './StyledTelaInicial'
 
 const TelaInicial = (props) => {
 
@@ -57,18 +49,24 @@ const TelaInicial = (props) => {
         })
     } 
 
-    return <div>
-       <p>TelaInicial</p>
-       <button onClick={props.renderMatch}>Matches</button>
-       {perfil ? (<TelaContainer>
-       <img src={perfil.photo} alt={perfil.id} width="300" height="300"/>
-       <p>{perfil.name}</p>
-       <p>{perfil.age}</p>
-       <p>{perfil.bio}</p>
-       <button onClick={()=>recusaPerfil(perfil.id)}>não</button>
-       <button onClick={()=>aceitaProfile(perfil.id)}>sim</button>
-       </TelaContainer>) : (<p>Carregando...</p>)}
-    </div>
+    return <TelaProfile>
+        <Header>
+        <h3>ASTROMATCH</h3>
+        <button onClick={props.renderMatch}>Matches</button>
+        </Header>
+        {perfil ? (<TelaContainer>
+        <img src={perfil.photo} alt={perfil.id} width="300" height="320"/>
+        <Info>
+        <PersonalInfo>{perfil.name}</PersonalInfo>
+        <PersonalInfo>{perfil.age}</PersonalInfo>
+        <PersonalInfo>{perfil.bio}</PersonalInfo>
+        </Info>
+        </TelaContainer>) : (<p>Carregando...</p>)}
+        <Button>
+        <button onClick={()=>recusaPerfil(perfil.id)}>não</button>
+        <button onClick={()=>aceitaProfile(perfil.id)}>sim</button>
+        </Button>
+    </TelaProfile>
 }
 
 export default TelaInicial

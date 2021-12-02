@@ -1,13 +1,17 @@
 import React from 'react'
-import Display from './components/Display';
+import Display from './components/Display/Display';
+import styled from 'styled-components';
+
+const AppContainer = styled.div`
+  background-color: white;
+`
 
 const App = () => {
 
   return(
-    <div>
-      <p>AstroMatch</p>
+    <AppContainer>
       <Display/>
-    </div>
+    </AppContainer>
   )
 
 }

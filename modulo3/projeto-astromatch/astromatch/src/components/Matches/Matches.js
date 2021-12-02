@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import {TelaMatches, Header, ListaMatches, ImagemMatch, MatchesAtivos, Aviso} from './StyledMatches';
 
 const Matches = (props) => {
 
@@ -20,19 +21,23 @@ const Matches = (props) => {
     } 
 
     const mapMatches = listaMatches.map((perfil)=>{
-        return <div key={perfil.id}>
-            <img src={perfil.photo} alt={perfil.name}/>
+        return <MatchesAtivos key={perfil.id}>
+            <ImagemMatch src={perfil.photo} alt={perfil.name}/>
             <p>{perfil.name}</p>
-        </div>
+        </MatchesAtivos>
     })
 
-    return <div>
-        <p>Matches</p>
+    return <TelaMatches>
+        <Header>
+        <h3>ASTROMATCH</h3>
         <button onClick={props.renderTelaInicial}>Profiles</button>
+        </Header>
+        <ListaMatches>
         {listaMatches.length > 0 ? (<div>
             {mapMatches}
-        </div>) : (<p>Você ainda não possui matches!</p>)}
-    </div>
+        </div>) : (<Aviso>Você ainda não possui matches!</Aviso>)}
+        </ListaMatches>
+    </TelaMatches>
 }
 
 export default Matches

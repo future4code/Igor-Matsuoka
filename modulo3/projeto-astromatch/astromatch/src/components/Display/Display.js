@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import TelaInicial from './TelaInicial';
-import Matches from './Matches';
-import axios from 'axios'
+import TelaInicial from '../TelaInicial/TelaInicial';
+import Matches from '../Matches/Matches';
+import axios from 'axios';
+import {DisplayContainer, ButtonReset} from './StyledDisplay'
 
-function Display(props) {
+function Display() {
 
     const [tela, setTela] = useState(true)
 
@@ -28,12 +29,12 @@ function Display(props) {
     
     const trocaTela = tela ? (<TelaInicial renderMatch={renderizaMatches}/>) : (<Matches renderTelaInicial={renderizaTelaInicial}/>)
 
-    return <div>
+    return <DisplayContainer>
         {trocaTela}
-        <div>
+        <ButtonReset>
         <button onClick={()=>limpaMatches()}>Limpar Matches</button>
-      </div>
-    </div>
+        </ButtonReset>
+    </DisplayContainer>
 }
 
 export default Display
