@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+# Projeto ASTROMATCH
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Somos um site especializado na conexão de pessoas que querem se relacionar casualmente ou seriamente e você poderá  [acessar ao Atromatch aqui](https://volatile-brick.surge.sh/).
 
-## Available Scripts
+# Desenvolvedores:
 
-In the project directory, you can run:
+ Igor Eiiji Avelar Matsuoka
 
-### `npm start`
+## Tecnologia Utilizada:
+-   React
+-   Axios
+-   Styled Components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### O que não funciona:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Responsividade
+-  Estilização pouco trabalhada
 
-### `npm test`
+## Em nossa página você poderá:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   Escolher entre vários perfis para dar o seu "Match"
+-   Resetar o aplicativo
+-   Visualizar foto, idade, nome do perfil que aparece para você escolher
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Imagens
+![image](https://user-images.githubusercontent.com/91291334/144480014-63651ac6-9f9d-4dee-b421-e18470625e41.png)
+![image](https://user-images.githubusercontent.com/91291334/144480029-cdcfa55b-7311-4d97-a65c-11d2b792564c.png)
+![image](https://user-images.githubusercontent.com/91291334/144480059-8b0404fe-87b3-482e-8ce5-c69adecc413c.png)
+![image](https://user-images.githubusercontent.com/91291334/144480086-8c7dc918-8992-48ed-8dd9-1b5b77294099.png)
