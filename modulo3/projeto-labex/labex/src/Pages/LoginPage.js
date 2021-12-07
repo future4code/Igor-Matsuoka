@@ -11,7 +11,7 @@ function Login(){
             placeholder="senha"
         />
         <Link to="/">Voltar</Link>
-        <Link to="/adminhome">Entrar</Link>
+        <Link to="/admin/trips/list">Entrar</Link>
     </div>
 
 }

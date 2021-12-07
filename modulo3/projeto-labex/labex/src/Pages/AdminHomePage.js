@@ -5,8 +5,8 @@ function AdminHome(){
     return <div>
         <h1>Painel Admin</h1>
         <Link to="/">Voltar</Link>
-        <Link to="/createtrip">Criar Viagem</Link>
-        <Link to="/tripdetail">Detail</Link>
+        <Link to="/admin/trips/create">Criar Viagem</Link>
+        <Link to="/admin/trips/:id">Detail</Link>
         <button>Logout</button>
     </div>
 

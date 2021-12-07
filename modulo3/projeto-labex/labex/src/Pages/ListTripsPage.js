@@ -5,7 +5,7 @@ function ListTrips(){
     return <div>
         <h1>Lista de Viagens</h1>
         <Link to="/">Voltar</Link>
-        <Link to="/form">Inscrever-se</Link>
+        <Link to="/trips/application">Inscrever-se</Link>
     </div>
 }
 

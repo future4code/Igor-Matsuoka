@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function TripDetails(){
     return <div>
         <h1>Detalhes da Viagem</h1>
-        <Link to="/adminhome">Voltar</Link>
+        <Link to="/admin/trips/list">Voltar</Link>
     </div>
 
 }
