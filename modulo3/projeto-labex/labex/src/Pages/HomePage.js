@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { React, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
+import axios from "axios";
 
 const HomeDisplay = styled.div`
     display: flex;
@@ -75,7 +76,8 @@ const StyledLink = styled(Link)`
 `
 
 function Home() {
-
+    const token = localStorage.getItem("token")
+    
     return <HomeDisplay>
 
         <HomeContainer>
@@ -88,7 +90,7 @@ function Home() {
 
         <LinkArea>
         <StyledLink to="trips/list">VER VIAGENS</StyledLink>
-        <StyledLink to="login">ÁREA DO ADMIN</StyledLink>
+        {token===null ? (<StyledLink to="login">ÁREA DO ADMIN</StyledLink>) : (<StyledLink to="/admin/trips/list">ÁREA DO ADMIN</StyledLink>)}
         </LinkArea>
         </HomeContainer>
 

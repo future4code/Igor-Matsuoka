@@ -66,7 +66,7 @@ const Loading = styled.h1`
     margin-left: auto;
 `
 
-function ListTrips(props){
+function ListTrips(props) {
     const [listaTrips, setListaTrips] = useState([])
 
     useEffect(()=>{
