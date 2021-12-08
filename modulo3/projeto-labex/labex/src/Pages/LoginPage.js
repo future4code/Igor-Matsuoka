@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import axios from 'axios';
+import { React, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
 const LoginDisplay = styled.div`
@@ -78,21 +79,56 @@ const InputLogin = styled.input`
 `
 
 function Login(){
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const navigate = useNavigate();
+
+    const onChangeEmail = (event) => {
+        setEmail(event.target.value)
+    }
+
+    const onChangePassword = (event) => {
+        setPassword(event.target.value)
+    }
+
+    const onSubmitLogin = () => {
+        const body = {
+            email: email,
+            password: password
+        }
+        axios.post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/login", body)
+        .then((response) => {
+            console.log("deu certo, ", response.data.token)
+            localStorage.setItem("token", response.data.token);
+            navigate("/admin/trips/list") 
+        })
+        .catch((error) => {
+            console.log(error.response)
+        })
+    }
+
     return <LoginDisplay>
 
         <LoginInputs>
         <Welcome>LABE <Brand>X</Brand> </Welcome>
-        <LoginTitle>Login</LoginTitle>
+        <LoginTitle>LOGIN</LoginTitle>
         <InputLogin
             placeholder="E-mail"
+            type="email"
+            value={email}
+            onChange={onChangeEmail}
         />
         <InputLogin
             placeholder="senha"
+            type="password"
+            value={password}
+            onChange={onChangePassword}
         />
 
         <LinkArea>
-        <StyledLink to="/">Voltar</StyledLink>
-        <StyledLink to="/admin/trips/list">Entrar</StyledLink>
+        <StyledLink to="/">VOLTAR</StyledLink>
+        <StyledLink to="/admin/trips/list" onClick={onSubmitLogin}>ENTRAR</StyledLink>
         </LinkArea>
 
         </LoginInputs>

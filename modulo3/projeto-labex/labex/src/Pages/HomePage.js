@@ -87,8 +87,8 @@ function Home() {
         <Subtitle>Prepare-se para viagens de outro mundo!</Subtitle>
 
         <LinkArea>
-        <StyledLink to="trips/list">Ver Viagens</StyledLink>
-        <StyledLink to="login">Área do Admin</StyledLink>
+        <StyledLink to="trips/list">VER VIAGENS</StyledLink>
+        <StyledLink to="login">ÁREA DO ADMIN</StyledLink>
         </LinkArea>
         </HomeContainer>
 

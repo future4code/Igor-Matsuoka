@@ -8,6 +8,11 @@ const ListTripsDisplay = styled.div`
     flex-direction: column;
 `
 
+const Titulo = styled.h1`
+    margin-right: auto;
+    margin-left: auto;
+`
+
 const LinkArea = styled.div`
     display: flex;
     flex-direction: row;
@@ -17,11 +22,10 @@ const LinkArea = styled.div`
 
 const StyledLink = styled(Link)`
     text-decoration: none;
-    border: 1px solid grey;
     border-radius: 15px;
-    background-color: #4682B4;
+    background-color: orange;
     height: 10px;
-    width: 80px;
+    width: 120px;
     display: flex;
     margin: 10px;
     padding: 10px;
@@ -51,6 +55,16 @@ const Trips = styled.div`
     margin-right: auto;
     border-radius: 10px;
 `
+const TripsList = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+`
+
+const Loading = styled.h1`
+    margin-right: auto;
+    margin-left: auto;
+`
 
 function ListTrips(props){
     const [listaTrips, setListaTrips] = useState([])
@@ -71,25 +85,25 @@ function ListTrips(props){
 
     const mapTrips = listaTrips.map((item)=>{
         return <Trips key={item.id}>
-            <p>Nome: {item.name}</p>
-            <p>Descrição: {item.description}</p>
-            <p>Planeta: {item.planet}</p>
-            <p>Duração: {item.durationInDays}</p>
-            <p>Data: {item.date}</p>
+            <p><b>Nome:</b> {item.name}</p>
+            <p><b>Descrição:</b> {item.description}</p>
+            <p><b>Planeta:</b> {item.planet}</p>
+            <p><b>Duração:</b> {item.durationInDays} dias</p>
+            <p><b>Data:</b> {item.date}</p>
         </Trips>
     })
 
     return <ListTripsDisplay>
-        <h1>LISTA DE VIAGENS</h1>
+        <Titulo>LISTA DE VIAGENS</Titulo>
         <LinkArea>
-        <StyledLink to="/">Voltar</StyledLink>
-        <StyledLink to="/trips/application">Inscrever-se</StyledLink>
+        <StyledLink to="/">VOLTAR</StyledLink>
+        <StyledLink to="/trips/application">INSCREVER-SE</StyledLink>
         </LinkArea>
         
         <div>
-        {listaTrips.length > 0 ? (<div>{mapTrips}</div>)
+        {listaTrips.length > 0 ? (<TripsList>{mapTrips}</TripsList>)
         :
-        (<h1>Carregando...</h1>)}
+        (<Loading>Carregando...</Loading>)}
         </div>
 
     </ListTripsDisplay>
