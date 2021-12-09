@@ -15,7 +15,8 @@ const useProtectedPage = () => {
     }, []);
 }
 
-function AdminHome(props){
+function AdminHome(){
+
     useProtectedPage()
 
     const [listaTrips, setListaTrips] = useState([])
@@ -43,31 +44,30 @@ function AdminHome(props){
             }
         })
         .then((res) => {
-            console.log("ok",res.data)
-           })
-           .catch((err) => {
-             console.log("erro",err.data)
-           })
+            alert("Viagem deletada")
+        })
+        .catch((err) => {
+            console.log("erro",err.data)
+        })
     }
 
     useEffect((id) => {
         axios.delete(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips/${id}`, {
               headers: {
                 auth:token
-              }
-            })
-              .then((res) => {
-               console.log("ok",res.data)
-              })
-              .catch((err) => {
-                console.log("erro",err.data)
-              })
+            }
+        })
+        .then((res) => {
+            console.log("ok",res.data)
+        })
+        .catch((err) => {
+            console.log("erro",err.data)
+        })
     
     })
 
     const cleanLocalStorage = () => {
-        localStorage.setItem('token', "")
-        console.log(localStorage.getItem('token'))
+        localStorage.clear()
         navigate("/login")
     }
 

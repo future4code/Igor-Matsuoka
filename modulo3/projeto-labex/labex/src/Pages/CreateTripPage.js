@@ -64,6 +64,7 @@ function CreateTrip(){
     const [planets, setPlanets] = useState([])
     const [date, setDate] = useState("")
     const token = localStorage.getItem('token')
+    const navigate = useNavigate()
 
     const onChangeTitle = (ev) => {
         setTitle(ev.target.value);
@@ -99,6 +100,7 @@ function CreateTrip(){
         .then((res) => {
             console.log("certo ", res.data)
             alert("Viagem criada!")
+            navigate("/admin/trips/list")
         })
         .catch((er) => {
             console.log("erro: ", er.response)
