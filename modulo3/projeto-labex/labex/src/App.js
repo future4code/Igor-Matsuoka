@@ -13,6 +13,7 @@ import TripDetails from "./Pages/TripDetailsPage";
 import CreateTrip from "./Pages/CreateTripPage";
 
 const App = () => {
+
   return (
     <Router>
       <div>

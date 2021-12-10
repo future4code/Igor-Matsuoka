@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 
 const useProtectedPage = () => {
@@ -18,13 +18,16 @@ const useProtectedPage = () => {
 function TripDetails(){
     useProtectedPage()
 
-    const [trip, setTrip] = useState({})
+    const [trip, setTrip] = useState([])
     const [candidates, setCandidates] = useState([])
+    /* const [aprovados, setAprovados] = useState([])
+    const [reprovados, setReprovados] = useState([]) */
+    const param = useParams()
+    console.log("useParam ", param.id)
 
-    const getDetail = (id) => { 
+    const getDetail = () => { 
         const token = localStorage.getItem("token")
-        console.log("id que foi pego", id)
-        axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trip/${id}`, 
+        axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trip/${param.id}`, 
             {
                 headers: {
                     auth: token
@@ -32,7 +35,7 @@ function TripDetails(){
             }
         )
         .then((response)=>{
-            console.log(response.data.trip)
+            console.log("trip",response)
             setTrip(response.data.trip)
             setCandidates(response.data.trip.candidates)
         })
@@ -45,7 +48,34 @@ function TripDetails(){
         getDetail()
     }, [])
 
-    const tripDetail = <div>
+    /* const decideCandidate = () => {
+        const token = localStorage.getItem("token")
+        const body = {
+            approve: true
+        }
+        axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips/${trip}/candidates/${candidates}/decide`, body, 
+            {
+                headers: {
+                    auth: token
+                }
+            }
+        )
+        .then((response)=>{
+            console.log(response)
+            setAprovados()
+        })
+        .catch((error)=>{
+            console.log(error)
+        })   
+    } */
+
+    /* const decideYes = () =>{
+
+    } */
+
+
+    const tripDetail = () =>{
+    return <div>
         <div>
             <p><b>Nome: </b>{trip.name}</p>
             <p><b>Descrição: </b>{trip.description}</p>
@@ -54,6 +84,7 @@ function TripDetails(){
             <p><b>Duração: </b>{trip.durationInDays}</p>
         </div>
     </div> 
+    }
 
     const detailCandidate = candidates.map((profile) => {
         return (
@@ -65,22 +96,29 @@ function TripDetails(){
                 <p><b>Texto de Candidatura: </b>{profile.applicationText}</p>
                 <div>
                     <div>
-                        <button variant="contained" type='submit'>Aprovar</button>
-                        <button variant="contained" type='submit'>Reprovar</button>
+                        <button variant="contained" type='submit' >Aprovar</button>
+                        <button variant="contained" type='submit' >Reprovar</button>
                     </div>
                 </div>
             </div>
         )
     })
 
+
     return <div>
         <h1>Detalhes da Viagem</h1>
 
         <div>
-        {tripDetail}
+        {tripDetail()}
         </div>
 
+        <h1>Candidatos</h1>
         {detailCandidate}
+
+        <h2> Candidatos Aprovados </h2>
+            {/* {approvedList} */}
+        <h2> Candidatos Reprovados </h2>
+
         <Link to="/admin/trips/list">Voltar</Link>
     </div>
 

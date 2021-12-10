@@ -20,6 +20,7 @@ function AdminHome(){
 
     const [listaTrips, setListaTrips] = useState([])
     const token = localStorage.getItem('token')
+    const [id, setId] = useState("")
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -29,6 +30,7 @@ function AdminHome(){
     const getTrips = () => {
         axios.get('https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips')
         .then((res)=>{
+            console.log(res.data)
             setListaTrips(res.data.trips)
         })
         .catch((err)=> {
@@ -50,24 +52,9 @@ function AdminHome(){
         })
     }
 
-    /* const getDetail = (id) => { 
-        const token = localStorage.getItem("token")
-        console.log("id que foi pego", id)
-        axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trip/${id}`, 
-            {
-                headers: {
-                    auth: token
-                }
-            }
-        )
-        .then((response)=>{
-            console.log(response.data.trip)
-        })
-        .catch((error)=>{
-            console.log(error.response)
-        })
-    } */
-
+    const alteraId = () =>{
+        setId()
+    }
 
     useEffect((id) => {
         axios.delete(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips/${id}`, {
@@ -76,10 +63,10 @@ function AdminHome(){
             }
         })
         .then((res) => {
-            console.log("ok",res.data)
+            console.log(res.data)
         })
         .catch((err) => {
-            console.log("erro",err.data)
+            console.log(err.data)
         })
     
     })
@@ -89,9 +76,9 @@ function AdminHome(){
         navigate("/login")
     }
 
-    const mapTrips = listaTrips.map((item, id)=>{
+    const mapTrips = listaTrips.map((item)=>{
         return <div key={item.id}>
-            <Link to='/admin/trips/${id}' /* onClick={() => getDetail(item.id)} */><p>{item.name}</p></Link>
+            <Link to={`/admin/trips/${item.id}`} onClick={() => alteraId(item.id)}><p>{item.name}</p></Link>
             <button onClick={() => delTrip(item.id)}>&#x1F5D1;</button>
         </div>
     })
