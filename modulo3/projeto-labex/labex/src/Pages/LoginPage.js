@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
+
 
 const LoginDisplay = styled.div`
     background-color: white;
@@ -92,7 +93,8 @@ function Login(){
         setPassword(event.target.value)
     }
 
-    const onSubmitLogin = () => {
+    const onSubmitLogin = (event) => {
+        event.preventDefault();
         const body = {
             email: email,
             password: password
@@ -101,7 +103,7 @@ function Login(){
         .then((response) => {
             console.log("deu certo, ", response.data.token)
             localStorage.setItem("token", response.data.token);
-            navigate("/admin/trips/list") 
+            navigate("/admin/trips/list")
         })
         .catch((error) => {
             console.log(error.response)
@@ -113,18 +115,21 @@ function Login(){
         <LoginInputs>
         <Welcome>LABE <Brand>X</Brand> </Welcome>
         <LoginTitle>LOGIN</LoginTitle>
+
         <InputLogin
             placeholder="E-mail"
-            type="email"
             value={email}
             onChange={onChangeEmail}
+            required
         />
         <InputLogin
             placeholder="senha"
             type="password"
             value={password}
             onChange={onChangePassword}
+            required
         />
+        
 
         <LinkArea>
         <StyledLink to="/">VOLTAR</StyledLink>

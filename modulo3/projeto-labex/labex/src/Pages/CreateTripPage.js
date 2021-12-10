@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form } from "antd";
 import { Input } from "antd";
 import styled from 'styled-components';
-import Select from "react-select";
 import axios from 'axios';
 
 const InputConteiner = styled(Input)`
@@ -22,14 +21,6 @@ const ConteinerForm = styled.div`
     }
 `;
 
-const StyledSelect = styled(Select)`
-    width: 40.5%;
-    height: 35px;
-    border-radius: 4px;
-    margin-bottom: 5px;
-    margin-top: 5px;
-`
-
 const useProtectedPage = () => {
     const navigate = useNavigate()
 
@@ -43,34 +34,22 @@ const useProtectedPage = () => {
     }, []);
 }
 
-const opcoes = [
-    { value: 1, label: " Mercúrio " },
-    { value: 2, label: " Vênus " },
-    { value: 3, label: " Terra " },
-    { value: 4, label: " Marte " },
-    { value: 5, label: " Júpiter " },
-    { value: 6, label: " Saturno " },
-    { value: 7, label: " Urano " },
-    { value: 8, label: " Netuno " },
-    { value: 9, label: " Plutão (planeta anão) " },
-];
-
 function CreateTrip(){
     useProtectedPage()
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [duration, setDuration] = useState("")
-    const [planets, setPlanets] = useState([])
+    const [planet, setPlanet] = useState("")
     const [date, setDate] = useState("")
     const token = localStorage.getItem('token')
-    const navigate = useNavigate()
+    /* const navigate = useNavigate() */
 
     const onChangeTitle = (ev) => {
         setTitle(ev.target.value);
       };
-      const onChangePlanets = (ev) => {
-        setPlanets(ev.target.value);
+      const onChangePlanet = (ev) => {
+        setPlanet(ev.target.value);
       };
       const onChangeDate = (ev) => {
         setDate(ev.target.value);
@@ -85,7 +64,7 @@ function CreateTrip(){
     const createTrip = () =>{
         const body = {
             name: title,
-            planet: planets,
+            planet: planet,
             date: date,
             description: description,
             durationInDays: duration
@@ -100,7 +79,6 @@ function CreateTrip(){
         .then((res) => {
             console.log("certo ", res.data)
             alert("Viagem criada!")
-            navigate("/admin/trips/list")
         })
         .catch((er) => {
             console.log("erro: ", er.response)
@@ -148,15 +126,19 @@ function CreateTrip(){
                 onChange={onChangeDuration}
               />
             </Form.Item>
-            <Form.Item>
-              <StyledSelect
-                isMulti
-                options={opcoes}
-                placeholder="Selecione os planetas"
-                onChange={planets}
-                onSelect={onChangePlanets}
-              />
-            </Form.Item>
+            <div>
+                <select name="planeta" onChange={onChangePlanet} >
+                <option value="Mercúrio">Mercúrio</option>
+                <option value="Vênus">Vênus</option>
+                <option value="Terra">Terra</option>
+                <option value="Marte">Marte</option>
+                <option value="Júpiter">Júpiter</option>
+                <option value="Saturno">Saturno</option>
+                <option value="Urano">Urano</option>
+                <option value="Netuno">Netuno</option>
+                <option value="Plutão(planeta anão)">Plutão(planeta anão)</option>
+                </select>
+            </div>
             <Form.Item
               name="data"
               rules={[{ required: true, message: "Informe a data" }]}
@@ -168,7 +150,6 @@ function CreateTrip(){
                 onChange={onChangeDate}
             />
             </Form.Item>
-
             <Form.Item>
               <button onClick={createTrip}>Criar</button>
             </Form.Item>

@@ -16,7 +16,6 @@ const useProtectedPage = () => {
 }
 
 function AdminHome(){
-
     useProtectedPage()
 
     const [listaTrips, setListaTrips] = useState([])
@@ -44,12 +43,31 @@ function AdminHome(){
             }
         })
         .then((res) => {
-            alert("Viagem deletada")
+            alert(res.data)
         })
         .catch((err) => {
             console.log("erro",err.data)
         })
     }
+
+    /* const getDetail = (id) => { 
+        const token = localStorage.getItem("token")
+        console.log("id que foi pego", id)
+        axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trip/${id}`, 
+            {
+                headers: {
+                    auth: token
+                }
+            }
+        )
+        .then((response)=>{
+            console.log(response.data.trip)
+        })
+        .catch((error)=>{
+            console.log(error.response)
+        })
+    } */
+
 
     useEffect((id) => {
         axios.delete(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips/${id}`, {
@@ -71,9 +89,9 @@ function AdminHome(){
         navigate("/login")
     }
 
-    const mapTrips = listaTrips.map((item)=>{
+    const mapTrips = listaTrips.map((item, id)=>{
         return <div key={item.id}>
-            <p>{item.name}</p>
+            <Link to='/admin/trips/${id}' /* onClick={() => getDetail(item.id)} */><p>{item.name}</p></Link>
             <button onClick={() => delTrip(item.id)}>&#x1F5D1;</button>
         </div>
     })
@@ -81,8 +99,7 @@ function AdminHome(){
     return <div>
         <h1>Painel Admin</h1>
         <Link to="/">Voltar</Link>
-        <Link to="/admin/trips/create">Criar Viagem</Link>
-        <Link to="/admin/trips/:id">Detail</Link>
+        <Link to="/admin/trips/create">Criar Viagem</Link>                 
         <button onClick={cleanLocalStorage}>Logout</button>
         <div>
             {mapTrips}

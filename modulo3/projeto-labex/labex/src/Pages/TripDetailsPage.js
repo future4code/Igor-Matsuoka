@@ -1,6 +1,6 @@
-import {React, useEffect, /* useState */} from 'react';
+import { React, useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from 'axios';
 
 const useProtectedPage = () => {
     const navigate = useNavigate()
@@ -16,36 +16,14 @@ const useProtectedPage = () => {
 }
 
 function TripDetails(){
-
     useProtectedPage()
-    /* const [listaTrips, setListaTrips] = useState([])
 
-    useEffect(()=>{
-        getTrips()
-    }, []) */
+    const [trip, setTrip] = useState({})
+    const [candidates, setCandidates] = useState([])
 
-   /*  const getTrips = () => {
-        axios.get('https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips')
-        .then((res)=>{
-            setListaTrips(res.data.trips)
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    } */
-
-    /* const mapTrips = listaTrips.map((item)=>{
-        return <div key={item.id}>
-            <p><b>Nome:</b> {item.name}</p>
-            <p><b>Descrição:</b> {item.description}</p>
-            <p><b>Planeta:</b> {item.planet}</p>
-            <p><b>Duração:</b> {item.durationInDays} dias</p>
-            <p><b>Data:</b> {item.date}</p>
-        </div>
-    }) */
-
-    useEffect((id) => { 
+    const getDetail = (id) => { 
         const token = localStorage.getItem("token")
+        console.log("id que foi pego", id)
         axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trip/${id}`, 
             {
                 headers: {
@@ -54,20 +32,59 @@ function TripDetails(){
             }
         )
         .then((response)=>{
-            console.log(response.data)
+            console.log(response.data.trip)
+            setTrip(response.data.trip)
+            setCandidates(response.data.trip.candidates)
         })
         .catch((error)=>{
             console.log(error.response)
         })
+    }
+
+    useEffect(()=>{
+        getDetail()
     }, [])
 
+    const tripDetail = <div>
+        <div>
+            <p><b>Nome: </b>{trip.name}</p>
+            <p><b>Descrição: </b>{trip.description}</p>
+            <p><b>Data: </b>{trip.date}</p>
+            <p><b>Planeta: </b>{trip.planet}</p>
+            <p><b>Duração: </b>{trip.durationInDays}</p>
+        </div>
+    </div> 
 
+    const detailCandidate = candidates.map((profile) => {
+        return (
+            <div key ={profile.id}>
+                <p><b>Nome: </b>{profile.name}</p>
+                <p><b>Idade: </b>{profile.age}</p>
+                <p><b>Pais: </b>{profile.country}</p>
+                <p><b>Profissão: </b>{profile.profession}</p>
+                <p><b>Texto de Candidatura: </b>{profile.applicationText}</p>
+                <div>
+                    <div>
+                        <button variant="contained" type='submit'>Aprovar</button>
+                        <button variant="contained" type='submit'>Reprovar</button>
+                    </div>
+                </div>
+            </div>
+        )
+    })
 
     return <div>
         <h1>Detalhes da Viagem</h1>
-        {/* {mapTrips} */}
+
+        <div>
+        {tripDetail}
+        </div>
+
+        {detailCandidate}
         <Link to="/admin/trips/list">Voltar</Link>
     </div>
+
+
 
 }
 
