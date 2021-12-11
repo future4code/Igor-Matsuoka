@@ -20,26 +20,23 @@ const ApplicationFormDisplay = styled.div`
     margin-top: 100px;
 `
 
-const Form = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: flex-start;
-`
-
 const Input = styled.input`
     margin: 10px;
     width: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const SelectCountry = styled.div`
+    display: flex;
     margin: 10px;
+    justify-content: center;
 `
 const Select = styled.select`
     margin: 10px;
+    display: flex;
+    justify-content: center;
 `
 
 const StyledLink = styled(Link)`
@@ -85,6 +82,7 @@ const Button = styled.button`
 
 const ButtonArea = styled.div`
     display: flex;
+    justify-content: center;
 `
 
 function ApplicationForm() {
@@ -111,6 +109,7 @@ function ApplicationForm() {
 
     const applyToTrip = (id) => {
         const body = form
+        console.log(id)
         axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips/${id}/apply`, body
         )
         .then((form)=>{
@@ -123,7 +122,6 @@ function ApplicationForm() {
 
     const doApplication = (event) => {
         event.preventDefault()
-        console.log(form)
         applyToTrip(id)
         cleanFields()
     }
@@ -139,13 +137,13 @@ function ApplicationForm() {
     return <ApplicationFormDisplay>
         <h1>INSCREVA-SE EM UMA VIAGEM</h1>
 
-        <Form onSubmit={doApplication}>
-
-            <Select Select name="ordenação" onChange={onChangeId}>
+        <Select Select name="ordenação" onChange={onChangeId}>
             <option value={""}> Escolha uma viagem </option>
             {tripsListNames}
-            </Select>
-        
+        </Select>
+
+        <form onSubmit={doApplication}>
+
             <Input
             name="name"
             value={form.name}
@@ -181,9 +179,9 @@ function ApplicationForm() {
 
             <ButtonArea>
             <StyledLink to="/trips/list">Voltar</StyledLink>
-            <Button onClick={applyToTrip}>Enviar</Button>
+            <Button> Enviar </Button>
             </ButtonArea>
-        </Form>
+        </form>
 
     </ApplicationFormDisplay>
 

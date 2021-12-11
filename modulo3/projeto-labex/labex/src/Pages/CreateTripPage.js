@@ -1,25 +1,86 @@
 import {React, useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { Form } from "antd";
-import { Input } from "antd";
 import styled from 'styled-components';
 import axios from 'axios';
+import useForm from "./useForm";
+import { planets } from '../Constants/Planets'
 
-const InputConteiner = styled(Input)`
-    width: 40%;
-    height: 30px;
-    border-radius: 4px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-`;
+const CreateArea = styled.div`
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0px 5px 8px #708090;
+`
 
-const ConteinerForm = styled.div`
-    margin-top: 2rem;
-    margin: 5px;
-    h1 {
-    color: black;
+const Input = styled.input`
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    border-radius: 15px;
+    border: 1px solid black;
+    background-color: white;
+    height: 10px;
+    width: 80px;
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+
+    :visited {
+        color: black;
     }
-`;
+    :hover {
+        color: white;
+        background-color: grey;
+    }
+    :link{
+        color: black;
+    }
+`
+
+const Button = styled.button`
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: white;
+    height: 32px;
+    width: 102px;
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+
+    :hover {
+        color: white;
+        background-color: grey;
+    }
+`
+
+const SelectPlanet = styled.div`
+    margin-top: 10px;
+`
+
+const ButtonArea = styled.div`
+    display: flex;
+    justify-content: center;
+`
 
 const useProtectedPage = () => {
     const navigate = useNavigate()
@@ -37,38 +98,13 @@ const useProtectedPage = () => {
 function CreateTrip(){
     useProtectedPage()
 
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const [duration, setDuration] = useState("")
-    const [planet, setPlanet] = useState("")
-    const [date, setDate] = useState("")
+    const {form, onChange, cleanFields} = useForm({name: "", planet: "", date: "", description: "", durationInDays: ""})
     const token = localStorage.getItem('token')
-    /* const navigate = useNavigate() */
 
-    const onChangeTitle = (ev) => {
-        setTitle(ev.target.value);
-      };
-      const onChangePlanet = (ev) => {
-        setPlanet(ev.target.value);
-      };
-      const onChangeDate = (ev) => {
-        setDate(ev.target.value);
-      };
-      const onChangeDescription = (ev) => {
-        setDescription(ev.target.value);
-      };
-      const onChangeDuration = (ev) => {
-        setDuration(ev.target.value);
-    };
-
-    const createTrip = () =>{
-        const body = {
-            name: title,
-            planet: planet,
-            date: date,
-            description: description,
-            durationInDays: duration
-        }
+    const createTrip = (event) =>{
+        event.preventDefault()
+        const body = form
+        console.log(form)
         axios.post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips", body,
             {
                 headers: { 
@@ -79,85 +115,56 @@ function CreateTrip(){
         .then((res) => {
             console.log("certo ", res.data)
             alert("Viagem criada!")
+            cleanFields()
         })
         .catch((er) => {
             console.log("erro: ", er.response)
         })
     }
 
-    return <div>
-        <ConteinerForm>
+    return <CreateArea>
+        <h1>CRIE UMA VIAGEM</h1>
+        <form onSubmit={createTrip}>
 
-        <h1>Crie uma viagem</h1>
-        <Form
-            layout="vertical"
-            name="complex-form"
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 40 }}
-          >
-            <Form.Item
-              name="title"
-              rules={[{ required: true, message: "Título é obrigatório" }]}
-            >
-              <InputConteiner
-                placeholder={"Título da sua viagem"}
-                value={title}
-                onChange={onChangeTitle}
-              />
-            </Form.Item>
-            <Form.Item
-              name="descricao"
-              rules={[{ required: true, message: "Descrição é obrigatória" }]}
-            >
-              <InputConteiner
-                placeholder={"Descrição da viagem"}
-                value={description}
-                onChange={onChangeDescription}
-              />
-            </Form.Item>
-            <Form.Item
-              name="duracao"
-              rules={[{ required: true, message: "Preço é obrigatório" }]}
-            >
-              <InputConteiner
-                type="number"
-                placeholder={"Duração em dias"}
-                value={duration}
-                onChange={onChangeDuration}
-              />
-            </Form.Item>
-            <div>
-                <select name="planeta" onChange={onChangePlanet} >
-                <option value="Mercúrio">Mercúrio</option>
-                <option value="Vênus">Vênus</option>
-                <option value="Terra">Terra</option>
-                <option value="Marte">Marte</option>
-                <option value="Júpiter">Júpiter</option>
-                <option value="Saturno">Saturno</option>
-                <option value="Urano">Urano</option>
-                <option value="Netuno">Netuno</option>
-                <option value="Plutão(planeta anão)">Plutão(planeta anão)</option>
-                </select>
-            </div>
-            <Form.Item
-              name="data"
-              rules={[{ required: true, message: "Informe a data" }]}
-            >
-            <InputConteiner
-                type="date"
-                placeholder={"Informe a data"}
-                value={date}
-                onChange={onChangeDate}
+            <Input
+            name="name"
+            value={form.name}
+            onChange={onChange}
+            placeholder="Nome da viagem"
+            required
             />
-            </Form.Item>
-            <Form.Item>
-              <button onClick={createTrip}>Criar</button>
-            </Form.Item>
-            </Form>
+            <Input
+            name="description"
+            value={form.description}
+            placeholder="Descrição"
+            onChange={onChange}
+            required
+            />
+            <Input
+            name="durationInDays"
+            value={form.durationInDays}
+            placeholder="Duração em dias"
+            onChange={onChange}
+            required
+            />
+            <input
+            type="date"
+            name="date"
+            value={form.date}
+            onChange={onChange}
+            required
+            />
 
-          </ConteinerForm>
-        <Link to="/admin/trips/list">Voltar</Link>
-    </div>
+            <SelectPlanet>
+                {planets(onChange)}
+            </SelectPlanet>
+
+            <ButtonArea>
+              <Button>Criar</Button>
+              <StyledLink to="/admin/trips/list">Voltar</StyledLink>
+            </ButtonArea>
+            </form>
+    </CreateArea>
 
 }
 
