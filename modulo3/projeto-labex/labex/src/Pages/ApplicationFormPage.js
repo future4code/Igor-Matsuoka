@@ -63,7 +63,6 @@ const StyledLink = styled(Link)`
     :link{
         color: black;
     }
-
 `
 
 const Button = styled.button`
@@ -78,15 +77,9 @@ const Button = styled.button`
     padding: 10px;
     align-items: center;
 
-    :visited {
-        color: black;
-    }
     :hover {
         color: white;
         background-color: grey;
-    }
-    :link{
-        color: black;
     }
 `
 
@@ -146,12 +139,12 @@ function ApplicationForm() {
     return <ApplicationFormDisplay>
         <h1>INSCREVA-SE EM UMA VIAGEM</h1>
 
-        <Select name="ordenação" onChange={onChangeId}>
+        <Form onSubmit={doApplication}>
+
+            <Select Select name="ordenação" onChange={onChangeId}>
             <option value={""}> Escolha uma viagem </option>
             {tripsListNames}
-        </Select>
-
-        <Form onSubmit={doApplication}>
+            </Select>
         
             <Input
             name="name"
@@ -181,16 +174,17 @@ function ApplicationForm() {
             onChange={onChange}
             required
             />
+
             <SelectCountry>
             {countries(onChange)}
             </SelectCountry>
+
+            <ButtonArea>
+            <StyledLink to="/trips/list">Voltar</StyledLink>
+            <Button onClick={applyToTrip}>Enviar</Button>
+            </ButtonArea>
         </Form>
 
-        <ButtonArea>
-            <StyledLink to="/trips/list">Voltar</StyledLink>
-            <button>Enviar</button>
-        </ButtonArea>
-        
     </ApplicationFormDisplay>
 
 }

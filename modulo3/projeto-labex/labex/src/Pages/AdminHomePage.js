@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import styled from 'styled-components';
 
 const useProtectedPage = () => {
     const navigate = useNavigate()
@@ -14,6 +15,78 @@ const useProtectedPage = () => {
         }
     }, []);
 }
+
+const AdminArea = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const Navigation = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+`
+
+const TripList = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
+`
+
+const Item = styled.p`
+    width: 300px;
+    display: flex;
+    justify-content: center;
+`
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    border: 1px solid grey;
+    border-radius: 15px;
+    background-color: white;
+    height: 10px;
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+
+    :visited {
+        color: black;
+    }
+    :hover {
+        color: white;
+        background-color: grey;
+    }
+    :link{
+        color: black;
+    }
+`
+
+const Button = styled.button`
+    text-decoration: none;
+    border: 1px solid grey;
+    border-radius: 15px;
+    background-color: white;
+    height: 32px;
+    width: 60.81px;
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+
+    :hover {
+        color: white;
+        background-color: grey;
+    }
+`
 
 function AdminHome(){
     useProtectedPage()
@@ -78,22 +151,24 @@ function AdminHome(){
     }
 
     const mapTrips = listaTrips.map((item)=>{
-        return <div key={item.id}>
-            <Link to={`/admin/trips/${item.id}`} onClick={() => alteraId(item.id)}><p>{item.name}</p></Link>
+        return <TripList key={item.id}>
+            <StyledLink to={`/admin/trips/${item.id}`} onClick={() => alteraId(item.id)}><Item>{item.name}</Item></StyledLink>
             <button onClick={() => delTrip(item.id)}>&#x1F5D1;</button>
-        </div>
+        </TripList>
     })
 
-    return <div>
-        <h1>Painel Admin</h1>
-        <Link to="/">Voltar</Link>
-        <Link to="/admin/trips/create">Criar Viagem</Link>                 
-        <button onClick={cleanLocalStorage}>Logout</button>
+    return <AdminArea>
+        <h1>PAINEL ADMIN</h1>
+        <Navigation>
+        <StyledLink to="/">Voltar</StyledLink>
+        <StyledLink to="/admin/trips/create">Criar Viagem</StyledLink>                 
+        <Button onClick={cleanLocalStorage}>Logout</Button>
+        </Navigation>
         <div>
             {mapTrips}
         </div>
         
-    </div>
+    </AdminArea>
 
 }
 

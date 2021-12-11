@@ -23,7 +23,8 @@ const LinkArea = styled.div`
 const StyledLink = styled(Link)`
     text-decoration: none;
     border-radius: 15px;
-    background-color: orange;
+    border: 1px solid black;
+    background-color: white;
     height: 10px;
     width: 120px;
     display: flex;
@@ -54,6 +55,8 @@ const Trips = styled.div`
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
+    background-color: #808080;
+    color: white;
 `
 const TripsList = styled.div`
     display: flex;
