@@ -20,10 +20,9 @@ function TripDetails(){
 
     const [trip, setTrip] = useState([])
     const [candidates, setCandidates] = useState([])
-    /* const [aprovados, setAprovados] = useState([])
-    const [reprovados, setReprovados] = useState([]) */
+    const [aprovados, setAprovados] = useState({})
     const param = useParams()
-    console.log("useParam ", param.id)
+    console.log("trip", trip)
 
     const getDetail = () => { 
         const token = localStorage.getItem("token")
@@ -48,12 +47,14 @@ function TripDetails(){
         getDetail()
     }, [])
 
-    /* const decideCandidate = () => {
+    const decideCandidate = (idCandidate) => {
         const token = localStorage.getItem("token")
         const body = {
-            approve: true
+            approve: aprovados
         }
-        axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips/${trip}/candidates/${candidates}/decide`, body, 
+        console.log("aprovados", aprovados)
+        console.log("id do candidato", idCandidate)
+        axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips/${trip.id}/candidates/${idCandidate}/decide`, body, 
             {
                 headers: {
                     auth: token
@@ -61,17 +62,23 @@ function TripDetails(){
             }
         )
         .then((response)=>{
-            console.log(response)
-            setAprovados()
+            console.log("certo", response.data)
+            getDetail()
         })
         .catch((error)=>{
-            console.log(error)
+            console.log("erro do put ",error)
         })   
-    } */
+    }
 
-    /* const decideYes = () =>{
+    const decideYes = (idCandidate) =>{
+        setAprovados(true)
+        decideCandidate(idCandidate)
+    }
 
-    } */
+    const decideNo = (idCandidate) =>{
+        setAprovados(false)
+        decideCandidate(idCandidate)
+    }
 
 
     const tripDetail = () =>{
@@ -96,28 +103,30 @@ function TripDetails(){
                 <p><b>Texto de Candidatura: </b>{profile.applicationText}</p>
                 <div>
                     <div>
-                        <button variant="contained" type='submit' >Aprovar</button>
-                        <button variant="contained" type='submit' >Reprovar</button>
+                        <button onClick={()=>decideYes(profile.id)}> Aprovar </button>
+                        <button onClick={()=>decideNo(profile.id)}> Reprovar </button>
                     </div>
                 </div>
             </div>
         )
     })
 
+    const approvedList = trip.approved && trip.approved.map((approved) => {
+        return <li>{approved.name}</li>
+    })
 
     return <div>
         <h1>Detalhes da Viagem</h1>
 
         <div>
-        {tripDetail()}
+            {tripDetail()}
         </div>
 
-        <h1>Candidatos</h1>
-        {detailCandidate}
+        <h1>Candidatos Pendentes</h1>
+            {detailCandidate}
 
         <h2> Candidatos Aprovados </h2>
-            {/* {approvedList} */}
-        <h2> Candidatos Reprovados </h2>
+            {approvedList}
 
         <Link to="/admin/trips/list">Voltar</Link>
     </div>

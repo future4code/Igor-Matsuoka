@@ -2,6 +2,7 @@ import axios from 'axios';
 import { React, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import useForm from "./useForm";
+import { countries } from '../Constants/Countries'
 
 function ApplicationForm() {
 
@@ -90,13 +91,7 @@ function ApplicationForm() {
             onChange={onChange}
             required
             />
-            <input
-            name="country"
-            value={form.country}
-            placeholder="pais"
-            onChange={onChange}
-            required
-            />
+            {countries(onChange)}
             <Link to="/trips/list">Voltar</Link>
             <button>Enviar</button>
         </form>
