@@ -18,6 +18,7 @@ const CreateArea = styled.div`
     justify-content: flex-start;
     align-items: center;
     box-shadow: 0px 5px 8px #708090;
+    margin-top: 100px;
 `
 
 const Input = styled.input`
