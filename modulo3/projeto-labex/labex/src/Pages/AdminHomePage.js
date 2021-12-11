@@ -45,7 +45,8 @@ function AdminHome(){
             }
         })
         .then((res) => {
-            alert(res.data)
+            console.log(res.data)
+            getTrips()
         })
         .catch((err) => {
             console.log("erro",err.data)

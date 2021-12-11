@@ -59,6 +59,7 @@ const TripsList = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: flex-start;
 `
 
 const Loading = styled.h1`

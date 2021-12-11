@@ -3,6 +3,96 @@ import { React, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import useForm from "./useForm";
 import { countries } from '../Constants/Countries'
+import styled from 'styled-components';
+
+const ApplicationFormDisplay = styled.div`
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    box-shadow: 0px 5px 8px #708090;
+    margin-top: 100px;
+`
+
+const Form = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: flex-start;
+`
+
+const Input = styled.input`
+    margin: 10px;
+    width: 50vh;
+`
+
+const SelectCountry = styled.div`
+    margin: 10px;
+`
+const Select = styled.select`
+    margin: 10px;
+`
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    border: 1px solid grey;
+    border-radius: 15px;
+    background-color: white;
+    height: 10px;
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+
+    :visited {
+        color: black;
+    }
+    :hover {
+        color: white;
+        background-color: grey;
+    }
+    :link{
+        color: black;
+    }
+
+`
+
+const Button = styled.button`
+    text-decoration: none;
+    border: 1px solid grey;
+    border-radius: 15px;
+    background-color: white;
+    height: 32px;
+    width: 60.81px;
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+
+    :visited {
+        color: black;
+    }
+    :hover {
+        color: white;
+        background-color: grey;
+    }
+    :link{
+        color: black;
+    }
+`
+
+const ButtonArea = styled.div`
+    display: flex;
+`
 
 function ApplicationForm() {
 
@@ -53,49 +143,55 @@ function ApplicationForm() {
         return <option key={index} value={trip.id}>{trip.name} </option>
     })
 
-    return <div>
-        <h1>INSCREVA-SE</h1>
+    return <ApplicationFormDisplay>
+        <h1>INSCREVA-SE EM UMA VIAGEM</h1>
 
-        <form onSubmit={doApplication}>
-        
-            <select name="ordenação" onChange={onChangeId}>
+        <Select name="ordenação" onChange={onChangeId}>
             <option value={""}> Escolha uma viagem </option>
             {tripsListNames}
-            </select>
+        </Select>
 
-            <input
+        <Form onSubmit={doApplication}>
+        
+            <Input
             name="name"
             value={form.name}
             onChange={onChange}
-            placeholder="nome"
+            placeholder="Nome"
             required
             />
-            <input
+            <Input
             name="age"
             value={form.age}
-            placeholder="idade"
+            placeholder="Idade"
             onChange={onChange}
             required
             />
-            <input
+            <Input
             name="applicationText"
             value={form.applicationText}
-            placeholder="texto"
+            placeholder="Por que você merece a viagem?"
             onChange={onChange}
             required
             />
-            <input
+            <Input
             name="profession"
             value={form.profession}
-            placeholder="profissao"
+            placeholder="Profissao"
             onChange={onChange}
             required
             />
+            <SelectCountry>
             {countries(onChange)}
-            <Link to="/trips/list">Voltar</Link>
+            </SelectCountry>
+        </Form>
+
+        <ButtonArea>
+            <StyledLink to="/trips/list">Voltar</StyledLink>
             <button>Enviar</button>
-        </form>
-    </div>
+        </ButtonArea>
+        
+    </ApplicationFormDisplay>
 
 }
 

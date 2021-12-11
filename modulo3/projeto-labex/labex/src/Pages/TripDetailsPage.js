@@ -22,7 +22,6 @@ function TripDetails(){
     const [candidates, setCandidates] = useState([])
     const [aprovados, setAprovados] = useState({})
     const param = useParams()
-    console.log("trip", trip)
 
     const getDetail = () => { 
         const token = localStorage.getItem("token")
@@ -47,13 +46,11 @@ function TripDetails(){
         getDetail()
     }, [])
 
-    const decideCandidate = (idCandidate) => {
+    const decideCandidate = (idCandidate, aprovados) => {
         const token = localStorage.getItem("token")
         const body = {
             approve: aprovados
         }
-        console.log("aprovados", aprovados)
-        console.log("id do candidato", idCandidate)
         axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/igor-matsuoka-carver/trips/${trip.id}/candidates/${idCandidate}/decide`, body, 
             {
                 headers: {
@@ -63,23 +60,17 @@ function TripDetails(){
         )
         .then((response)=>{
             console.log("certo", response.data)
+            if(aprovados === true){
+                alert("Candidato aprovado!")
+            } else {
+                alert("Candidato Reprovado!")
+            }
             getDetail()
         })
         .catch((error)=>{
             console.log("erro do put ",error)
         })   
     }
-
-    const decideYes = (idCandidate) =>{
-        setAprovados(true)
-        decideCandidate(idCandidate)
-    }
-
-    const decideNo = (idCandidate) =>{
-        setAprovados(false)
-        decideCandidate(idCandidate)
-    }
-
 
     const tripDetail = () =>{
     return <div>
@@ -93,7 +84,7 @@ function TripDetails(){
     </div> 
     }
 
-    const detailCandidate = candidates.map((profile) => {
+    const detailCandidate = trip.candidates && trip.candidates.map((profile) => {
         return (
             <div key ={profile.id}>
                 <p><b>Nome: </b>{profile.name}</p>
@@ -103,16 +94,16 @@ function TripDetails(){
                 <p><b>Texto de Candidatura: </b>{profile.applicationText}</p>
                 <div>
                     <div>
-                        <button onClick={()=>decideYes(profile.id)}> Aprovar </button>
-                        <button onClick={()=>decideNo(profile.id)}> Reprovar </button>
+                    <button onClick={ ()=>decideCandidate(profile.id, true) }> Aprovar </button>
+                    <button onClick={ ()=>decideCandidate(profile.id, false) }> Reprovar </button>
                     </div>
                 </div>
             </div>
         )
     })
 
-    const approvedList = trip.approved && trip.approved.map((approved) => {
-        return <li>{approved.name}</li>
+    const approvedList = trip.approved && trip.approved.map((candidate) => {
+        return <li key={candidate.id}>{candidate.name}</li>
     })
 
     return <div>
