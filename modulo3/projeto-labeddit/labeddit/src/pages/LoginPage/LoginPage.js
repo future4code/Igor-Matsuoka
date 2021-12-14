@@ -3,10 +3,11 @@ import { ScreenContainer, SignUpButtonContainer, LogoImage, StyledLink } from ".
 import Logo from '../../assets/Logo.png'
 import LoginForm from "./LoginForm";
 import Button from '@mui/material/Button';
-import {Link} from 'react-router-dom'
-
+import { useUnprotectedPage } from "../../hooks/useUnprotectedPage";
 
 const LoginPage = () => {
+    useUnprotectedPage()
+
     return (
         <ScreenContainer>
             <LogoImage src={Logo}/>

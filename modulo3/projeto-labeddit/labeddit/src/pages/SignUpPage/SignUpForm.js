@@ -1,28 +1,39 @@
 import React from "react";
-import { InputsContainer } from "./StyledLoginPage";
+import { InputsContainer } from "./StyledSignUpPage";
 import TextField from '@mui/material/TextField'
 import useForm from '../../hooks/useForm'
 import Button from '@mui/material/Button';
-import { Login } from '../../services/Access'
+import { SignUp } from '../../services/Access'
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
-    const {form, handleInputOnChange, clear} = useForm({email:"", password:""})
+
+const SignUpForm = () => {
+    const {form, handleInputOnChange, clear} = useForm({username:"", email:"", password:""})
     const navigate = useNavigate()
 
     const goToFeed = () => {
-        navigate('/')
+        navigate("/")
     }
 
     const onSubmitForm = (event) => {
         event.preventDefault()
-        Login(form, clear, goToFeed)
+        SignUp(form, clear, goToFeed)
     }
-
+    
     return (
             <InputsContainer>
                 <form onSubmit={onSubmitForm}>
-                    
+                    <TextField
+                        name={"username"}
+                        value={form.username}
+                        onChange={handleInputOnChange}
+                        label={"Nome"}
+                        type={"name"}
+                        variant={"outlined"}
+                        fullWidth
+                        margin={"dense"}
+                        required
+                    />
                     <TextField
                         name={"email"}
                         value={form.email}
@@ -49,13 +60,13 @@ const LoginForm = () => {
                     <Button 
                     fullWidth 
                     variant="contained"
-                    type={"submit"} 
+                    type="submit"
                     >
-                        Logar
+                        Cadastrar
                     </Button>
                 </form>
             </InputsContainer>
     )
 }
 
-export default LoginForm;
+export default SignUpForm;
