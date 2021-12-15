@@ -1,4 +1,4 @@
-/* export const goToLogin = (navigate) => {
+export const goToLogin = (navigate) => {
     navigate("/login")
 }
 
@@ -12,4 +12,4 @@ export const goToPostDetail = (navigate, id) => {
 
 export const goToSignUp = (navigate) => {
     navigate("/cadastro")
-} */
+}

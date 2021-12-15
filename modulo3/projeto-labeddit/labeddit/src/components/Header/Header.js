@@ -3,8 +3,8 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { StyledToolbar } from './StyledHeader';
-import { useNavigate } from 'react-router-dom';
-  
+import { useNavigate } from 'react-router-dom'; 
+import { goToFeed, goToLogin } from '../../routes/Coordinator';
 
 const Header = ({rightButtonText, setRightButtonText}) => {
   const navigate = useNavigate()
@@ -18,9 +18,9 @@ const Header = ({rightButtonText, setRightButtonText}) => {
     if(token) {
       logout()
       setRightButtonText("Login")
-      navigate("/login")
+      goToLogin(navigate)
     } else {
-      navigate("/")
+      goToLogin(navigate)
     }
   }
 
@@ -28,12 +28,13 @@ const Header = ({rightButtonText, setRightButtonText}) => {
     <Box>
       <AppBar position="static">
         <StyledToolbar>
-          <Button color="inherit" size="large" onClick={()=>navigate("/")}>LABEDDIT</Button>
+          <Button color="inherit" size="large" onClick={()=>goToFeed(navigate)}>LABEDDIT</Button>
           <Button color="inherit" onClick={rightButtonAction}>{rightButtonText}</Button>
         </StyledToolbar>
       </AppBar>
     </Box>
   );
 }
+
 
 export default Header;

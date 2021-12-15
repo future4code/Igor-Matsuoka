@@ -4,7 +4,7 @@ import Logo from '../../assets/Logo.png'
 import SignUpForm from "./SignUpForm";
 import { useUnprotectedPage } from "../../hooks/useUnprotectedPage";
 
-const SignUpPage = () => {
+const SignUpPage = ({setRightButtonText}) => {
     useUnprotectedPage()
 
     return (
@@ -13,7 +13,7 @@ const SignUpPage = () => {
 
             <h1>Faça seu Cadastro!</h1>
 
-            <SignUpForm/>
+            <SignUpForm setRightButtonText={setRightButtonText}/>
 
             <SignUpButtonContainer>
                 </SignUpButtonContainer>

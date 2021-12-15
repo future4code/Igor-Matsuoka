@@ -6,17 +6,13 @@ import Button from '@mui/material/Button';
 import { Login } from '../../services/Access'
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({setRightButtonText}) => {
     const {form, handleInputOnChange, clear} = useForm({email:"", password:""})
     const navigate = useNavigate()
 
-    const goToFeed = () => {
-        navigate('/')
-    }
-
     const onSubmitForm = (event) => {
         event.preventDefault()
-        Login(form, clear, goToFeed)
+        Login(form, clear, navigate, setRightButtonText)
     }
 
     return (

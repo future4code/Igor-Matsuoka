@@ -5,7 +5,7 @@ import LoginForm from "./LoginForm";
 import Button from '@mui/material/Button';
 import { useUnprotectedPage } from "../../hooks/useUnprotectedPage";
 
-const LoginPage = () => {
+const LoginPage = ({setRightButtonText}) => {
     useUnprotectedPage()
 
     return (
@@ -14,7 +14,7 @@ const LoginPage = () => {
 
             <h1>Faça seu Login!</h1>
 
-            <LoginForm/>
+            <LoginForm setRightButtonText={setRightButtonText}/>
 
             <SignUpButtonContainer>
                     <Button 

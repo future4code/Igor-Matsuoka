@@ -7,17 +7,13 @@ import { SignUp } from '../../services/Access'
 import { useNavigate } from "react-router-dom";
 
 
-const SignUpForm = () => {
+const SignUpForm = ({setRightButtonText}) => {
     const {form, handleInputOnChange, clear} = useForm({username:"", email:"", password:""})
     const navigate = useNavigate()
 
-    const goToFeed = () => {
-        navigate("/")
-    }
-
     const onSubmitForm = (event) => {
         event.preventDefault()
-        SignUp(form, clear, goToFeed)
+        SignUp(form, clear, navigate, setRightButtonText)
     }
     
     return (
