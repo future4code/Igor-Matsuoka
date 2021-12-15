@@ -11,7 +11,7 @@ export const Login = (body, clear, navigate, setRightButtonText) => {
         setRightButtonText("Logout")
     })
     .catch((err)=>{
-        alert(err.response.data.message)
+        alert(err.response.data)
     })
 }
 
@@ -25,7 +25,8 @@ export const SignUp = (body, clear, navigate, setRightButtonText) => {
         setRightButtonText("Logout")
     })
     .catch((err)=>{
-        alert(err.response.data.message)
+        console.log(err)
+        alert("Possiveis erros: senha com menos de 8 caracteres, e-mail já criado, senha igual a de outro usuário!")
     })
 }
 
