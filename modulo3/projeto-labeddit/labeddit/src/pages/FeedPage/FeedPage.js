@@ -33,11 +33,11 @@ const FeedPage = () => {
         } else if (vote === -1 && downVote) {
             setDownVote(false)
             deletePostVote(id)
-        } else if (vote === 1 && downVote) {
+        } else if (vote === 1 && upVote && downVote) {
             setUpVote(true)
             setDownVote(false)
             changePostVote(id, body)
-        } else if (vote === -1 && upVote) {
+        }  else {
             setUpVote(false)
             setDownVote(true)
             changePostVote(id, body)
@@ -64,7 +64,7 @@ const FeedPage = () => {
             </div>
     })
 
-    return <div>
+    return <div>    
         <PostForm/>
         {postsCards}
     </div>

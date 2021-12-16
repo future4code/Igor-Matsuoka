@@ -4,7 +4,7 @@ import { useProtectedPage } from "../../hooks/useProtectedPage";
 import useRequestData from "../../hooks/useRequestData";
 import { BASE_URL } from '../../constants/URLs'
 import CommentForm from "./PostPageUseForm";
-import { createPostVote, deletePostVote, changePostVote } from "../../services/Votes";
+import { createCommentVote, deleteCommentVote, changeCommentVote } from "../../services/Votes";
 
 
 const PostDetailPage = () => {
@@ -21,24 +21,24 @@ const PostDetailPage = () => {
         }
         if (vote === 1 && !upVote && !downVote){
             setUpVote(true)
-            createPostVote(id, body)
+            createCommentVote(id, body)
         } else if (vote === -1 && !upVote && !downVote){
             setDownVote(true)
-            createPostVote(id, body)
+            createCommentVote(id, body)
         } else if (vote === 1 && upVote) {
             setUpVote(false)
-            deletePostVote(id)
+            deleteCommentVote(id)
         } else if (vote === -1 && downVote) {
             setDownVote(false)
-            deletePostVote(id)
+            deleteCommentVote(id)
         } else if (vote === 1 && downVote) {
             setUpVote(true)
             setDownVote(false)
-            changePostVote(id, body)
+            changeCommentVote(id, body)
         } else if (vote === -1 && upVote) {
             setUpVote(false)
             setDownVote(true)
-            changePostVote(id, body)
+            changeCommentVote(id, body)
         }
     }
 
