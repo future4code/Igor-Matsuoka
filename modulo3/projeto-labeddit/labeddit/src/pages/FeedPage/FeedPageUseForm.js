@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { InputsContainer } from "./StyledPostForm";
 import TextField from '@mui/material/TextField'
 import useForm from '../../hooks/useForm'
 import Button from '@mui/material/Button';
 import { createPost } from "../../services/Create";
+import { CircularProgress } from "@mui/material";
 
 const PostForm = () => {
     const {form, handleInputOnChange, clear} = useForm({title:"", body:""})
+    const [isLoading, setIsLoading] = useState("")
 
     const onSubmitForm = (event) => {
         event.preventDefault()
-        createPost(form, clear)
+        createPost(form, clear, setIsLoading)
     }
 
     return (
@@ -45,7 +47,7 @@ const PostForm = () => {
                     variant="contained"
                     type={"submit"} 
                     >
-                        Enviar Post!
+                        {isLoading ? <CircularProgress color={"inherit"} size={24}/> : <p>POSTAR</p>}
                     </Button>
                 </form>
             </InputsContainer>

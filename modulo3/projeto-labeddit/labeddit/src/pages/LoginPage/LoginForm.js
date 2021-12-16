@@ -1,18 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import { InputsContainer } from "./StyledLoginPage";
 import TextField from '@mui/material/TextField'
 import useForm from '../../hooks/useForm'
 import Button from '@mui/material/Button';
 import { Login } from '../../services/Access'
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const LoginForm = ({setRightButtonText}) => {
     const {form, handleInputOnChange, clear} = useForm({email:"", password:""})
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState("")
 
     const onSubmitForm = (event) => {
         event.preventDefault()
-        Login(form, clear, navigate, setRightButtonText)
+        Login(form, clear, navigate, setRightButtonText, setIsLoading)
     }
 
     return (
@@ -47,7 +49,7 @@ const LoginForm = ({setRightButtonText}) => {
                     variant="contained"
                     type={"submit"} 
                     >
-                        Logar
+                        {isLoading ? <CircularProgress color={"inherit"} size={24}/> : <p>Logar</p>}
                     </Button>
                 </form>
             </InputsContainer>
