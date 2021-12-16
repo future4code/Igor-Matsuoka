@@ -3,26 +3,34 @@ import { useProtectedPage } from '../../hooks/useProtectedPage'
 import useRequestData from '../../hooks/useRequestData'
 import { BASE_URL } from '../../constants/URLs'
 import { Post } from "../../Post/Post";
-
+import { goToPostDetail } from "../../routes/Coordinator";
+import { useNavigate } from "react-router-dom";
+import PostForm from "./FeedPageUseForm";
 
 const FeedPage = () => {
-    const posts = useRequestData([], `${BASE_URL}/posts`)
     useProtectedPage()
+    const navigate = useNavigate()
+    const posts = useRequestData([], `${BASE_URL}/posts`)
+
+    const onClickPost = (id) => {
+        goToPostDetail(navigate, id)
+    }
 
     const postsCards = posts.map((post)=>{
         return <Post
-        key={post.id}
-        title={post.title}
-        body={post.body}
-        date={post.createdAt}
-        vote={post.voteSum}
-        comment={post.commentCount}
-        onClick={()=>null}
+        key = {post.id}
+        username = {post.username}
+        title = {post.title}
+        body = {post.body}
+        createdAt = {post.createdAt}
+        voteSum = {post.voteSum}
+        commentCount = {post.commentCount}
+        onClick = {() => onClickPost(post.id)}
         />
     })
 
     return <div>
-        <h1>FeedPage</h1>
+        <PostForm/>
         {postsCards}
     </div>
 }
