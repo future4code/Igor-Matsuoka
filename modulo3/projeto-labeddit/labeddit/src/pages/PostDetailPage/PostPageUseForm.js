@@ -6,12 +6,11 @@ import Button from '@mui/material/Button';
 import { createComment } from "../../services/Create";
 
 const CommentForm = (props) => {
-    const {id} = props
     const {form, handleInputOnChange, clear} = useForm({body:""})
 
     const onSubmitForm = (event) => {
         event.preventDefault()
-        createComment(form, id, clear)
+        createComment(form, props.id, clear)
     }
 
     return (

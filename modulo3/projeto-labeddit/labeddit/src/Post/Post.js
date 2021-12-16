@@ -1,6 +1,7 @@
 import React from "react";
 import { PostContainer, PostHeader, PostMedia, PostFooter, Comments } from "./StyledPost";
 
+
 export const Post = (props) => {
    
     return( 
@@ -17,12 +18,10 @@ export const Post = (props) => {
         </PostMedia>
         
         <PostFooter>
-            <button>Vote Up</button>
-            {props.voteSum}
-            <button>Vote Down</button>
             <Comments>
             {props.commentCount} Comentários
             </Comments>
+            {props.voteSum} Votes
         </PostFooter>
 
     </PostContainer>
