@@ -24,16 +24,17 @@ const FeedPage = () => {
         if (vote === 1 && !upVote && !downVote){
             setUpVote(true)
             createPostVote(id, body)
-        } else if (vote === -1 && !upVote && !downVote){
+        } else if (vote === 1 && !upVote && !downVote){
             setDownVote(true)
             createPostVote(id, body)
-        } else if (vote === 1 && upVote) {
+        } else if (upVote) {
+            deletePostVote(id)
             setUpVote(false)
-            deletePostVote(id)
-        } else if (vote === -1 && downVote) {
             setDownVote(false)
+        } else if (downVote) {
             deletePostVote(id)
-        } else if (vote === 1 && upVote && downVote) {
+            setDownVote(false)
+        } else if (vote === -1 && upVote && downVote) {
             setUpVote(true)
             setDownVote(false)
             changePostVote(id, body)

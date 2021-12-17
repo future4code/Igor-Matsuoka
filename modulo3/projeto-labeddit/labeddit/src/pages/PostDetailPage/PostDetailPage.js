@@ -22,20 +22,20 @@ const PostDetailPage = () => {
         if (vote === 1 && !upVote && !downVote){
             setUpVote(true)
             createCommentVote(id, body)
-        } else if (vote === -1 && !upVote && !downVote){
+        } else if (vote === 1 && !upVote && !downVote){
             setDownVote(true)
             createCommentVote(id, body)
         } else if (vote === 1 && upVote) {
             setUpVote(false)
             deleteCommentVote(id)
-        } else if (vote === -1 && downVote) {
+        } else if (vote === 1 && downVote) {
             setDownVote(false)
             deleteCommentVote(id)
-        } else if (vote === 1 && downVote) {
+        } else if (vote === -1 && upVote && downVote) {
             setUpVote(true)
             setDownVote(false)
             changeCommentVote(id, body)
-        } else if (vote === -1 && upVote) {
+        } else {
             setUpVote(false)
             setDownVote(true)
             changeCommentVote(id, body)

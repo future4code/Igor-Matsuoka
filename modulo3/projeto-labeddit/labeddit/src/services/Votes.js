@@ -9,7 +9,6 @@ export const createPostVote = (id, body) => {
     })
     .then((res)=>{
         console.log(res.data)
-        console.log(body)
     })
     .catch((err)=>{
         console.log(err.data)
@@ -24,7 +23,6 @@ export const createCommentVote = (id, body) => {
     })
     .then((res)=>{
         console.log(res.data)
-        console.log(body)
     })
     .catch((err)=>{
         console.log(err.data)
@@ -39,7 +37,6 @@ export const changeCommentVote = (id, body) => {
     })
     .then((res)=>{
         console.log(res.data)
-        console.log(body)
     })
     .catch((err)=>{
         console.log(err.data)
@@ -54,7 +51,6 @@ export const changePostVote = (id, body) => {
     })
     .then((res)=>{
         console.log(res.data)
-        console.log(body)
     })
     .catch((err)=>{
         console.log(err.data)
