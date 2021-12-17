@@ -2,8 +2,9 @@ import styled from 'styled-components'
 
 export const PostContainer=styled.div`
     border: 1px solid black;
-    width: 40%;
-    height: 30%;
+    border-radius: 20px;
+    width: 60vw;
+    height: 20vh;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -12,29 +13,18 @@ export const PostContainer=styled.div`
     margin-left: auto;
     margin-bottom: 5px;
     margin-top: 5px; 
+    padding: 10px;
 `
 
-export const PostHeader=styled.div`
-    border: 1px solid black;
+export const BodyText = styled.div`
     width: 100%;
-    height: 5vh;
+    height: 100%;
 `
-export const PostMedia=styled.div`
-    border: 1px solid black;
-    width: 100%;
-    height: 15vh;
+
+export const Text = styled.p`
     display: flex;
-    flex-direction: column;
-`
-
-export const PostFooter=styled.div`
-    border: 1px solid black;
-    width: 100%;
-    height: 5vh;
-`
-
-export const Comments=styled.div`
-    border: 1px solid black;
-    width: 100%;
-    height: 2vh;
+    word-wrap: break-word;
+    height: 5px;
+    width: 50%;
+    padding: 5px;
 `

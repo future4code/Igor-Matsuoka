@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { createPost } from "../../services/Create";
 import { CircularProgress } from "@mui/material";
 
+
 const PostForm = () => {
     const {form, handleInputOnChange, clear} = useForm({title:"", body:""})
     const [isLoading, setIsLoading] = useState("")
@@ -28,6 +29,7 @@ const PostForm = () => {
                         variant={"outlined"}
                         fullWidth
                         margin={"dense"}
+                        size="small"
                         required
                     />
                     <TextField
@@ -39,6 +41,7 @@ const PostForm = () => {
                         variant={"outlined"}
                         fullWidth
                         margin={"dense"}
+                        size="small"
                         required
                     />
 
@@ -46,6 +49,7 @@ const PostForm = () => {
                     fullWidth 
                     variant="contained"
                     type={"submit"} 
+                    size="small"
                     >
                         {isLoading ? <CircularProgress color={"inherit"} size={24}/> : <p>POSTAR</p>}
                     </Button>

@@ -11,7 +11,7 @@ export const createPostVote = (id, body) => {
         console.log(res.data)
     })
     .catch((err)=>{
-        console.log(err.data)
+        console.log(err.response.data)
     })
 }
 
@@ -25,35 +25,7 @@ export const createCommentVote = (id, body) => {
         console.log(res.data)
     })
     .catch((err)=>{
-        console.log(err.data)
-    })
-}
-
-export const changeCommentVote = (id, body) => {
-    axios.put(`${BASE_URL}/comments/${id}/votes`, body, {
-        headers: {
-            Authorization: localStorage.getItem("token")
-        }
-    })
-    .then((res)=>{
-        console.log(res.data)
-    })
-    .catch((err)=>{
-        console.log(err.data)
-    })
-}
-
-export const changePostVote = (id, body) => {
-    axios.put(`${BASE_URL}/posts/${id}/votes`, body, {
-        headers: {
-            Authorization: localStorage.getItem("token")
-        }
-    })
-    .then((res)=>{
-        console.log(res.data)
-    })
-    .catch((err)=>{
-        console.log(err.data)
+        console.log(err.response.data)
     })
 }
 
@@ -67,7 +39,7 @@ export const deletePostVote = (id) => {
         console.log(res.data)
     })
     .catch((err)=>{
-        console.log(err.data)
+        console.log(err.response.data)
     })
 }
 
@@ -81,6 +53,34 @@ export const deleteCommentVote = (id) => {
         console.log(res.data)
     })
     .catch((err)=>{
-        console.log(err.data)
+        console.log(err.response.data)
+    })
+}
+
+export const changeCommentVote = (id, body) => {
+    axios.put(`${BASE_URL}/comments/${id}/votes`, body, {
+        headers: {
+            Authorization: localStorage.getItem("token")
+        }
+    })
+    .then((res)=>{
+        console.log(res.data)
+    })
+    .catch((err)=>{
+        console.log(err.response.data)
+    })
+}
+
+export const changePostVote = (id, body) => {
+    axios.put(`${BASE_URL}/posts/${id}/votes`, body, {
+        headers: {
+            Authorization: localStorage.getItem("token")
+        }
+    })
+    .then((res)=>{
+        console.log(res.data)
+    })
+    .catch((err)=>{
+        console.log(err.response.data)
     })
 }

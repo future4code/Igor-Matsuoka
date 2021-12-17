@@ -1,29 +1,15 @@
 import React from "react";
-import { PostContainer, PostHeader, PostMedia, PostFooter, Comments } from "./StyledPost";
-
+import { BodyText, PostContainer, Text } from "./StyledPost";
 
 export const Post = (props) => {
    
     return( 
     <PostContainer onClick={props.onClick}>
-
-        <PostHeader>
-            {props.username}
-        </PostHeader>
-
-        <PostMedia>
-            <b>{props.title}</b>
-            <p>{props.body}</p>
-            <p>{props.createdAt}</p>
-        </PostMedia>
-        
-        <PostFooter>
-            <Comments>
-            {props.commentCount} Comentários
-            </Comments>
-            {props.voteSum} Votes
-        </PostFooter>
-
+        <BodyText>
+        <Text>{props.username} </Text>
+        <Text> Título: {props.title}</Text>
+        <Text> Texto: {props.body}</Text>
+        </BodyText>
     </PostContainer>
     
     )

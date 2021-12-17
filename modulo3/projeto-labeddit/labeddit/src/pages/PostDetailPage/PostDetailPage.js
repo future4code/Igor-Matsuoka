@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
 import useRequestData from "../../hooks/useRequestData";
 import { BASE_URL } from '../../constants/URLs'
 import CommentForm from "./PostPageUseForm";
 import { createCommentVote, deleteCommentVote, changeCommentVote } from "../../services/Votes";
-
+import { Comments, Text, Footer } from "./StyledPostPage";
 
 const PostDetailPage = () => {
     useProtectedPage()
@@ -19,19 +19,19 @@ const PostDetailPage = () => {
         const body = {
             direction: vote
         }
-        if (vote === 1 && !upVote && !downVote){
+        if (vote === 1 && !upVote && !downVote) {
             setUpVote(true)
             createCommentVote(id, body)
-        } else if (vote === 1 && !upVote && !downVote){
+        } else if (vote === -1 && !upVote && !downVote) {
             setDownVote(true)
             createCommentVote(id, body)
         } else if (vote === 1 && upVote) {
             setUpVote(false)
             deleteCommentVote(id)
-        } else if (vote === 1 && downVote) {
+        } else if (vote === -1 && downVote) {
             setDownVote(false)
             deleteCommentVote(id)
-        } else if (vote === -1 && upVote && downVote) {
+        } else if (vote === 1 && downVote) {
             setUpVote(true)
             setDownVote(false)
             changeCommentVote(id, body)
@@ -42,13 +42,22 @@ const PostDetailPage = () => {
         }
     }
 
-    /* useEffect(()=>{},[]) */
+    useEffect(() => {
+        setInitialVote()
+    }, [comments])
+
+    const setInitialVote = () => {
+        if (comments.userVote === 1) {
+            setUpVote(true)
+        } else if (comments.userVote === -1) {
+            setDownVote(true)
+        } 
+    }
 
     const commentsArray = comments && comments.map((comment)=>{
         return <div key={comment.id}>
             {comment.username}
             {comment.body}
-            {comment.createdAt}
             {comment.voteSum}
             <button onClick={() => vote(comment.id, 1)}>VoteUp</button>
             <button onClick={() => vote(comment.id, -1)}>VoteDown</button>
@@ -61,13 +70,15 @@ const PostDetailPage = () => {
         }
     }).map((post) => {
         return (
-            <div key={post.id}>
-                <p>{post.username}</p>
-                <p>{post.title}</p>
-                <p>{post.body}</p>
-                <p>{post.voteSum}</p> Curtidas
-                <p>{post.commentCount}</p> Comentários
-            </div>
+            <Comments key={post.id}>
+                <Text>{post.username}</Text>
+                <Text>{post.title}</Text>
+                <Text>{post.body}</Text>
+                <Footer>
+                <Text>{post.voteSum}</Text> Curtidas
+                <Text>{post.commentCount}</Text> Comentários
+                </Footer>
+            </Comments>
         )
     })
     
