@@ -1,6 +1,6 @@
 # Projeto LabeX
 
-Somos um site especializado em interações entre usuários e você poderá  [acessar ao LabeX aqui](mixed-quartz.surge.sh).
+Somos um site especializado em interações entre usuários e você poderá  [acessar ao LabeX aqui](abaft-stew.surge.shgit).
 
 # Desenvolvedores:
  Igor Eiiji Avelar Matsuoka
