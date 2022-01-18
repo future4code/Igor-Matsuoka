@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InputsContainer } from "./StyledPostForm";
 import TextField from '@mui/material/TextField'
 import useForm from '../../hooks/useForm'
