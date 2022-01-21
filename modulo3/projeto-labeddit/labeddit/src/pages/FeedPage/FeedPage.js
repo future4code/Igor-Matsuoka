@@ -16,7 +16,6 @@ const FeedPage = () => {
     useProtectedPage()
     const navigate = useNavigate()
     const posts = useRequestData([], `${BASE_URL}/posts`)
-
     const [upVote, setUpVote] = useState(false)
     const [downVote, setDownVote] = useState(false)
 
