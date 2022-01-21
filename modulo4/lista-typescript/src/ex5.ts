@@ -1,3 +1,4 @@
+//Considerando o `array` de usuários abaixo, crie uma função que receba este `array` como parâmetro e retorne uma lista com apenas os emails dos usuários “admin”.
 type Usuarios = {name:string, email:string, role:string}
 enum ADMIN {
     USER="user",
