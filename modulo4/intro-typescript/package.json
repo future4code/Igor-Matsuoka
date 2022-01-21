@@ -1,0 +1,14 @@
+{
+  "name": "intro-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node ./build/index.js"
+  },
+  "author": "Igor Matsuoka",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^17.0.10"
+  }
+}
