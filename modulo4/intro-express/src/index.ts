@@ -153,15 +153,15 @@ app.get('/posts/:id', (req, res) => {
 // })
 
 //Desafio 2
-app.delete('/users/:id',(req, res)=>{
-  const id = Number(req.params.id)
-  arrayUsers.forEach((user:any) => {
-    user.id = user.id.map((userId:any)=>{
-      if(userId.id === id){
-        return {}
-      }
-      return userId
-    })
-  });
-})
+// app.delete('/users/:id',(req, res)=>{
+//   const id = Number(req.params.id)
+//   arrayUsers.forEach((user:any) => {
+//     user.id = user.id.map((userId:any)=>{
+//       if(userId.id === id){
+//         return {}
+//       }
+//       return userId
+//     })
+//   });
+// })
 
