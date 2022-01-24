@@ -79,20 +79,41 @@ const post1:Post = {
 }
 
 const post2:Post = {
+  userId: 1,
+  id: 2,
+  title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  body: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+}
+
+const post3:Post = {
+  userId: 2,
+  id: 1,
+  title: "qui est esse",
+  body: "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
+}
+
+const post4:Post = {
   userId: 2,
   id: 2,
   title: "qui est esse",
   body: "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
 }
 
-const post3:Post= {
+const post5:Post= {
   userId: 3,
-  id: 3,
+  id: 1,
   title: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
   body: "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
 }
 
-const arrayDePosts = [post1, post2, post3]
+const post6:Post= {
+  userId: 3,
+  id: 2,
+  title: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+  body: "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
+}
+
+const arrayDePosts = [post1, post2, post3, post4, post5, post6]
 
 //7
 app.get("/posts", (req, res) => {          
@@ -101,7 +122,46 @@ app.get("/posts", (req, res) => {
 })
 
 //8
-app.get("/posts/:id", (req, res) => {          
-  const currentPosts = arrayDePosts
-  res.status(200).send(currentPosts)
+app.get('/posts/:id', (req, res) => {
+  const userId = Number(req.params.id)
+  const userPost:Post[] = arrayDePosts.filter(post => {
+      if(post.userId === userId) {
+        return post
+      }
+  })
+  res.status(200).send(userPost)
 })
+
+//Desafio 1
+// app.delete('/posts/:id', (req, res)=>{
+//   const id = Number(req.params.id)
+//   const userId = Number(req.query.userId)
+//   const allUsers = users.map((user:any)=>{
+//     return user.id
+//   })
+//   const novosPosts:Post[] = allUsers.forEach(user => {
+//     if(userId === userId){
+//       user.id = allUsers.userId.map((post:any)=>{
+//         if(post.id === id){
+//           return {}
+//         }
+//         return post
+//       })
+//     }
+//   });
+//   res.status(200).send(novosPosts)
+// })
+
+//Desafio 2
+app.delete('/users/:id',(req, res)=>{
+  const id = Number(req.params.id)
+  arrayUsers.forEach((user:any) => {
+    user.id = user.id.map((userId:any)=>{
+      if(userId.id === id){
+        return {}
+      }
+      return userId
+    })
+  });
+})
+
