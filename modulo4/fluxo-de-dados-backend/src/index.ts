@@ -95,10 +95,6 @@ app.put('/changeprice/:id', (req:Request, res:Response)=>{
             throw new Error("preço não informado!")
         }
 
-        if(!productId){
-            throw new Error("id não informado!")
-        }
-
         if(productId <= 0){
             throw new Error("id não é válido")
         }
@@ -143,7 +139,7 @@ app.put('/changeprice/:id', (req:Request, res:Response)=>{
                 break
             default:
                 res.statusCode = 500
-          }
+        }
 
         res.send(error.message)
     }
@@ -152,14 +148,27 @@ app.put('/changeprice/:id', (req:Request, res:Response)=>{
 //////////////////////////////////////////// DELETA PRODUTO ///////////////////////////////////////////////
 app.delete('/deletecake/:id', (req:Request, res:Response)=>{
     try {
+        //A validação por path params não vai funcionar porque ainda não foi ensinada (yuzo falou no plantão)
         const productId:any = req.params.id
 
-        const remainingProducts = productArray.filter((product)=>{
-            return product.id !== productId
-        })
+        if(!productId){
+            throw new Error("O produto informado não foi encontrado")
+        }
 
-        res.status(200).send({remainingProducts})
-    } catch (error) {
-        res.statusCode = 422
+        for(let i = 0; i < productArray.length; i++){
+            if(productArray[i].id === productId){
+              productArray.splice(i, 1)
+            }
+        }
+
+        res.status(200).send({productArray})
+    } catch (error:any) {
+        switch(error.message) {
+            case "O produto informado não foi encontrado":
+                res.statusCode = 400
+                break
+            default:
+                res.statusCode = 500
+        }
     }
 })
