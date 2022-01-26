@@ -19,7 +19,7 @@ const server = app.listen(process.env.PORT || 3003, () => {
 ///////////////////////////////// TESTE /////////////////////////////////////////////////////////
 
 app.get('/test', (req:Request, res:Response)=>{
-    res.status(400).send("API FUNCIONANDO!")
+    res.status(200).send("API FUNCIONANDO!")
 })
 
 /////////////////////////////////// CRIA PRODUTO ///////////////////////////////////////////////////////
@@ -28,14 +28,20 @@ app.post('/createcake', (req:Request, res:Response)=>{
     try {
         const { product, price } = req.body
 
-        if(!product||!price){
-            throw new Error("campos necessários para criar música não informados")
+        if(!product || !price) {
+            throw new Error("Campos necessários para criar produto não informados")
         }
 
-        for (let i = 0; i < productArray.length; i++) {
-            if (productArray[i].product === product) {
-              throw new Error("produto já existe!")
-            } 
+        if(typeof product !== 'string') {
+            throw new Error("Nome do produto não é uma string")
+        }
+
+        if(typeof price !== 'number') {
+            throw new Error("Preço não é um number")
+        }
+
+        if(price <= 0) {
+            throw new Error("Preço não tem um valor válido")
         }
 
         productArray.push({
@@ -48,15 +54,23 @@ app.post('/createcake', (req:Request, res:Response)=>{
 
     } catch (error:any) {
         switch(error.message) {
-            case "campos necessários para criar música não informados":
-              res.statusCode = 422
+            case "Campos necessários para criar produto não informados":
+              res.statusCode = 400
               break
-            case "produto já existe!":
-                res.statusCode = 409
+            case "Nome do produto não é uma string":
+                res.statusCode = 400
               break
+            case "Preço não é um number":
+                res.statusCode = 400
+                break
+            case "Preço não tem um valor válido":
+                res.statusCode = 400
+                break
             default:
                 res.statusCode = 500
           }
+
+          res.send(error.message)
     }
 })
 
@@ -81,28 +95,57 @@ app.put('/changeprice/:id', (req:Request, res:Response)=>{
             throw new Error("preço não informado!")
         }
 
+        if(!productId){
+            throw new Error("id não informado!")
+        }
+
+        if(productId <= 0){
+            throw new Error("id não é válido")
+        }
+
+        if(typeof price !== 'number'){
+            throw new Error("preço não é um number")
+        }
+
+        if(price <= 0){
+            throw new Error("preço não é um número válido")
+        }
+
         for(let i=0; i<productArray.length; i++){
-            if(!productId){
-                if(productId > productArray.length){
-                    throw new Error("O parâmetro informado não foi encontrado")
-                }
+            if(productId > productArray.length){
+                throw new Error("O produto informado não foi encontrado")
+            } else if (productArray[i].id===productId){
                 productArray[i].price = price
             }
         }
-
+    
         res.status(200).send({productArray})
 
     } catch (error:any) {
         switch(error.message) {
             case "preço não informado!":
                 res.statusCode = 422
-              break
-            case "O parâmetro informado não foi encontrado":
+                break
+            case "id não informado!":
+                res.statusCode = 400
+                break
+            case "preço não é um number":
                 res.statusCode = 409
-              break
+                break
+            case "preço não é um número válido":
+                res.statusCode = 409
+                break
+            case "O produto informado não foi encontrado":
+                res.statusCode = 409
+                break
+            case "id não é válido":
+                res.statusCode = 409
+                break
             default:
                 res.statusCode = 500
           }
+
+        res.send(error.message)
     }
 })
 
