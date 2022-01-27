@@ -193,5 +193,6 @@ app.delete('/deletecake/:id', (req:Request, res:Response)=>{
             default:
                 res.statusCode = 500
         }
+        res.send(error.message)
     }
 })
