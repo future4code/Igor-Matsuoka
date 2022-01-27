@@ -50,7 +50,7 @@ app.get('/users', (req: Request, res: Response) => {
 
       res.status(200).send(user)
 
-    } 
+    }
   } catch (error: any) {
     res.status(errorCode).send({message: error.message})
   }
