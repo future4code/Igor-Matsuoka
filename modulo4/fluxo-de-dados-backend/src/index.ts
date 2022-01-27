@@ -78,9 +78,32 @@ app.post('/createcake', (req:Request, res:Response)=>{
 
 app.get('/cakes', (req:Request, res:Response)=>{
     try {
+        const search = req.query.product
+
+        if(search){
+            productArray.forEach((product) => {
+            if(product.product === search){
+                res.send(product)
+            }
+            })
+        }
+
+        if(productArray===undefined){
+            res.status(422).send("There are no products")
+        }
+
         res.status(200).send({productArray})
-    } catch (error) {
-        res.statusCode = 422
+    } catch (error:any) {
+        switch(error.message) {
+            case "There are no products":
+                res.statusCode = 400
+                break
+            default:
+                res.statusCode = 500
+        }
+
+        res.send(error.message)
+
     }
 })
 
