@@ -1,7 +1,6 @@
 import express, {Request, Response} from "express";
 import { productArray } from "./data";
 import { AddressInfo } from "net";
-import { userInfo } from "os";
 
 const app = express();
 
