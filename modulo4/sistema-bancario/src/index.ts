@@ -113,7 +113,7 @@ app.put('/users/:name/:cpf', (req:Request, res:Response)=>{
                     })
                 } else {
                     for(let i=0; i<users.length; i++) {
-                        if (users[i].name === senderName && users[i].cpf === senderCPF) {
+                        if (users[i].name === name && users[i].cpf === cpf && !newBalance &&!value) {
                             users[i].balance = users[i].balance - destinyValue
                             users[i].statement.push({
                                 Transfer: `Destinatário: ${destinyName}, Valor:-${destinyValue}`,
