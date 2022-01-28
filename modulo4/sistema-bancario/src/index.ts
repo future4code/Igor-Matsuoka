@@ -92,7 +92,7 @@ app.put('/users/:name/:cpf', (req:Request, res:Response)=>{
         const description:any = req.body.description
         const finalDate:any = req.body.finalDate
         const destinyValue:any = Number(req.body.destinyValue)
-        const {destinyName, destinyCPF} = req.body
+        const {destinyName, destinyCPF, senderName, senderCPF} = req.body
     
             users.forEach(user => {
                 if (user.name === name && user.cpf === cpf && !value && !description && !finalDate && newBalance) {
@@ -100,7 +100,7 @@ app.put('/users/:name/:cpf', (req:Request, res:Response)=>{
                     user.statement.push({
                         deposit: `+${newBalance}`,
                     })
-                
+                    
                 } else if (user.name === name && user.cpf === cpf && value && description && finalDate) {
                     user.bill.push({
                         value,
@@ -111,28 +111,47 @@ app.put('/users/:name/:cpf', (req:Request, res:Response)=>{
                     user.statement.push({
                         draft: `-${value}`,
                     })
-                } 
-                } 
-            )
+                } else {
+                    for(let i=0; i<users.length; i++) {
+                        if (users[i].name === senderName && users[i].cpf === senderCPF) {
+                            users[i].balance = users[i].balance - destinyValue
+                            users[i].statement.push({
+                                Transfer: `Destinatário: ${destinyName}, Valor:-${destinyValue}`,
+                            })
+                            users[i].bill.push({
+                                destinyValue,
+                                destinyCPF,
+                                destinyName,
+                            })    
+                        } else if (users[i].name === destinyName && users[i].cpf === destinyCPF){
+                            users[i].balance = users[i].balance + destinyValue
+                            users[i].statement.push({
+                                Transfer: `Remetente: ${name}, Valor: +${destinyValue}`,
+                            })
+                    }
+                }
 
-            for(let i=0; i<users.length; i++) {
-                if (users[i].name === name && users[i].cpf === cpf) {
-                    users[i].balance = users[i].balance - destinyValue
-                    users[i].statement.push({
-                        Transfer: `Destinatário: ${destinyName}, Valor:-${destinyValue}`,
-                    })
-                    users[i].bill.push({
-                        destinyValue,
-                        destinyCPF,
-                        destinyName,
-                    })    
-                } else if (users[i].name === destinyName && users[i].cpf === destinyCPF){
-                    users[i].balance = users[i].balance + destinyValue
-                    users[i].statement.push({
-                        Transfer: `Remetente: ${name}, Valor: +${destinyValue}`,
-                    })
-            }
-        }
+                }
+            })
+
+        //     for(let i=0; i<users.length; i++) {
+        //         if (users[i].name === senderName && users[i].cpf === senderCPF) {
+        //             users[i].balance = users[i].balance - destinyValue
+        //             users[i].statement.push({
+        //                 Transfer: `Destinatário: ${destinyName}, Valor:-${destinyValue}`,
+        //             })
+        //             users[i].bill.push({
+        //                 destinyValue,
+        //                 destinyCPF,
+        //                 destinyName,
+        //             })    
+        //         } else if (users[i].name === destinyName && users[i].cpf === destinyCPF){
+        //             users[i].balance = users[i].balance + destinyValue
+        //             users[i].statement.push({
+        //                 Transfer: `Remetente: ${name}, Valor: +${destinyValue}`,
+        //             })
+        //     }
+        // }
 
         res.send(users)
     } catch (error:any) {
