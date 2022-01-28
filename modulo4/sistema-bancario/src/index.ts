@@ -1,7 +1,6 @@
 import express, {Request, Response} from "express";
 import { AddressInfo } from "net";
 import { users } from "./data";
-import { User } from "./data";
 
 const app = express();
 
@@ -92,7 +91,7 @@ app.put('/users/:name/:cpf', (req:Request, res:Response)=>{
         const description:any = req.body.description
         const finalDate:any = req.body.finalDate
         const destinyValue:any = Number(req.body.destinyValue)
-        const {destinyName, destinyCPF, senderName, senderCPF} = req.body
+        const {destinyName, destinyCPF} = req.body
     
             users.forEach(user => {
                 if (user.name === name && user.cpf === cpf && !value && !description && !finalDate && newBalance) {
@@ -133,26 +132,6 @@ app.put('/users/:name/:cpf', (req:Request, res:Response)=>{
 
                 }
             })
-
-        //     for(let i=0; i<users.length; i++) {
-        //         if (users[i].name === senderName && users[i].cpf === senderCPF) {
-        //             users[i].balance = users[i].balance - destinyValue
-        //             users[i].statement.push({
-        //                 Transfer: `Destinatário: ${destinyName}, Valor:-${destinyValue}`,
-        //             })
-        //             users[i].bill.push({
-        //                 destinyValue,
-        //                 destinyCPF,
-        //                 destinyName,
-        //             })    
-        //         } else if (users[i].name === destinyName && users[i].cpf === destinyCPF){
-        //             users[i].balance = users[i].balance + destinyValue
-        //             users[i].statement.push({
-        //                 Transfer: `Remetente: ${name}, Valor: +${destinyValue}`,
-        //             })
-        //     }
-        // }
-
         res.send(users)
     } catch (error:any) {
         res.status(errorCode).send(error.message)
