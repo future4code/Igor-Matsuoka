@@ -1,6 +1,7 @@
 import express, {Response, Request} from "express";
 import { users, UserType } from "./data";
 import { AddressInfo } from "net";
+import { idText } from "typescript";
 
 const app = express();
 
@@ -106,50 +107,58 @@ app.post('/createuser', (req:Request, res:Response)=>{
 })
 
 //5
-// app.put('/createuser', (req:Request, res:Response)=>{
-//     try {
-//         const {id, name, email, type, age} = req.body
+app.put('/createuser/:id', (req:Request, res:Response)=>{
+    try {
+      const userId:any = req.params.id
+      const newName = req.body.name
 
-//         if(!id || !name || !email || !type || !age){
-//             throw new Error ("Missing parameter")
-//         }
+      for(let i=0; i<users.length; i++){
+        if(users[i].id == userId){
+          users[i].name = `${newName} - alterado`
+        }
+      }
 
-//         for(let i=0; i<users.length; i++){
-//             if(users[i].id === id || users[i].email === email){
-//                 throw new Error ("Name or Id already exist")
-//             }
-//         }
+      res.status(200).send(users)
+    } catch (error:any) {
+      res.send(error.message)
+    }
+})
+//6
+app.patch('/createuser/:id', (req:Request, res:Response)=>{
+  try {
+    const userId:any = req.params.id
+    const newName = req.body.name
 
-//         if(typeof id !== 'number' || typeof name !== 'string' ||
-//             typeof email  !== 'string' || type.toUpperCase() !== UserType.NORMAL &&  type.toUpperCase() !== UserType.ADMIN || 
-//             typeof age  !== 'number'
-//         ){
-//             throw new Error ("Parameter is not valid")
-//         }
+    for(let i=0; i<users.length; i++){
+      if(users[i].id == userId){
+        users[i].name = `${newName} - realterado`
+      }
+    }
 
-//         users.push({
-//             id,
-//             name,
-//             email,
-//             type,
-//             age
-//         })
+    res.status(200).send(users)
+  } catch (error:any) {
+    res.send(error.message)
+  }
+})
+//7
+app.delete('/deleteuser/:id', (req:Request, res:Response)=>{
+  try {
+    const userId:any = Number(req.params.id)
 
-//         res.status(201).send(users)
-        
-//     } catch (error:any) {
-//         switch(error){
-//             case "Missing parameter":
-//                 res.statusCode = 400
-//                 break
-//             case "Parameter is not valid":
-//                 res.statusCode = 400
-//                 break
-//             default:
-//                 res.statusCode = 500
-//         }
-//         res.send(error.message)
-//     }
-// })
+    if(!req.body) {
+      res.status(400).send("It is missing a parameter!")
+  }
+
+    for (let i = 0; i < users.length; i++) {
+      if(users[i].id === userId) {
+          users.splice(i, 1)
+      }
+    }
+    res.status(200).send(users)
+
+  } catch (error:any) {
+    res.send(error.message)
+  }
+})
 
 
