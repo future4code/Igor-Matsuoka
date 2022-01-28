@@ -1,18 +1,19 @@
-export type User = {name:string, cpf:number, data:string|number, balance:number, statement:any}
-
+export type User = {name:string, cpf:string, date:string, balance:number, statement:any, bill:any}
 export const users = [
     {
         name: "João",
-        cpf: 11111111111,
-        data: "22/04/1998",
+        cpf: "111.111.111-11",
+        date: "22/04/1998",
         balance: 0,
-        statement:[]
+        statement:[{}],
+        bill:[{}]
     },
     {
         name: "Andréia",
-        cpf: 22222222222,
-        data: "25/07/1990",
+        cpf: "222.222.222-22",
+        date: "25/07/1990",
         balance: 0,
-        statement:[]
+        statement:[{}],
+        bill:[{}]
     }
 ]
