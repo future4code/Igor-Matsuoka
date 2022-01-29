@@ -1,5 +1,6 @@
 import express, {Request, Response} from "express";
 import { AddressInfo } from "net";
+import { isUndefined } from "util";
 import { users } from "./data";
 
 const app = express();
@@ -25,6 +26,12 @@ app.get('/users/:name/:cpf', (req:Request, res:Response)=>{
         if(!name || !cpf){
             errorCode = 422
             throw new Error('Name or cpf are missing!')
+        }
+        for(let i=0; i<users.length; i++){
+            if(name !== users[i].name || cpf !== users[i].cpf){
+                errorCode = 422
+                throw new Error('Name or cpf not found')
+            }
         }
         res.status(200).send(findAccount)
 
@@ -67,6 +74,12 @@ app.post('/createuser', (req:Request, res:Response)=>{
         if(idade < 18){
             throw new Error("You are not 18 years old")
         }
+        for(let i=0; i<users.length; i++){
+            if(users[i].cpf === cpf){
+                errorCode = 404
+                throw new Error("CPF already exists")
+            }
+        }
         users.push({
             name,
             cpf,
@@ -95,6 +108,8 @@ app.put('/users/:name/:cpf', (req:Request, res:Response)=>{
     
             users.forEach(user => {
                 if (user.name === name && user.cpf === cpf && !value && !description && !finalDate && newBalance) {
+                    users.filter(user => user.name === name && user.cpf === cpf)
+
                     user.balance = user.balance + newBalance
                     user.statement.push({
                         deposit: `+${newBalance}`,
@@ -111,25 +126,22 @@ app.put('/users/:name/:cpf', (req:Request, res:Response)=>{
                         draft: `-${value}`,
                     })
                 } else {
-                    for(let i=0; i<users.length; i++) {
-                        if (users[i].name === name && users[i].cpf === cpf && !newBalance &&!value) {
-                            users[i].balance = users[i].balance - destinyValue
-                            users[i].statement.push({
+                        if (user.name === name && user.cpf === cpf && !newBalance && !value) {
+                            user.balance = user.balance - destinyValue
+                            user.statement.push({
                                 Transfer: `Destinatário: ${destinyName}, Valor:-${destinyValue}`,
                             })
-                            users[i].bill.push({
+                            user.bill.push({
                                 destinyValue,
                                 destinyCPF,
                                 destinyName,
-                            })    
-                        } else if (users[i].name === destinyName && users[i].cpf === destinyCPF){
-                            users[i].balance = users[i].balance + destinyValue
-                            users[i].statement.push({
+                            })
+                        } else if (user.name === destinyName && user.cpf === destinyCPF) {
+                            user.balance = user.balance + destinyValue
+                            user.statement.push({
                                 Transfer: `Remetente: ${name}, Valor: +${destinyValue}`,
                             })
-                    }
-                }
-
+                        }
                 }
             })
         res.send(users)
