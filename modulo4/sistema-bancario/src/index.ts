@@ -1,6 +1,5 @@
 import express, {Request, Response} from "express";
 import { AddressInfo } from "net";
-import { isUndefined } from "util";
 import { users } from "./data";
 
 const app = express();
@@ -102,45 +101,71 @@ app.put('/users/:name/:cpf', (req:Request, res:Response)=>{
         const newBalance:number = Number(req.body.balance)
         const value:any = Number(req.body.value)
         const description:any = req.body.description
-        const finalDate:any = req.body.finalDate
+        const finalDate = req.body.finalDate
         const destinyValue:any = Number(req.body.destinyValue)
         const {destinyName, destinyCPF} = req.body
+        const data = new Date()
+        const paymentDate:any = data.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
     
             users.forEach(user => {
                 if (user.name === name && user.cpf === cpf && !value && !description && !finalDate && newBalance) {
                     users.filter(user => user.name === name && user.cpf === cpf)
-
                     user.balance = user.balance + newBalance
                     user.statement.push({
                         deposit: `+${newBalance}`,
+                        depositData: data.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
                     })
-                    
                 } else if (user.name === name && user.cpf === cpf && value && description && finalDate) {
                     user.bill.push({
                         value,
                         description,
                         finalDate,
+                        paymentDate: paymentDate
                     })
                     user.balance = user.balance - value
                     user.statement.push({
                         draft: `-${value}`,
+                        paymentDate: paymentDate
                     })
+                    if(new Date().getDate() > finalDate  && finalDate && paymentDate){
+                        errorCode = 422
+                        throw new Error("You don't have enough balance")
+                    }
+                    if(value > user.balance){
+                        errorCode = 400
+                        throw new Error("You don't have enough balance")
+                    }
                 } else {
                         if (user.name === name && user.cpf === cpf && !newBalance && !value) {
+                            if(destinyValue > user.balance){
+                                errorCode = 400
+                                throw new Error("You don't have enough balance")
+                            }
                             user.balance = user.balance - destinyValue
                             user.statement.push({
                                 Transfer: `Destinatário: ${destinyName}, Valor:-${destinyValue}`,
+                                transictionData: data.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
                             })
                             user.bill.push({
                                 destinyValue,
                                 destinyCPF,
                                 destinyName,
+                                transictionData: data.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
                             })
+                            // if(user.name !== destinyName || user.cpf !== destinyCPF){
+                            //     errorCode = 400
+                            //     throw new Error("Name or CPF doesn't exist")
+                            // }
                         } else if (user.name === destinyName && user.cpf === destinyCPF) {
                             user.balance = user.balance + destinyValue
                             user.statement.push({
                                 Transfer: `Remetente: ${name}, Valor: +${destinyValue}`,
+                                transictionData: data.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
                             })
+                            // if(user.name !== destinyName || user.cpf !== destinyCPF && user.name === name && user.cpf === cpf){
+                            //     errorCode = 400
+                            //     throw new Error("Name or CPF doesn't exist")
+                            // }
                         }
                 }
             })
