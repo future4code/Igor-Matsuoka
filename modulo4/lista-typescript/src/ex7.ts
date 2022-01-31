@@ -1,11 +1,5 @@
 //Você acabou de conseguir um emprego em uma importadora e precisa continuar a desenvolver o sistema de organização de estoque da empresa.
 //A pessoa desenvolvedora anterior a você chegou a criar uma função que ajusta os preços para o formato brasileiro, mas não chegou a implementa-la:
-
-const ajustaPreco = (preco :number): string => {
-	const valorAjustado: string = preco.toFixed(2).replace('.', ',')
-	return "R$ "+valorAjustado
-}
-
 //O seguinte array traz o estoque atual da empresa:
 type Estoque = {nome:string, quantidade:number, valorUnitario:number|string}
 
@@ -27,10 +21,16 @@ function compare(a:Estoque,b:Estoque):number{
     return 0;
 }
 
+const ajustaPreco = (preco :number): string => {
+	const valorAjustado: string = preco.toFixed(2).replace('.', ',')
+	return "R$ "+valorAjustado
+}
+
 function arrayFormatada(estoque:Estoque[]):Estoque[]{
     estoque.sort(compare)
     estoque.map((preco)=>{
-        ajustaPreco(preco.valorUnitario as number)
+        preco.valorUnitario = ajustaPreco(preco.valorUnitario as number)
+        console.log(ajustaPreco)
         return preco
     })
     return estoque
