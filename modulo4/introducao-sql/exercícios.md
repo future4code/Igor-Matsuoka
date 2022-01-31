@@ -1,5 +1,4 @@
 # Exercícios Introdução SQL <h1>
-USE `carver-igor-eiiji-avelar-matsuoka`;
 
 CREATE TABLE Actors (
 	id VARCHAR(255) PRIMARY KEY,
@@ -64,5 +63,42 @@ c)
 
 d) 
 * #### SELECT * FROM Actors WHERE (name LIKE "%g%" OR name LIKE "%G%" OR name LIKE "%a%" OR name LIKE "%A%") AND salary BETWEEN 350000 AND 900000;
+
+### EX.5
+#### CREATE TABLE Movies (
+	id VARCHAR(255) PRIMARY KEY,
+	name VARCHAR (255) NOT NULL,
+	sinopse TEXT NOT NULL,
+	date DATE NOT NULL,
+	avaliation FLOAT NOT NULL
+);
+
+#### INSERT INTO Movies (id, name, sinopse, date, avaliation) VALUES
+##### (001, "Se Eu Fosse Você", "Cláudio e Helena são casados há muitos anos e enfrentam a rotina do casamento. Um dia eles são atingidos por um fenômeno inexplicável e trocam de corpos", "2006/01/06", 7),
+##### (002, "Doce de mãe", "Dona Picucha, uma animada senhora de 85 anos, sempre causa grandes confusões. A vida dela e dos seus quatro filhos sofre uma reviravolta depois que Zaida, empregada e amiga de Dona Picucha, anuncia que vai se casar e não poderá mais morar com ela", "2012/12/27", 10),
+##### (003, "Dona Flor e Seus Dois Maridos", "Dona Flor é uma sedutora professora de culinária casada com Vadinho, que só quer saber de farras e jogatina nas boates. A vida de abusos acaba por acarretar sua morte precoce.", "2017/11/02", 8);
+#### INSERT INTO Movies (id, name, sinopse, date, avaliation) VALUES
+##### (004, "Meu Nome Não É Johnny", "João Guilherme Estrella é um jovem da classe média que se torna o rei do tráfico de drogas da zona sul do Rio de Janeiro. O rapaz inteligente e adorado pelos pais passa a ser investigado pela polícia e enfrenta a dura realidade de um criminoso.", "2008/01/04", 9);
+
+### EX.6
+a)
+* SELECT id, name, avaliation from Movies WHERE id = 3;
+
+b) 
+* SELECT * FROM Movies WHERE name = "Doce de mãe";
+
+c)
+* SELECT id, name, sinopse FROM Movies WHERE avaliation > 7;
+
+### EX.7
+a)
+* SELECT name from Movies WHERE name LIKE "%vida%";
+b)
+* SELECT * FROM Movies WHERE name LIKE "%eu%" OR sinopse LIKE "%dois%";
+c)
+* SELECT * FROM Movies WHERE date < "2022-01-31";
+d)
+* SELECT * FROM Movies WHERE date < "2022-01-31" AND (name LIKE "%do%" OR sinopse LIKE "%eu%") AND avaliation > 7;
+
 
 
