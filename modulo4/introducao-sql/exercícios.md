@@ -82,23 +82,23 @@ d)
 
 ### EX.6
 a)
-* SELECT id, name, avaliation from Movies WHERE id = 3;
+* #### SELECT id, name, avaliation from Movies WHERE id = 3;
 
 b) 
-* SELECT * FROM Movies WHERE name = "Doce de mãe";
+* #### SELECT * FROM Movies WHERE name = "Doce de mãe";
 
 c)
-* SELECT id, name, sinopse FROM Movies WHERE avaliation > 7;
+* #### SELECT id, name, sinopse FROM Movies WHERE avaliation > 7;
 
 ### EX.7
 a)
-* SELECT name from Movies WHERE name LIKE "%vida%";
+* #### SELECT name from Movies WHERE name LIKE "%vida%";
 b)
-* SELECT * FROM Movies WHERE name LIKE "%eu%" OR sinopse LIKE "%dois%";
+* #### SELECT * FROM Movies WHERE name LIKE "%eu%" OR sinopse LIKE "%dois%";
 c)
-* SELECT * FROM Movies WHERE date < "2022-01-31";
+* #### SELECT * FROM Movies WHERE date < "2022-01-31";
 d)
-* SELECT * FROM Movies WHERE date < "2022-01-31" AND (name LIKE "%do%" OR sinopse LIKE "%eu%") AND avaliation > 7;
+* #### SELECT * FROM Movies WHERE date < "2022-01-31" AND (name LIKE "%do%" OR sinopse LIKE "%eu%") AND avaliation > 7;
 
 
 
