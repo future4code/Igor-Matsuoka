@@ -75,3 +75,30 @@ WHERE id = "001"
 ##### d)
 DELETE FROM Movies WHERE id = "001";
 * O comando para atualizar foi aceito sem erros porém na lista não ocorreu nenhuma alteração.
+
+### EX.7
+##### a)
+SELECT COUNT(*) FROM Movies WHERE rating > 7.5;
+##### b)
+SELECT AVG(rating) FROM Movies;
+##### c)
+SELECT COUNT(*) FROM Movies WHERE playing_limit_date > CURDATE();
+##### d)
+SELECT COUNT(*) FROM Movies WHERE date > CURDATE();
+##### e)
+SELECT MAX(rating) FROM Movies;
+##### e)
+SELECT MIN(rating) FROM Movies;
+
+### EX.8
+##### a)
+SELECT * FROM Movies ORDER BY name;
+##### b)
+SELECT * FROM Movies ORDER BY name DESC LIMIT 5;
+##### c)
+SELECT * FROM Movies
+WHERE date < CURDATE() 
+ORDER BY date DESC 
+LIMIT 3;
+##### d)
+SELECT * FROM Movies ORDER BY rating DESC LIMIT 3;
