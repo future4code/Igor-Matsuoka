@@ -103,3 +103,49 @@ app.delete("/actor/:id", async (req: Request, res: Response) => {
     res.status(400).send({message: err.message});
   }
 });
+
+### EX 5
+app.post("/movie", async (req: Request, res: Response) => {
+  try {
+    await connection("Movies")
+    .insert({
+      id: req.body.id,
+      name: req.body.name,
+      sinopse: req.body.sinopse,
+      date: req.body.date,
+      rating: req.body.rating,
+      playing_limit_date: req.body.playingLimitDate
+    })
+    res.send({message: "Success!"})
+  } catch (err:any) {
+    res.status(400).send({message: err.message});
+  }
+});
+
+### EX 6
+const getAllMovies = async (): Promise<any> => {
+  const result = await connection.raw(`
+    SELECT * FROM Movie LIMIT 15
+  `);
+
+  return result[0];
+};
+
+### EX 7
+
+const searchMovies = async (search:string): Promise<any> => {
+  const result = await connection.raw(`
+    SELECT * FROM Movies WHERE name LIKE "%${search}%" OR sinopse LIKE "%${search}%" LIMIT 15
+  `);
+
+  return result[0];
+};
+
+app.get("/movie/search", async (req: Request, res: Response) => {
+  try {
+    const movies = await searchMovies(req.query.search as string);
+    res.send({movies: movies})
+  } catch (err:any) {
+    res.status(400).send({message: err.message});
+  }
+});
