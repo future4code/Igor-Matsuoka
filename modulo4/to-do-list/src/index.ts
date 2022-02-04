@@ -244,4 +244,61 @@ const getTaskById = async (id: string): Promise<any> => {
     }
 });
 
+//////////////////////////////////////// ATRIBUIR USUARIO A UMA TAREFA ////////////////////////////////////////
 
+app.post("/task/responsible", async (req: Request, res: Response): Promise<void> => {
+    let errorCode = 400
+
+    try {
+        const {task_id, responsible_user_id} = req.body
+        
+        await connection("TodoListResponsibleUserTaskRelation")
+        .insert({
+            task_id,
+	        responsible_user_id
+        })
+
+        if(!task_id || !responsible_user_id){
+            errorCode=422
+            throw new Error ("Preencha os dois campos")
+        }
+        
+      res.send({message: "Usuário Atribuído a tarefa!"})
+    } catch (err:any) {
+      res.status(500).send({message: err.message});
+    }
+});
+
+// //////////////////////////////////////// PEGAR USUÁRIOS RESPONSÁVEIS POR UMA TAREFA ////////////////////////////////////////
+
+const getUserResponsibleTask = async (task_id: string): Promise<any> => {
+
+    const resultTaskId = await connection.raw(`
+        SELECT TodoListResponsibleUserTaskRelation.responsible_user_id, TodoListUser.nickname FROM TodoListResponsibleUserTaskRelation
+        INNER JOIN TodoListUser ON TodoListResponsibleUserTaskRelation.responsible_user_id = TodoListUser.id
+        WHERE TodoListResponsibleUserTaskRelation.task_id = "${task_id}"
+    `)
+    return resultTaskId[0]
+}
+
+  app.get("/task/:task_id/responsible", async (req: Request, res: Response): Promise<void> => {
+    const task_id = req.params.task_id 
+    let errorCode = 400
+    
+    try {
+      const resultUserResponsibleTaskId = await getUserResponsibleTask(task_id)
+
+      if(!resultUserResponsibleTaskId) {
+        errorCode=422
+        throw new Error ("Insira o id da tarefa")
+      }
+      
+      if(resultUserResponsibleTaskId.length === 0) {
+        errorCode=422
+        throw new Error ("Id não encontrado")
+      }
+      res.send({users: resultUserResponsibleTaskId})
+    } catch (err:any) {
+      res.status(500).send({message: err.message});
+    }
+});
