@@ -181,6 +181,40 @@ type Task = {
     }
 });
 
+////////////////////////////////////////// PEGAR TAREFA PELO STATUS ////////////////////////////////////////
+const getTaskByStatus = async (status: string): Promise<any> => {
+
+    const result= await connection.raw(`
+        SELECT TodoListTask.id, title, description, limit_date, creator_user_id, nickname FROM TodoListTask
+        LEFT JOIN TodoListUser ON TodoListTask.creator_user_id = TodoListUser.id 
+        WHERE TodoListTask.status = "${status}"
+    `)
+    return result[0]
+}
+
+  app.get("/task/status", async (req: Request, res: Response): Promise<void> => {
+    const status = req.query.status as string
+    let errorCode = 400
+    
+    try {
+      const result = await getTaskByStatus(status)
+      if (result.length > 0) {
+        for (let i of result) {
+          i.limit_date = dateToStringDate(i.limit_date)
+        }
+    }
+
+      if(!result) {
+        errorCode=422
+        throw new Error ("Insira o status")
+      }
+      
+      res.send({tasks: result})
+    } catch (err:any) {
+      res.status(500).send({message: err.message});
+    }
+});
+
 //////////////////////////////////////// PROCURAR TAREFA POR ID USUÁRIO ////////////////////////////////////////
 
 const searchTaskByUser = async (creator_user_id:string): Promise<any> => {
@@ -340,3 +374,4 @@ app.put("/task/status/:id", async (req: Request, res: Response): Promise<void> =
       res.status(500).send({message: err.message});
     }
 });
+
