@@ -317,4 +317,26 @@ const getUserResponsibleTask = async (task_id: string): Promise<any> => {
     }
 });
 
-////////////////////////////////////////// PEGAR USUÁRIOS RESPONSÁVEIS POR UMA TAREFA ////////////////////////////////////////
+////////////////////////////////////////// ATUALIZAR O STATUS DA TAREFA PELO ID ////////////////////////////////////////
+app.put("/task/status/:id", async (req: Request, res: Response): Promise<void> => {
+    const id = req.params.id
+    const { status } = req.body
+    let errorCode = 400
+
+    try {
+        await connection("TodoListTask")
+        .update({
+          status
+        })
+        .where("id",id)
+
+        if(!status) {
+            errorCode=422
+            throw new Error ("Preencha todos os campos")
+        }
+
+      res.send({message: "Status editado com sucesso"})
+    } catch (err:any) {
+      res.status(500).send({message: err.message});
+    }
+});
