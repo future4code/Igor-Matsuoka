@@ -16,12 +16,212 @@ const server = app.listen(process.env.PORT || 3003, () => {
     }
 });
 
+const dateToStringDate = (date: Date): string => {
+
+    const dd = String(date.getDate()).padStart(2, '0')
+    const mm = String(date.getMonth() + 1).padStart(2, '0')
+    const yyyy = date.getFullYear()
+  
+    return dd + '/' + mm + '/' + yyyy;
+}
+
 //////////////////////////////////////// CRIAR USUÁRIO ////////////////////////////////////////
-app.post("/user", async (req: Request, res: Response)=>{
-    try{
-        await connection("Actor")
-        res.status(200).send({chaveDoRetorno: valorDaBusca});
-    }catch(error){
-        res.status(400).send({chaveDoErro: valorDoErro});
+
+app.post("/user", async (req: Request, res: Response): Promise<void> => {
+    const {name, nickname, email} = req.body
+    let errorCode = 400
+
+    try {
+      if(typeof name !== 'string' || typeof nickname !== 'string'|| typeof email !== 'string'){
+        errorCode=422
+        throw new Error ("As informações passadas não são válidas")
+      } else if(!name || !nickname || !email){
+        errorCode=422
+        throw new Error ("Preencha os três campos")
+      } else {
+        await connection("TodoListUser")
+        .insert({
+          id: Date.now().toString(),
+          name,
+          nickname,
+          email
+        })
+      }
+      res.send({message: "Cadastro realizado com sucesso!"})
+    } catch (err:any) {
+      res.status(500).send({message: err.message});
     }
- });
+});
+
+//////////////////////////////////////// PEGAR TODOS OS USUÁRIOS ////////////////////////////////////////
+
+const getAllUsers = async (): Promise<any> => {
+    const resultAllUsers = await connection.raw(`
+    SELECT id, nickname FROM TodoListUser
+    `)
+    return resultAllUsers[0]
+}
+
+app.get("/user/all", async (req: Request, res: Response): Promise<void> => {
+    try {
+        const resultAll = await getAllUsers()
+        
+        res.send({users: resultAll})
+    } catch (err:any) {
+        res.status(500).send({message: err.message});
+    }
+});
+
+//////////////////////////////////////// PEGAR USER PELO ID ////////////////////////////////////////
+
+  const getUserById = async (id: string): Promise<any> => {
+    const result = await connection.raw(`
+      SELECT id, nickname FROM TodoListUser WHERE id = '${id}'
+    `)
+      return result[0][0]
+  }
+
+  app.get("/user/:id", async (req: Request, res: Response): Promise<void> => {
+    const id = req.params.id
+    let errorCode = 400
+
+    try {
+      const result = await getUserById(id)
+      if(!result) {
+        errorCode=422
+        throw new Error ("Id não encontrado")
+      }
+      res.send({result: result})
+    } catch (err:any) {
+      res.status(500).send({message: err.message});
+    }
+});
+
+//////////////////////////////////////// EDITAR USUÁRIO ////////////////////////////////////////
+
+app.put("/user/edit/:id", async (req: Request, res: Response): Promise<void> => {
+    const id = req.params.id
+    const {name, nickname} = req.body
+    let errorCode = 400
+
+    try {
+        await connection("TodoListUser")
+        .update({
+          name,
+          nickname
+        })
+        .where("id",id)
+        if(!name || !nickname) {
+            errorCode=422
+            throw new Error ("Preencha todos os campos")
+        }
+      res.send({message: "Usuário editado com sucesso"})
+    } catch (err:any) {
+      res.status(500).send({message: err.message});
+    }
+});
+
+//////////////////////////////////////// EDITAR USUÁRIO ////////////////////////////////////////
+type Task = {
+    id: string,
+    title: string,
+    description: string,
+    limit_date: string,
+    creator_user_id: string
+}
+
+  app.post("/task", async (req: Request, res: Response): Promise<void> => {
+    let errorCode = 400
+
+    try {
+        let {title, description, dueDate, creator_user_id} = req.body
+        dueDate = dueDate.split('/').reverse().join('/')
+        
+        const task: Task = {
+            id: Date.now().toString(),
+            title, 
+            description, 
+            limit_date: dueDate, 
+            creator_user_id
+        }
+        await connection("TodoListTask")
+        .insert(task)
+        
+        if(typeof title !== 'string' || typeof description !== 'string'|| typeof dueDate !== 'string' || typeof creator_user_id !== 'string'){
+            errorCode=422
+            throw new Error ("As informações passadas não são válidas")
+        } else if(!title || !description || !dueDate || !creator_user_id){
+            errorCode=422
+            throw new Error ("Preencha os quatro campos")
+        }
+
+      res.send({message: "Tarefa criada com sucesso!"})
+    } catch (err:any) {
+      res.status(500).send({message: err.message});
+    }
+});
+
+//////////////////////////////////////// PROCURAR TAREFA POR ID USUÁRIO ////////////////////////////////////////
+
+const searchTaskByUser = async (creator_user_id:string): Promise<any> => {
+    const resultAllTasks = await connection.raw(`
+        SELECT TodoListTask.id, title, description, limit_date, status, creator_user_id, nickname FROM TodoListTask
+        LEFT JOIN TodoListUser ON TodoListTask.creator_user_id = TodoListUser.id WHERE TodoListTask.creator_user_id = '${creator_user_id}'
+    `)
+    return resultAllTasks[0]
+}
+
+app.get("/task", async (req: Request, res: Response): Promise<void> => {
+    try {
+        let errorCode = 400
+        const creator_user_id= req.query.creator_user_id as string
+
+        const resultSearchTasksUser = await searchTaskByUser(creator_user_id)
+
+        if (resultSearchTasksUser.length > 0) {
+            for (let i of resultSearchTasksUser) {
+              i.limit_date = dateToStringDate(i.limit_date)
+            }
+        }
+
+        if (!creator_user_id) {
+            errorCode = 422
+            throw new Error('Favor verificar se o id do usuário criador da tarefa foi preenchido corretamente e tentar novamente.')
+        }
+
+        res.send({tasks: resultSearchTasksUser})
+    } catch (err:any) {
+        res.status(500).send({message: err.message});
+    }
+});
+
+//////////////////////////////////////// PEGAR TAREFA PELO ID ////////////////////////////////////////
+
+const getTaskById = async (id: string): Promise<any> => {
+
+    const resultTaskId = await connection.raw(`
+    SELECT TodoListTask.id, title, description, limit_date, status, creator_user_id, nickname 
+    FROM TodoListTask LEFT JOIN TodoListUser ON TodoListTask.creator_user_id = TodoListUser.id WHERE TodoListTask.id = '${id}'
+    `)
+    return resultTaskId[0][0]
+}
+
+  app.get("/task/:id", async (req: Request, res: Response): Promise<void> => {
+    const id = req.params.id
+    let errorCode = 400
+    
+    try {
+      const resultTaskId = await getTaskById(id)
+      if(!resultTaskId) {
+        errorCode=422
+        throw new Error ("Id não encontrado")
+      }
+      resultTaskId.limit_date = dateToStringDate(resultTaskId.limit_date)
+
+      res.send({result: resultTaskId})
+    } catch (err:any) {
+      res.status(500).send({message: err.message});
+    }
+});
+
+
