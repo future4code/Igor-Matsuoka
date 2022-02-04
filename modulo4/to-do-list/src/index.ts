@@ -181,7 +181,36 @@ type Task = {
     }
 });
 
+////////////////////////////////////////// PEGAR TAREFAS ATRASADAS ////////////////////////////////////////
+
+const searchDelayedTask = async (): Promise<any> => {
+    const resultAllTasks = await connection.raw(`
+        SELECT TodoListTask.id, title, description, limit_date, creator_user_id, nickname FROM TodoListTask
+        LEFT JOIN TodoListUser ON TodoListTask.creator_user_id = TodoListUser.id WHERE limit_date >= CURDATE()
+    `)
+    return resultAllTasks[0]
+}
+
+app.get("/task/delayed", async (req: Request, res: Response): Promise<void> => {
+    try {
+        let errorCode = 400
+
+        const result = await searchDelayedTask()
+
+        if (result.length > 0) {
+            for (let i of result) {
+              i.limit_date = dateToStringDate(i.limit_date)
+            }
+        }
+
+        res.send({tasks: result})
+    } catch (err:any) {
+        res.status(500).send({message: err.message});
+    }
+});
+
 ////////////////////////////////////////// PEGAR TAREFA PELO STATUS ////////////////////////////////////////
+
 const getTaskByStatus = async (status: string): Promise<any> => {
 
     const result= await connection.raw(`
@@ -374,4 +403,3 @@ app.put("/task/status/:id", async (req: Request, res: Response): Promise<void> =
       res.status(500).send({message: err.message});
     }
 });
-
