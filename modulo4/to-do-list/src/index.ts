@@ -53,6 +53,26 @@ app.post("/user", async (req: Request, res: Response): Promise<void> => {
     }
 });
 
+//////////////////////////////////////// PESQUISAR USUÁRIO ////////////////////////////////////////
+
+const searchUser = async (name:string): Promise<any> => {
+    const searchUsers = await connection.raw(`
+    SELECT id, nickname FROM TodoListUser WHERE name like '%${name}%' OR nickname like '%${name}%' OR email like '%${name}%'
+    `)
+    return searchUsers[0]
+}
+
+app.get("/user", async (req: Request, res: Response): Promise<void> => {
+    try {
+        const name = req.query.name as string
+        const resultSearchUser = await searchUser(name)
+        
+        res.send({users: resultSearchUser})
+    } catch (err:any) {
+        res.status(500).send({message: err.message});
+    }
+});
+
 //////////////////////////////////////// PEGAR TODOS OS USUÁRIOS ////////////////////////////////////////
 
 const getAllUsers = async (): Promise<any> => {
