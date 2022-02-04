@@ -217,12 +217,25 @@ app.get("/task", async (req: Request, res: Response): Promise<void> => {
 
 //////////////////////////////////////// PEGAR TAREFA PELO ID ////////////////////////////////////////
 
+const getResponsibleUsers = async (id: string):Promise<any>=>{
+    const selectResponsibleId = await connection.raw(`
+        SELECT responsible_user_id, nickname FROM TodoListResponsibleUserTaskRelation
+        LEFT JOIN TodoListUser ON TodoListResponsibleUserTaskRelation.responsible_user_id = TodoListUser.id
+        WHERE TodoListResponsibleUserTaskRelation.task_id = '${id}'
+    `)
+
+    return selectResponsibleId[0]
+}
+
 const getTaskById = async (id: string): Promise<any> => {
 
     const resultTaskId = await connection.raw(`
-    SELECT TodoListTask.id, title, description, limit_date, status, creator_user_id, nickname 
-    FROM TodoListTask LEFT JOIN TodoListUser ON TodoListTask.creator_user_id = TodoListUser.id WHERE TodoListTask.id = '${id}'
+        SELECT TodoListTask.id, title, description, limit_date, status, creator_user_id, nickname FROM TodoListTask 
+        LEFT JOIN TodoListUser ON TodoListTask.creator_user_id = TodoListUser.id 
+        LEFT JOIN TodoListResponsibleUserTaskRelation ON TodoListTask.id = TodoListResponsibleUserTaskRelation.task_id
+        WHERE TodoListTask.id = '${id}'
     `)
+
     return resultTaskId[0][0]
 }
 
@@ -232,13 +245,14 @@ const getTaskById = async (id: string): Promise<any> => {
     
     try {
       const resultTaskId = await getTaskById(id)
+      const resultResponsible = await getResponsibleUsers(id)
       if(!resultTaskId) {
         errorCode=422
         throw new Error ("Id não encontrado")
       }
       resultTaskId.limit_date = dateToStringDate(resultTaskId.limit_date)
 
-      res.send({result: resultTaskId})
+      res.send({result: resultTaskId, resultResponsible})
     } catch (err:any) {
       res.status(500).send({message: err.message});
     }
@@ -269,7 +283,7 @@ app.post("/task/responsible", async (req: Request, res: Response): Promise<void>
     }
 });
 
-// //////////////////////////////////////// PEGAR USUÁRIOS RESPONSÁVEIS POR UMA TAREFA ////////////////////////////////////////
+////////////////////////////////////////// PEGAR USUÁRIOS RESPONSÁVEIS POR UMA TAREFA ////////////////////////////////////////
 
 const getUserResponsibleTask = async (task_id: string): Promise<any> => {
 
@@ -302,3 +316,5 @@ const getUserResponsibleTask = async (task_id: string): Promise<any> => {
       res.status(500).send({message: err.message});
     }
 });
+
+////////////////////////////////////////// PEGAR USUÁRIOS RESPONSÁVEIS POR UMA TAREFA ////////////////////////////////////////
