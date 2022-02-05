@@ -403,3 +403,26 @@ app.put("/task/status/:id", async (req: Request, res: Response): Promise<void> =
       res.status(500).send({message: err.message});
     }
 });
+
+////////////////////////////////////////// RETIRAR USUÁRIO RESPONSAVEL DE UMA TAREFA ////////////////////////////////////////
+app.delete("/task/:task_id/responsible/:responsible_user_id", async (req: Request, res: Response): Promise<void> => {
+  const task_id = req.params.task_id
+  const responsible_user_id = req.params.responsible_user_id
+  
+  let errorCode = 400
+
+  try {
+    await connection("TodoListResponsibleUserTaskRelation")
+    .delete(task_id)
+    .where("responsible_user_id",responsible_user_id)
+
+    if(!task_id || !responsible_user_id){
+      errorCode = 422
+      throw new Error ("Preencha todos os campos")
+    }
+
+    res.send({message: "Usuário retirado com sucesso"})
+  } catch (err:any) {
+    res.status(500).send({message: err.message});
+  }
+});
