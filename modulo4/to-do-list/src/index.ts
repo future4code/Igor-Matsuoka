@@ -329,15 +329,25 @@ app.post("/task/responsible", async (req: Request, res: Response): Promise<void>
     try {
         const {task_id, responsible_user_id} = req.body
         
-        await connection("TodoListResponsibleUserTaskRelation")
-        .insert({
+        for (let i of responsible_user_id) {
+          let responsible_user_id = i
+          await connection("TodoListResponsibleUserTaskRelation")
+          .insert({
             task_id,
-	        responsible_user_id
-        })
+            responsible_user_id
+          })
+        }
 
         if(!task_id || !responsible_user_id){
-            errorCode=422
-            throw new Error ("Preencha os dois campos")
+          errorCode=422
+          throw new Error ("Preencha os dois campos")
+        }
+
+        for(let i=0; i<connection.length; i++){
+          if(responsible_user_id === req.body.responsible_user_id){
+            errorCode = 422
+            throw new Error("Usuário já foi atribuido a essa tarefa!")
+          }
         }
         
       res.send({message: "Usuário Atribuído a tarefa!"})
