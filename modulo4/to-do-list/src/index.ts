@@ -244,6 +244,41 @@ const getTaskByStatus = async (status: string): Promise<any> => {
     }
 });
 
+//////////////////////////////////////// PROCURAR TAREFA POR TERMO ////////////////////////////////////////
+
+const searchTask = async (task:string): Promise<any> => {
+  const resultTasks = await connection.raw(`
+      SELECT TodoListTask.id, title, description, limit_date, status, creator_user_id, nickname FROM TodoListTask
+      LEFT JOIN TodoListUser ON TodoListTask.creator_user_id = TodoListUser.id WHERE TodoListTask.description like '%${task}%' 
+      OR TodoListTask.title like '%${task}%'
+  `)
+  return resultTasks[0]
+}
+
+app.get("/task", async (req: Request, res: Response): Promise<void> => {
+  try {
+      let errorCode = 400
+      const task = req.query.task as string
+
+      const resultSearchTasks = await searchTask(task)
+
+      if (resultSearchTasks.length > 0) {
+        for (let i of resultSearchTasks) {
+          i.limit_date = dateToStringDate(i.limit_date)
+        }
+      }
+
+      if (!task) {
+        errorCode = 422
+        throw new Error('Tarefa não encontrada.')
+      }
+
+      res.send({tasks: resultSearchTasks})
+  } catch (err:any) {
+      res.status(500).send({message: err.message});
+  }
+});
+
 //////////////////////////////////////// PROCURAR TAREFA POR ID USUÁRIO ////////////////////////////////////////
 
 const searchTaskByUser = async (creator_user_id:string): Promise<any> => {
