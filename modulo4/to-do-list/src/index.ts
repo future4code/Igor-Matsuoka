@@ -475,3 +475,25 @@ app.delete("/task/:task_id/responsible/:responsible_user_id", async (req: Reques
   }
 });
 
+////////////////////////////////////////// DELETAR TAREFA ////////////////////////////////////////
+app.delete("/task/:id", async (req: Request, res: Response): Promise<void> => {
+  const id = req.params.id
+  
+  let errorCode = 400
+
+  try {
+    await connection("TodoListTask")
+    .delete()
+    .where("id",id)
+
+    if(!id){
+      errorCode = 422
+      throw new Error ("Preencha todos os campos")
+    }
+
+    res.send({message: "Tarefa retirada com sucesso"})
+  } catch (err:any) {
+    res.status(500).send({message: err.message});
+  }
+});
+
