@@ -425,18 +425,21 @@ const getUserResponsibleTask = async (task_id: string): Promise<any> => {
     }
 });
 
-////////////////////////////////////////// ATUALIZAR O STATUS DA TAREFA PELO ID ////////////////////////////////////////
-app.put("/task/status/:id", async (req: Request, res: Response): Promise<void> => {
-    const id = req.params.id
+////////////////////////////////////////// ATUALIZAR O STATUS DE VARIAS TAREFAS PELO ID ////////////////////////////////////////
+app.put("/task/status/edit", async (req: Request, res: Response): Promise<void> => {
+    const id = req.body.id
     const { status } = req.body
     let errorCode = 400
 
     try {
+      for(let i of id){
+        let id = i
         await connection("TodoListTask")
         .update({
           status
         })
         .where("id",id)
+      }
 
         if(!status) {
             errorCode=422
@@ -471,3 +474,4 @@ app.delete("/task/:task_id/responsible/:responsible_user_id", async (req: Reques
     res.status(500).send({message: err.message});
   }
 });
+
