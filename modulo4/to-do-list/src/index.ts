@@ -489,9 +489,14 @@ app.delete("/task/:id", async (req: Request, res: Response): Promise<void> => {
       errorCode = 422
       throw new Error ("Preencha todos os campos")
     }
-    
+
     if(check.length > 0){
       await connection('TodoListResponsibleUserTaskRelation').where('task_id', id).del()
+    }
+
+    if (check.length === 0) {
+      errorCode = 404
+      throw new Error('Tarefa não encontrado.')
     }
 
     await connection("TodoListTask")
@@ -514,18 +519,23 @@ app.delete("/user/:id", async (req: Request, res: Response): Promise<void> => {
     const check = await connection("TodoListUser")
     .where("id",id)
 
-    if (check.length === 0) {
-      errorCode = 404
-      throw new Error('Usuário não encontrado.')
-    }
-
     if(!id){
       errorCode = 422
       throw new Error ("Preencha todos os campos")
     }
 
-    await connection('TodoListResponsibleUserTaskRelation').where('responsible_user_id', id).del()
-    await connection('TodoListTask').where('creator_user_id', id).del()
+    if (check.length === 0) {
+      errorCode = 404
+      throw new Error('Usuário não encontrado.')
+    }
+    
+    if(check.length > 0){
+      await connection('TodoListResponsibleUserTaskRelation').where('responsible_user_id', id).del()
+      await connection('TodoListTask').where('creator_user_id', id).del()
+    }
+
+    await connection("TodoListUser")
+    .where("id",id).del()
 
     res.send({message: "Usuário deletado com sucesso"})
   } catch (err:any) {
