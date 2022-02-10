@@ -5,7 +5,7 @@ import { connection } from "../../data/connection"
 export const userPurchases = async (id:string):Promise<any> => {
 
     const result = await connection.raw(`
-        SELECT labecommerce_users.name as purchaser, labecommerce_users.email, labecommerce_products.name, 
+        SELECT labecommerce_users.name as costumer, labecommerce_users.email, labecommerce_products.name, 
         labecommerce_purchases.quantity, labecommerce_purchases.total_price
         FROM labecommerce_purchases
         JOIN labecommerce_users on labecommerce_users.id = ${id}
