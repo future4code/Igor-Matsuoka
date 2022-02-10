@@ -3,7 +3,7 @@ import { connection } from "../../data/connection"
 
 export const registerPurchase = async (id:string, user_id:string, product_id:string, quantity:number, total_price:number):Promise<void> => {
     await connection("labecommerce_purchases")
-        .insert({id: id, user_id: user_id, product_id:product_id, quantity:quantity, total_price:total_price})
+        .insert({id: id, user_id: user_id, product_id: product_id, quantity: quantity, total_price: total_price})
         .into("labecommerce_purchases")
 }
 

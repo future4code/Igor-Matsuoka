@@ -6,6 +6,7 @@ import { getUsers } from './endpoints/users/getUsers';
 import { createProduct } from './endpoints/products/createProduct';
 import { getProducts } from './endpoints/products/getProducts';
 import { purchaseRegister } from './endpoints/purchases/purchaseRegister';
+import { getUserPurchases } from './endpoints/purchases/getUserPurchases';
 
 const app: Express = express();
 
@@ -26,3 +27,4 @@ app.get("/users", getUsers)
 app.post("/products", createProduct)
 app.get("/products", getProducts)
 app.post("/purchases", purchaseRegister)
+app.get("/users/:user_id/purchases", getUserPurchases)
