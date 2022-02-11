@@ -1,0 +1,22 @@
+GET http://localhost:3003/users
+Content-Type: application/json
+###
+
+GET http://localhost:3003/user
+Content-Type: application/json
+###
+
+GET http://localhost:3003/userstype
+Content-Type: application/json
+###
+
+GET http://localhost:3003/userssort
+Content-Type: application/json
+###
+
+GET http://localhost:3003/userslimited
+Content-Type: application/json
+###
+
+GET http://localhost:3003/allusers
+Content-Type: application/json
