@@ -8,8 +8,9 @@ export const userPurchases = async (id:string):Promise<any> => {
         SELECT labecommerce_users.name as costumer, labecommerce_users.email, labecommerce_products.name, 
         labecommerce_purchases.quantity, labecommerce_purchases.total_price
         FROM labecommerce_purchases
-        JOIN labecommerce_users on labecommerce_users.id = ${id}
-        JOIN labecommerce_products on labecommerce_products.id = product_id
+        INNER JOIN labecommerce_users on labecommerce_users.id = user_id
+        INNER JOIN labecommerce_products on labecommerce_products.id = product_id
+        WHERE user_id = '${id}'
     `)
 
     return result[0]
