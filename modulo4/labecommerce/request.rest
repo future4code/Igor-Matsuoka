@@ -1,0 +1,40 @@
+GET http://localhost:3003/users
+Content-Type: application/json
+
+###
+GET http://localhost:3003/products
+Content-Type: application/json
+
+###
+GET http://localhost:3003/users/:user_id/purchases
+Content-Type: application/json
+
+###
+POST http://localhost:3003/users
+Content-Type: application/json
+
+{
+    "name": "José",
+    "email":"jose@gmail.com",
+    "password":"jose1234"
+}
+
+###
+POST http://localhost:3003/products
+Content-Type: application/json
+
+{
+    "name":"Bolo de maracujá",
+    "price": 23.50,
+    "image_url": "https://p2.trrsf.com/image/fget/cf/648/0/images.terra.com/2020/10/05/bolo-maracuja-mel-1-768x512.jpg"
+}
+
+###
+POST http://localhost:3003/purchases
+Content-Type: application/json
+
+{
+    "user_id":"1644611842138",
+    "product_id":"1644613159327",
+    "quantity": 2
+}
