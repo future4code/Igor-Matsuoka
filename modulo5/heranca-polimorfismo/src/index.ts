@@ -60,12 +60,79 @@ class Customer extends User {
     }
 }
 
-const costumer = new Customer("1", "igor@gmail.com", "Igor", "123456", "visa")
-costumer.introduceYourself()
-const costumer2 = new Customer("2", "marcos@gmail.com", "Marcos", "7891011", "mastercard")
-costumer2.introduceYourself()
+// const costumer = new Customer("1", "igor@gmail.com", "Igor", "123456", "visa")
+// costumer.introduceYourself()
+// const costumer2 = new Customer("2", "marcos@gmail.com", "Marcos", "7891011", "mastercard")
+// costumer2.introduceYourself()
 
+class Employee extends User {
+    protected admissionDate: string;
+    protected baseSalary: number;
+    static BENEFITS_VALUE: number = 400;
+    
+    constructor(
+        id: string,
+        email: string,
+        name: string,
+        password: string,
+        admissionDate: string,
+        baseSalary: number,
+    ) {
+        super(id, email, name, password);
+        this.admissionDate = admissionDate;
+        this.baseSalary = baseSalary;
+    }
 
+    public getAdmissionDate(): string {
+		return this.admissionDate
+	}
+
+	public getBaseSalary(): number {
+		return this.baseSalary
+	}
+
+    public calculateTotalSalary(): number{
+        return this.baseSalary + Employee.BENEFITS_VALUE
+    }
+}
+
+const employee = new Employee("01", "igor@gmail.com", "Igor", "123456", "21/08/2022", 60000)
+// console.log(employee, employee.calculateTotalSalary())
+
+class Seller extends Employee{
+    protected salesQuantity: number;
+    static SELLING_COMMISSION: number = 5;
+
+    constructor(id: string,
+        email: string,
+        name: string,
+        password: string,
+        admissionDate: string,
+        baseSalary: number,
+        salesQuantity: number
+        ){
+        super(id, email, name, password, admissionDate, baseSalary);
+        this.salesQuantity = salesQuantity;
+    }
+
+    public getSalesQuantity(): number {
+		return this.salesQuantity
+	}
+
+    public setSalesQuantity(quantity: number): void{
+        this.salesQuantity = quantity;
+    }
+
+    public calculateTotalSalary(): number{
+        return this.baseSalary + Employee.BENEFITS_VALUE + Seller.SELLING_COMMISSION * this.salesQuantity
+    }
+}
+
+const seller = new Seller("01", "igor@gmail.com", "Igor", "123456", "21/08/2022", 60000, 2)
+seller.setSalesQuantity(15)
+console.log(seller, seller.calculateTotalSalary())
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export interface Client {
     name: string;
     registrationNumber: number;
@@ -82,9 +149,6 @@ const client: Client = {
       return 2;
     }
 }
-
-// console.log(client)
-
 
 export abstract class Place {
     constructor(protected cep: string) {}
@@ -141,12 +205,12 @@ export class Industry extends Place {
     }
 }
 
-const residence = new Residence(2,"423411415")
-const commerce = new Commerce(3, "2323413213")
-const industry = new Industry(10, "213413233")
-console.log(residence.getCep())
-console.log(commerce.getCep())
-console.log(industry.getCep())
+// const residence = new Residence(2,"423411415")
+// const commerce = new Commerce(3, "2323413213")
+// const industry = new Industry(10, "213413233")
+// console.log(residence.getCep())
+// console.log(commerce.getCep())
+// console.log(industry.getCep())
 
 class ResidentialClient extends Residence implements Client {
     constructor(

@@ -11,6 +11,19 @@
 ### 3
 #### a) Não seria possível pois não existe um get para esse parâmetro
 
+### 6
+#### a) Ela imprime uma mensagem para cada instância criada
+#### b) id, email, name, password, admissionDate, baseSalary
+
+### 7
+#### a) Ela imprime uma mensagem para cada instância criada
+#### b) id, email, name, password, admissionDate, baseSalary
+
+### 8
+#### a) Os mesmos parâmetros de Employee
+#### b) Não consegui imprimir linha por linha, acusava que eram informações protegidas e só podiam ser acessadar por User
+
+
 # Respostas exercícios Polimorfismo
 
 ### 1 
