@@ -130,7 +130,7 @@ class Seller extends Employee{
 
 const seller = new Seller("01", "igor@gmail.com", "Igor", "123456", "21/08/2022", 60000, 2)
 seller.setSalesQuantity(15)
-console.log(seller, seller.calculateTotalSalary())
+// console.log(seller, seller.calculateTotalSalary())
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export interface Client {
@@ -274,3 +274,57 @@ class IndustrialClient extends Industry implements Client {
         return this.consumedEnergy * 0.45 + this.machinesQuantity * 100;
     }
 }
+
+class ClientManager{
+    private clients: Client[] = []
+
+    public getClientsQuantity(): number {
+        return this.clients.length;
+    }
+
+    public registerClient(client: Client): void {
+        this.clients.push(client)
+    }
+
+    public totalIncome(): number {
+        let total: number = 0;
+        this.clients.forEach((client)=>{
+            total += client.calculateBill()
+        })
+        return total
+    }
+
+    public deleteUser(registrationNumber: number): void {
+        let registrationIndex = undefined;
+        
+        for (let i = 0; i < this.clients.length; i++) {
+            if (this.clients[i].registrationNumber === registrationNumber) {
+                registrationIndex = i;
+            }
+        }
+        
+        if (registrationIndex !== undefined) {
+            this.clients.splice(registrationIndex, 1);
+        }
+    }
+}
+
+
+const clientManager = new ClientManager()
+
+const residentialClient = new ResidentialClient("Igor", 1, 24, "1231313", 2, "1331313131")
+clientManager.registerClient(residentialClient)
+
+const commercialClient = new CommercialClient("Igor", 2, 24, "1231313", 2, "1331313131")
+clientManager.registerClient(commercialClient)
+
+const industrialClient = new IndustrialClient("Igor", 3, 24, "1231313", 2, "1331313131")
+clientManager.registerClient(industrialClient)
+
+// console.log(clientManager)
+
+clientManager.totalIncome()
+console.log(clientManager.totalIncome())
+
+clientManager.deleteUser(2)
+console.log(clientManager)
