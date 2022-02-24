@@ -7,21 +7,18 @@ export async function getUserProfile(req: Request, res: Response) {
     try {
         const token = req.headers.authorization
 
+        const id = req.params.id
+
         if(!token){
             errorCode = 422
             throw new Error("É necessário uma autorização")
         }
 
         const authenticator = new Authenticator()
-        const tokenData = authenticator.getTokenData(token)
-
-        if(!tokenData){
-            errorCode = 401
-            throw new Error("Você não está autorizado")
-        }
+        authenticator.getTokenData(token)
 
         const userDatabase = new UserDatabase()
-        const userProfile = await userDatabase.getUserById(tokenData.id)
+        const userProfile = await userDatabase.getUserById(id)
         
         res.status(200).send(userProfile)
 

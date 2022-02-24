@@ -1,8 +1,3 @@
-export enum USER_ROLES {
-    NORMAL = "NORMAL",
-    ADMIN = "ADMIN"
-}
-
 export class User {
     private id: string;
     private name: string;
@@ -38,20 +33,5 @@ export class User {
 
     static toUserModel(data: any): User {
         return new User(data.id, data.name, data.email, data.password)
-    }
-}
-
-export class Admin extends User {
-    private role: USER_ROLES;
-
-    constructor(
-        id: string,
-        name: string,
-        email: string,
-        password: string,
-        role: USER_ROLES
-    ) {
-        super(id, name, email, password);
-        this.role = role;
     }
 }
