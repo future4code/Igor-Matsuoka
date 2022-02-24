@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { UserDatabase } from "../Data/userDatabase";
 import { Authenticator } from "../Services/authenticator";
 import { HashManager } from "../Services/hashManager";
-import { IdGenerator } from "../Services/idGenerator";
 
 export async function login(req: Request, res: Response) {
     let errorCode = 500

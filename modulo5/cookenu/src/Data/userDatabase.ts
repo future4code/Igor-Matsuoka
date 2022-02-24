@@ -29,6 +29,7 @@ export class UserDatabase extends BaseDatabase {
         }
     }
 
+
     public async getUserById(id: string): Promise<User>{
         try {
             const user = await BaseDatabase.connection("User")

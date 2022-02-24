@@ -5,11 +5,13 @@ import { signUp } from "./Endpoints/signUp";
 import { getUserProfile } from "./Endpoints/getProfile";
 import { createRecipe } from "./Endpoints/createRecipe";
 import { getRecipe } from "./Endpoints/getRecipe";
+import { followUser } from "./Endpoints/followUser";
 
 
 app.post("/signup", signUp)
 app.post("/login", login)
 app.post("/recipe", createRecipe)
+app.post("/user/follow", followUser)
 
 app.get("/user/profile", getOwnProfile)
 app.get("/user/:id", getUserProfile)

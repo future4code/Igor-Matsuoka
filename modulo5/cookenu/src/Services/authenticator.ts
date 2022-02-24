@@ -1,5 +1,5 @@
 import * as jwt from "jsonwebtoken";
-import { USER_ROLES } from "../Types/User";
+import { USER_ROLES } from "../Types/Admin";
 
 export interface AuthenticationDataAdmin {
     id: string,
