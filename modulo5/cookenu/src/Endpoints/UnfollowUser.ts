@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UserDatabase } from "../Data/userDatabase";
 import { Authenticator } from "../Services/authenticator";
-import { FollowerDatabase } from "../Data/FollowerDatabase";
+import { FollowerDatabase } from "../Data/followerDatabase";
 
 export async function unfollowUser(req: Request, res: Response) {
     let errorCode = 500
