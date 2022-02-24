@@ -19,11 +19,11 @@ export class RecipeDatabase extends BaseDatabase {
 
     public async getRecipeById(id: string): Promise<Recipe>{
         try {
-            const user = await BaseDatabase.connection("Recipe")
+            const result = await BaseDatabase.connection("Recipe")
             .select("id", "title", "description", "createdAt")
             .where({id: id})
 
-            return user[0] && Recipe.toUserModel(user[0])
+            return result[0] && Recipe.toUserModel(result[0])
             
         } catch (error: any) {
             throw new Error(error.sqlMessage || error.message)

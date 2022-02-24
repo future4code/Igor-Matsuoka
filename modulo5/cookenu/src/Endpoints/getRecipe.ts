@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import { RecipeDatabase } from "../Data/recipeDatabase";
 import { Authenticator } from "../Services/authenticator";
-import { IdGenerator } from "../Services/idGenerator";
-import { Recipe } from "../Types/Recipe";
-import { dataAtualFormatada } from "../Services/formatData";
 
 export async function getRecipe(req: Request, res: Response) {
     let errorCode = 400
