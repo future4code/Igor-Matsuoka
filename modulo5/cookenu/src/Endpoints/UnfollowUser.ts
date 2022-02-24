@@ -3,7 +3,7 @@ import { UserDatabase } from "../Data/userDatabase";
 import { Authenticator } from "../Services/authenticator";
 import { FollowerDatabase } from "../Data/FollowerDatabase";
 
-export async function followUser(req: Request, res: Response) {
+export async function unfollowUser(req: Request, res: Response) {
     let errorCode = 500
     try {
         const token = req.headers.authorization as string
@@ -20,7 +20,7 @@ export async function followUser(req: Request, res: Response) {
 
         if(userToFollowId === tokenData.id){
             errorCode = 409
-            throw new Error("Não é possível seguir a si mesmo")
+            throw new Error("Não é possível deixar de seguir a si mesmo")
         }
 
         const userDatabase = new UserDatabase()
@@ -31,9 +31,9 @@ export async function followUser(req: Request, res: Response) {
         }
 
         const newFollower = new FollowerDatabase()
-        await newFollower.createFollower(userToFollowId, tokenData.id)
+        await newFollower.deleteFollower(userToFollowId, tokenData.id)
 
-        res.status(200).send({ message: "Seguindo com sucesso!"})
+        res.status(200).send({ message: "Deixou de seguir com sucesso!"})
 
     } catch (error: any) {
         res.status(500).send(error.message)

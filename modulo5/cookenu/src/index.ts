@@ -6,12 +6,14 @@ import { getUserProfile } from "./Endpoints/getProfile";
 import { createRecipe } from "./Endpoints/createRecipe";
 import { getRecipe } from "./Endpoints/getRecipe";
 import { followUser } from "./Endpoints/followUser";
+import { unfollowUser } from "./Endpoints/UnfollowUser";
 
 
 app.post("/signup", signUp)
 app.post("/login", login)
 app.post("/recipe", createRecipe)
 app.post("/user/follow", followUser)
+app.post("/user/unfollow", unfollowUser)
 
 app.get("/user/profile", getOwnProfile)
 app.get("/user/:id", getUserProfile)
