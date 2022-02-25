@@ -18,6 +18,7 @@ app.post("/recipe", createRecipe)
 app.post("/user/follow", followUser)
 app.post("/user/unfollow", unfollowUser)
 app.post("/admin", signupAdmin)
+
 app.put("/recipe/:id/change", changeRecipe)
 
 app.get("/user/profile", getOwnProfile)
