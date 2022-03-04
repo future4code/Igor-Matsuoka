@@ -10,6 +10,7 @@ import { unfollowUser } from "./Endpoints/UnfollowUser";
 import { getUserFeed } from "./Endpoints/getUserFeed";
 import { signupAdmin } from "./Endpoints/createAdmin";
 import { changeRecipe } from "./Endpoints/editRecipe";
+import { deleteRecipe } from "./Endpoints/deleteReceita";
 
 
 app.post("/signup", signUp)
@@ -20,6 +21,8 @@ app.post("/user/unfollow", unfollowUser)
 app.post("/admin", signupAdmin)
 
 app.put("/recipe/:id/change", changeRecipe)
+
+app.delete("/recipe/:id/delete", deleteRecipe)
 
 app.get("/user/profile", getOwnProfile)
 app.get("/user/:id", getUserProfile)
