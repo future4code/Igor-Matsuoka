@@ -18,4 +18,12 @@ export class Admin extends User {
         super(id, name, email, password);
         this.role = role;
     }
+
+    public getRole(){
+        return this.role
+    }
+
+    static toAdminModel(data: any): Admin {
+        return new Admin(data.id, data.name, data.email, data.password, data.role)
+    }
 }
