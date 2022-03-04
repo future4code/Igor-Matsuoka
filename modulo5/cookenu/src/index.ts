@@ -10,7 +10,7 @@ import { unfollowUser } from "./Endpoints/UnfollowUser";
 import { getUserFeed } from "./Endpoints/getUserFeed";
 import { signupAdmin } from "./Endpoints/createAdmin";
 import { changeRecipe } from "./Endpoints/editRecipe";
-import { deleteRecipe } from "./Endpoints/deleteReceita";
+import { deleteRecipe } from "./Endpoints/deleteRecipe";
 
 
 app.post("/signup", signUp)

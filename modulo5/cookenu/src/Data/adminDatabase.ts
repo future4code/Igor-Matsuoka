@@ -1,4 +1,4 @@
-import { Admin } from "../Types/Admin";
+import { Admin, USER_ROLES } from "../Types/Admin";
 import { BaseDatabase } from "./baseDatabase";
 
 export class AdminDatabase extends BaseDatabase {
@@ -42,6 +42,18 @@ export class AdminDatabase extends BaseDatabase {
         } catch (error: any) {
             throw new Error(error.sqlMessage || error.message)
         }
-        
+    }
+
+    public async getUserByRole(id: string): Promise<Admin>{
+        try {
+            const result = await BaseDatabase.connection("User")
+            .select("id", "name", "email")
+            .where({role: USER_ROLES.ADMIN, id: id})
+
+            return result[0] && Admin.toUserModel(result[0])
+            
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
     }
 }

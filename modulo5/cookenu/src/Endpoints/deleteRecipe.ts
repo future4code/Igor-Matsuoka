@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import { AdminDatabase } from "../Data/adminDatabase";
 import { RecipeDatabase } from "../Data/recipeDatabase";
+import { UserDatabase } from "../Data/userDatabase";
 import { Authenticator } from "../Services/authenticator";
 
 export async function deleteRecipe(req: Request, res: Response) {
@@ -20,12 +22,19 @@ export async function deleteRecipe(req: Request, res: Response) {
         const recipeDatabase = new RecipeDatabase()
         const recipe = await recipeDatabase.getRecipeById(id)
 
-        if(idCreator !== recipe.getCreatorId()){
-            errorCode = 409
-            throw new Error("Esse usuário não pode alterar essa receita")
-        }
+        const adminDatabase = new AdminDatabase()
+        const idAdmin = await adminDatabase.getUserByRole(idCreator)
 
-        recipeDatabase.deleteRecipe(id, idCreator)
+        if(idAdmin === undefined){
+            if(idCreator !== recipe.getCreatorId()){
+                errorCode = 409
+                throw new Error("Esse usuário não pode alterar essa receita")
+            }
+            recipeDatabase.deleteRecipe(id, idCreator)
+
+        } else if (idAdmin){
+            recipeDatabase.deleteRecipeByAdmin(id)
+        }
 
         res.status(200).send({message: "Receita deletada com sucesso!"})
 
