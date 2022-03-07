@@ -54,4 +54,18 @@ export class UserDatabase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message)
         }
     }
+
+    public async changePassword(password: string, email: string): Promise<void> {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                UPDATE User
+                SET password = '${password}'
+                WHERE email = '${email}'
+            `)
+
+            return result[0]
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
 }

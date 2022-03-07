@@ -12,6 +12,7 @@ import { signupAdmin } from "./Endpoints/createAdmin";
 import { changeRecipe } from "./Endpoints/editRecipe";
 import { deleteRecipe } from "./Endpoints/deleteRecipe";
 import { deleteAccount } from "./Endpoints/deleteAccount";
+import { changePassword } from "./Endpoints/changePassword";
 
 
 app.post("/signup", signUp)
@@ -22,6 +23,7 @@ app.post("/user/unfollow", unfollowUser)
 app.post("/admin", signupAdmin)
 
 app.put("/recipe/:id/change", changeRecipe)
+app.put("/user/change/password", changePassword)
 
 app.delete("/recipe/:id/delete", deleteRecipe)
 app.delete("/user/:id/delete", deleteAccount)
