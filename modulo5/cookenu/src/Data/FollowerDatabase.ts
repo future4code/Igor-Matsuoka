@@ -25,4 +25,35 @@ export class FollowerDatabase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message)
         }
     }
+
+    public async deleteFollowerById(id:string): Promise<void> {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                DELETE Followers FROM Followers
+                JOIN User
+                ON Followers.follower_id = User.id
+                WHERE follower_id ='${id}'
+            `)
+
+            return result[0]
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    public async deleteFollowedById(id:string): Promise<void> {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                DELETE Followers FROM Followers
+                JOIN User
+                ON Followers.followed_id = User.id
+                WHERE followed_id = '${id}'
+            `)
+
+            return result[0]
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
 }

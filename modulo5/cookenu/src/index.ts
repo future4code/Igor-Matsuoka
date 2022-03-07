@@ -11,6 +11,7 @@ import { getUserFeed } from "./Endpoints/getUserFeed";
 import { signupAdmin } from "./Endpoints/createAdmin";
 import { changeRecipe } from "./Endpoints/editRecipe";
 import { deleteRecipe } from "./Endpoints/deleteRecipe";
+import { deleteAccount } from "./Endpoints/deleteAccount";
 
 
 app.post("/signup", signUp)
@@ -23,6 +24,7 @@ app.post("/admin", signupAdmin)
 app.put("/recipe/:id/change", changeRecipe)
 
 app.delete("/recipe/:id/delete", deleteRecipe)
+app.delete("/user/:id/delete", deleteAccount)
 
 app.get("/user/profile", getOwnProfile)
 app.get("/user/:id", getUserProfile)

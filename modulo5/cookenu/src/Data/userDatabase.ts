@@ -40,7 +40,18 @@ export class UserDatabase extends BaseDatabase {
             
         } catch (error: any) {
             throw new Error(error.sqlMessage || error.message)
+        } 
+    }
+
+    public async deleteUser(id: string): Promise<void> {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                DELETE FROM User WHERE id = '${id}'
+            `)
+
+            return result[0]
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
         }
-        
     }
 }
