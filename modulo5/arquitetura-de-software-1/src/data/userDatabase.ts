@@ -36,5 +36,35 @@ export class UserDatabase extends BaseDatabase{
         } catch (error: any) {
           throw new Error(error.sqlMessage || error.message);
         }
+    }
+
+    async get(): Promise<any[]> {
+        try {
+            const users: any = [];
+
+            const result = await UserDatabase.connection("User_Arq")
+            .select("*")
+			for(let user of result){
+				users.push(user);
+			}
+
+            return users;
+
+        } catch (error:any) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
+
+    public async deleteUser(
+        id: string
+      ): Promise<void> {
+        try {
+          await UserDatabase.connection("User_Arq")
+            .del()
+            .where({ id })
+            
+        } catch (error:any) {
+          throw new Error(error.sqlMessage || error.message);
+        }
       }
 }   

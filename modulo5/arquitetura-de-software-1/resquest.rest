@@ -13,6 +13,16 @@ POST http://localhost:3003/login
 Content-Type: application/json
 
 {
-    "email": "igor@gmail.com",
-    "password": "igor1234"
+    "email": "carlos@gmail.com",
+    "password": "carlos1234"
 }
+
+###
+GET http://localhost:3003/all
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ2OGJlOGVkLWE3NWYtNGM4ZS05NzAwLTg2MTcxOThjNWVjMCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0NjcwNDE3NiwiZXhwIjoxNjQ2NzA1NjE2fQ.3AxCxX4Wz-oHDrSpV3KCrJA_C4aTihj7ndVzAhhxIyM
+
+###
+DELETE http://localhost:3003/3f210af4-df6b-41f7-afe8-2f5b58244b90 
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZjODcxODE1LTAwYTEtNDU1NS04Y2JjLTFjYWQ5ZjgxNzJlZSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NDY3MDUyMzIsImV4cCI6MTY0NjcwNjY3Mn0.hUajwIYjpIsmBgQk0bHIasgcTvq4ZY9EF3S7_qtb-Tg
