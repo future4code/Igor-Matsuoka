@@ -5,9 +5,9 @@ export interface AuthenticationData {
 }
 
 export class Authenticator {
-    public generate(input: AuthenticationData): string {
+    public generateToken(payload: AuthenticationData): string {
         const token = jwt.sign(
-            input,
+            payload,
             process.env.JWT_KEY as string,
             {
                 expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN
