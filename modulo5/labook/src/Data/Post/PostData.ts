@@ -17,5 +17,16 @@ export default class PostData extends BaseDatabase implements PostRepository{
         }
     }
 
-    
+    findById = async (id: string) => {
+        try {
+            const queryResult: Post[] = await BaseDatabase
+            .connection(this.TABLE_NAME)
+            .select()
+            .where({id})
+
+            return queryResult[0] && Post.toUserModel(queryResult[0])
+        } catch (error:any) {
+            throw new Error(error.message)
+        }
+    }
 }

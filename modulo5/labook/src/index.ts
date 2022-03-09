@@ -9,3 +9,4 @@ app.post("/user/signup", userController.signup)
 app.post("/user/login", userController.login)
 
 app.post("/post/create", postController.create)
+app.get("/post/:id", postController.find)
