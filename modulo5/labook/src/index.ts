@@ -10,9 +10,10 @@ const relationController = new RelationController()
 app.post("/user/signup", userController.signup)
 app.post("/user/login", userController.login)
 
+app.get("/post/feed", postController.get)
+app.get("/post/feed/:type", postController.getPostsByType)
 app.post("/post/create", postController.create)
 app.get("/post/:id", postController.find)
-app.get("/post", postController.get)
 
 app.post("/relations/create", relationController.create)
 app.delete("/relations/:id", relationController.delete)

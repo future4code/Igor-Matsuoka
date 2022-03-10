@@ -1,5 +1,5 @@
 import { PostRepository } from "../../Business/Post/PostRepository";
-import { feedPost, Post } from "../../Model/Post";
+import { Post, POST_TYPES } from "../../Model/Post";
 import BaseDatabase from "../BaseDatabase";
 
 export default class PostData extends BaseDatabase implements PostRepository{
@@ -49,6 +49,27 @@ export default class PostData extends BaseDatabase implements PostRepository{
         } catch (error:any) {
             throw new Error(error.sqlMessage || error.message)
         }
-        
+    }
+
+    getPostsByEvent = async(id:string, event:POST_TYPES)=> {
+        try{
+            const queryResult: Post[] = await BaseDatabase
+            .connection.raw(`
+                SELECT Labook_Posts.id, photo, description, type, created_at, author_id, Labook_Users.name
+                FROM Labook_Posts
+                JOIN Labook_Users
+                ON Labook_Posts.author_id = Labook_Users.id
+                JOIN Labook_Relations
+                ON Labook_Relations.user2_id = Labook_Posts.author_id
+                AND Labook_Relations.user1_id = '${id}'
+                WHERE type = '${event}'
+                ORDER BY created_at DESC
+            `)
+
+            return queryResult[0]
+            
+        } catch (error:any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
     }
 }
