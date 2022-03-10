@@ -7,12 +7,12 @@ import { PostRepository } from "./PostRepository";
 export default class PostBusiness {
     private idGenerator: IdGenerator;
     private authenticator: Authenticator;
-    private userData: PostRepository
+    private postData: PostRepository;
 
     constructor(
         postDataImplementation: PostRepository
     ){
-        this.userData = postDataImplementation
+        this.postData = postDataImplementation
         this.idGenerator = new IdGenerator()
         this.authenticator = new Authenticator()
     }
@@ -48,6 +48,31 @@ export default class PostBusiness {
             author_id
         )
 
-        await this.userData.insert(post)
+        const result = await this.postData.insert(post)
+
+        return result
+    }
+
+    find = async (inputHeaders:string | undefined, input: string) => {
+        const token = inputHeaders
+        const inputParams = input
+
+        if(!inputParams){
+            throw new Error("Insira um ID!")
+        }
+
+        if(!token || token === undefined){
+            throw new Error("É necessário uma autorização!")
+        }
+
+        await this.authenticator.getTokenData(token)
+
+        const result = await this.postData.findById(inputParams)
+
+        if(!result){
+            throw new Error("Não existe um post com esse id")
+        }
+
+        return result
     }
 }

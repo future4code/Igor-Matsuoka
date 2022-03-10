@@ -63,3 +63,7 @@ export type createPostInputDTO = {
     description: string,
     type: POST_TYPES
 }
+
+export type paramsInputDTO = {
+    inputParams:string
+}
