@@ -1,5 +1,5 @@
 import { RelationsRepository } from "../../Business/Relations/RelationsRepository";
-import { Relation } from "../../Model/Relation";
+import { deleteRelationInputDTO, Relation } from "../../Model/Relation";
 import BaseDatabase from "../BaseDatabase";
 
 export default class RelationsData extends BaseDatabase implements RelationsRepository {
@@ -26,6 +26,18 @@ export default class RelationsData extends BaseDatabase implements RelationsRepo
 
             return queryResult[0] && Relation.toUserModel(queryResult[0])
         } catch (error:any) {
+            throw new Error(error.message)
+        }
+    }
+
+    delete = async (id: string, id2: string): Promise<void> =>{
+        try {
+            await BaseDatabase
+            .connection(this.TABLE_NAME)
+            .delete()
+            .where({user1_id: id, user2_id: id2})
+
+        } catch (error: any) {
             throw new Error(error.message)
         }
     }
