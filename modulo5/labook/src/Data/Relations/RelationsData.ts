@@ -1,5 +1,5 @@
 import { RelationsRepository } from "../../Business/Relations/RelationsRepository";
-import { deleteRelationInputDTO, Relation } from "../../Model/Relation";
+import { Relation } from "../../Model/Relation";
 import BaseDatabase from "../BaseDatabase";
 
 export default class RelationsData extends BaseDatabase implements RelationsRepository {

@@ -47,4 +47,17 @@ export default class PostController {
             res.send({ message })
         }
     }
+
+    get = async (req: Request, res: Response) => {
+        const token = req.headers.authorization
+
+        try {
+            const posts = await this.postBusiness.get(token)
+            res.send({posts: posts})
+        } catch (error:any) {
+            res.statusCode = 400
+            let message = error.sqlMessage || error.message
+            res.send({ message })
+        }
+    }
 }

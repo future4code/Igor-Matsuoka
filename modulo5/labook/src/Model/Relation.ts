@@ -34,6 +34,3 @@ export type createRelationInputDTO = {
     userId: string
 }
 
-export type deleteRelationInputDTO = {
-    userId: string
-}

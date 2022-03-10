@@ -12,6 +12,7 @@ app.post("/user/login", userController.login)
 
 app.post("/post/create", postController.create)
 app.get("/post/:id", postController.find)
+app.get("/post", postController.get)
 
 app.post("/relations/create", relationController.create)
 app.delete("/relations/:id", relationController.delete)

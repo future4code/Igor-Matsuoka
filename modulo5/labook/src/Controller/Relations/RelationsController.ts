@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import RelationBusiness from "../../Business/Relations/RelationBusiness"
 import RelationsData from "../../Data/Relations/RelationsData"
-import { createRelationInputDTO, deleteRelationInputDTO } from "../../Model/Relation"
+import { createRelationInputDTO } from "../../Model/Relation"
 
 export default class RelationController {
     private relationBusiness: RelationBusiness
@@ -31,7 +31,7 @@ export default class RelationController {
 
     delete = async (req: Request, res: Response) => {
         const token = req.headers.authorization
-        const input  = req.params.id
+        const input = req.params.id
 
         try {
             await this.relationBusiness.delete(token, input)

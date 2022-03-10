@@ -67,3 +67,13 @@ export type createPostInputDTO = {
 export type paramsInputDTO = {
     inputParams:string
 }
+
+export type feedPost = {
+    id: string,
+    photo: string,
+    description: string,
+    type: POST_TYPES,
+    createdAt: Date,
+    authorId: string,
+    name: string
+}

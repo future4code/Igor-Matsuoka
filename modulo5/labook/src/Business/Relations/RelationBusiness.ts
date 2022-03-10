@@ -1,4 +1,4 @@
-import { createRelationInputDTO, deleteRelationInputDTO, Relation } from "../../Model/Relation";
+import { createRelationInputDTO, Relation } from "../../Model/Relation";
 import { Authenticator } from "../../Utilities/authenticator";
 import { IdGenerator } from "../../Utilities/idGenerator";
 import { RelationsRepository } from "./RelationsRepository";

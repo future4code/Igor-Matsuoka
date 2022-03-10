@@ -75,4 +75,20 @@ export default class PostBusiness {
 
         return result
     }
+
+    get = async (inputHeaders:string | undefined) => {
+        const token = inputHeaders
+
+        if(!token || token === undefined){
+            throw new Error("É necessário uma autorização!")
+        }
+
+        const authenticator = await this.authenticator.getTokenData(token)
+
+        const userId = authenticator.id
+
+        const result = await this.postData.getPosts(userId)
+        
+        return result
+    }
 }
