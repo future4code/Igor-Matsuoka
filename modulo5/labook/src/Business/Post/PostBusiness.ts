@@ -1,4 +1,4 @@
-import { createPostInputDTO, paramsInputDTO, Post } from "../../Model/Post";
+import { createPostInputDTO, Post } from "../../Model/Post";
 import { Authenticator } from "../../Utilities/authenticator";
 import { IdGenerator } from "../../Utilities/idGenerator";
 import { PostRepository } from "./PostRepository";
@@ -49,7 +49,7 @@ export default class PostBusiness {
         )
 
         const result = await this.userData.insert(post)
-        
+
         return result
     }
 

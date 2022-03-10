@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import PostBusiness from "../../Business/Post/PostBusiness"
 import PostData from "../../Data/Post/PostData"
-import { createPostInputDTO, paramsInputDTO } from "../../Model/Post"
+import { createPostInputDTO } from "../../Model/Post"
 
 export default class PostController {
     private postBusiness: PostBusiness
