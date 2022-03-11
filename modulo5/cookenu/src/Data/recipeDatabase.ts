@@ -1,6 +1,5 @@
-import { AuthenticationData } from "../Services/authenticator";
+import { USER_ROLES } from "../Types/Admin";
 import { Recipe } from "../Types/Recipe";
-import { User } from "../Types/User";
 import { BaseDatabase } from "./baseDatabase";
 
 export class RecipeDatabase extends BaseDatabase {
@@ -29,8 +28,7 @@ export class RecipeDatabase extends BaseDatabase {
             
         } catch (error: any) {
             throw new Error(error.sqlMessage || error.message)
-        }
-        
+        }  
     }
 
     public async changeRecipe(title:string, description:string, id:string, creator_id: string): Promise<void> {
@@ -39,6 +37,45 @@ export class RecipeDatabase extends BaseDatabase {
                 UPDATE Recipe
                 SET title = '${title}', description ='${description}'
                 WHERE id = '${id}' AND creator_id = '${creator_id}'
+            `)
+
+            return result[0]
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    public async deleteRecipe(id: string, creator_id: string): Promise<void> {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                DELETE FROM Recipe WHERE id = '${id}' AND creator_id = '${creator_id}'
+            `)
+
+            return result[0]
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    public async deleteRecipeByAdmin(id: string): Promise<void> {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                DELETE Recipe FROM Recipe 
+                JOIN User
+                ON Recipe.creator_id = User.id
+                WHERE Recipe.id = '${id}'
+            `)
+
+            return result[0]
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    public async deleteRecipeByCreator(creator_id: string): Promise<void> {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                DELETE FROM Recipe WHERE creator_id = '${creator_id}'
             `)
 
             return result[0]

@@ -41,11 +41,11 @@ As funcionalidades básicas são:
         
 - **Editar receita**
        
-- **Deletar receita** 🛠️(não finalizado)
+- **Deletar receita**
 
-- **Deletar conta** 🛠️(não finalizado)
+- **Deletar conta**
         
-- **Esqueci a senha** 🛠️(não finalizado)
+- **Esqueci a senha**
 
 ## Tecnologias utilizadas
 
