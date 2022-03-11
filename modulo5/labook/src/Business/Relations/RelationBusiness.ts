@@ -40,8 +40,6 @@ export default class RelationBusiness {
 
         const searchRelation = await this.relationData.findById(user1_id, userId)
         const searchRelation2 = await this.relationData.findById(userId, user1_id)
-        console.log(searchRelation)
-        console.log(searchRelation2)
 
         if(user1_id === userId){
             throw new Error("Você não pode fazer amizade com você mesmo!")
