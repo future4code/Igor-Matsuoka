@@ -13,7 +13,7 @@ export async function getUserFeed(req: Request, res: Response) {
         }
 
         const authenticator = new Authenticator()
-        console.log(token)
+       
         const tokenData = authenticator.getTokenData(token)
 
         const feedDatabase = new FeedDatabase()
