@@ -42,6 +42,7 @@ export default class PostData extends BaseDatabase implements PostRepository{
                 ON Labook_Relations.user2_id = Labook_Posts.author_id
                 AND Labook_Relations.user1_id = '${id}'
                 ORDER BY created_at DESC
+                LIMIT 5
             `)
 
             return queryResult[0]
