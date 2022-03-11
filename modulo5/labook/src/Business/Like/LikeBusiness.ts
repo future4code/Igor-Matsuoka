@@ -49,35 +49,29 @@ export default class LikeBusiness {
         return result
     }
 
-    // delete = async (inputHeaders: string| undefined, input: string) => {
-    //     const token = inputHeaders
-    //     const userId  = input
+    delete = async (inputHeaders: string| undefined, input: string) => {
+        const token = inputHeaders
+        const postId  = input
 
-    //     if(!userId){
-    //         throw new Error("Insira todos os campos!")
-    //     }
+        if(!postId){
+            throw new Error("Insira todos os campos!")
+        }
 
-    //     if(!token || token === undefined){
-    //         throw new Error("É necessário uma autorização!")
-    //     }
+        if(!token || token === undefined){
+            throw new Error("É necessário uma autorização!")
+        }
 
-    //     const authenticator = await this.authenticator.getTokenData(token)
-    //     const user1_id = authenticator.id
+        const authenticator = await this.authenticator.getTokenData(token)
+        const user_id = authenticator.id
 
-    //     const searchRelation = await this.relationData.findById(user1_id, userId)
-    //     const searchRelation2 = await this.relationData.findById(userId, user1_id)
+        const searchRelation = await this.likeData.findById(user_id, postId)
 
-    //     if(user1_id === userId){
-    //         throw new Error("Você não pode desfazer amizade com você mesmo!")
-    //     }
+        if(searchRelation){
+            await this.likeData.delete(user_id, input)
+        }
 
-    //     if(searchRelation || searchRelation2){
-    //         await this.relationData.delete(user1_id, input)
-    //         await this.relationData.delete(input, user1_id)
-    //     }
-
-    //     if(!searchRelation && !searchRelation2){
-    //         throw new Error("Você ainda não possui amizade com essa pessoa!")
-    //     }
-    // }
+        if(!searchRelation){
+            throw new Error("Você ainda não curtiu esse post!")
+        }
+    }
 }

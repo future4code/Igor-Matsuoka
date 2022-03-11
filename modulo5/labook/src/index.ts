@@ -21,3 +21,4 @@ app.post("/relations/create", relationController.create)
 app.delete("/relations/:id", relationController.delete)
 
 app.post("/like", likeController.create)
+app.post("/like/:id", likeController.delete)

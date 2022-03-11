@@ -29,18 +29,18 @@ export default class LikeController {
         }
     }
 
-    // delete = async (req: Request, res: Response) => {
-    //     const token = req.headers.authorization
-    //     const input = req.params.id
+    delete = async (req: Request, res: Response) => {
+        const token = req.headers.authorization
+        const input = req.params.id
 
-    //     try {
-    //         await this.likeBusiness.delete(token, input)
-    //         res.send({message: "É uma pena ver uma amizade se desfazer!"})
-    //     } catch (error:any) {
-    //         res.statusCode = 400
-    //         let message = error.sqlMessage || error.message
-    //         res.send({ message })
-    //     }
-    // }
+        try {
+            await this.likeBusiness.delete(token, input)
+            res.send({message: "Você descurtiu o post!"})
+        } catch (error:any) {
+            res.statusCode = 400
+            let message = error.sqlMessage || error.message
+            res.send({ message })
+        }
+    }
 
 }
