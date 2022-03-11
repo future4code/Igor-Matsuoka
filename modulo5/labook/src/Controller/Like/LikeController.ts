@@ -1,26 +1,26 @@
 import { Request, Response } from "express"
-import RelationBusiness from "../../Business/Relations/RelationBusiness"
-import RelationsData from "../../Data/Relations/RelationsData"
-import { createRelationInputDTO } from "../../Model/Relation"
+import LikeBusiness from "../../Business/Like/LikeBusiness"
+import LikeData from "../../Data/Like/LikeData"
+import { createLikeInputDTO } from "../../Model/Like"
 
-export default class RelationController {
-    private relationBusiness: RelationBusiness
+export default class LikeController {
+    private likeBusiness: LikeBusiness
     constructor(
     ){
-        this.relationBusiness = new RelationBusiness(new RelationsData())
+        this.likeBusiness = new LikeBusiness(new LikeData())
     }
 
     create = async (req: Request, res: Response) => {
         const token = req.headers.authorization
         const { id } = req.body
         
-        const input: createRelationInputDTO = {
-            userId: id
+        const input: createLikeInputDTO = {
+            postId: id
         }
 
         try {
-            await this.relationBusiness.create(token, input)
-            res.send({message: "VIVA! Você acabou de fazer uma amizade!"})
+            await this.likeBusiness.create(token, input)
+            res.send({message: "Você curtiu um post!"})
 
         } catch (error:any) {
             res.statusCode = 400
@@ -34,8 +34,8 @@ export default class RelationController {
         const input = req.params.id
 
         try {
-            await this.relationBusiness.delete(token, input)
-            res.send({message: "É uma pena ver uma amizade se desfazer!"})
+            await this.likeBusiness.delete(token, input)
+            res.send({message: "Você descurtiu o post!"})
         } catch (error:any) {
             res.statusCode = 400
             let message = error.sqlMessage || error.message

@@ -29,4 +29,16 @@ export default class RelationsData extends BaseDatabase implements RelationsRepo
             throw new Error(error.message)
         }
     }
+
+    delete = async (id: string, id2: string): Promise<void> =>{
+        try {
+            await BaseDatabase
+            .connection(this.TABLE_NAME)
+            .delete()
+            .where({user1_id: id, user2_id: id2})
+
+        } catch (error: any) {
+            throw new Error(error.message)
+        }
+    }
 }

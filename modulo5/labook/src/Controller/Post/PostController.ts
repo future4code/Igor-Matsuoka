@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import PostBusiness from "../../Business/Post/PostBusiness"
 import PostData from "../../Data/Post/PostData"
-import { createPostInputDTO } from "../../Model/Post"
+import { createPostInputDTO, POST_TYPES } from "../../Model/Post"
 
 export default class PostController {
     private postBusiness: PostBusiness
@@ -41,6 +41,33 @@ export default class PostController {
             const post = await this.postBusiness.find(token, input)
             res.send({post})
 
+        } catch (error:any) {
+            res.statusCode = 400
+            let message = error.sqlMessage || error.message
+            res.send({ message })
+        }
+    }
+
+    get = async (req: Request, res: Response) => {
+        const token = req.headers.authorization
+
+        try {
+            const posts = await this.postBusiness.get(token)
+            res.send({posts: posts})
+        } catch (error:any) {
+            res.statusCode = 400
+            let message = error.sqlMessage || error.message
+            res.send({ message })
+        }
+    }
+
+    getPostsByType = async (req: Request, res: Response) => {
+        const token = req.headers.authorization
+        const input = req.params.type as POST_TYPES
+
+        try {
+            const posts = await this.postBusiness.getPostsByType(token, input)
+            res.send({posts: posts})
         } catch (error:any) {
             res.statusCode = 400
             let message = error.sqlMessage || error.message

@@ -33,3 +33,4 @@ export type relation = {
 export type createRelationInputDTO = {
     userId: string
 }
+

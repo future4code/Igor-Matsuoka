@@ -1,4 +1,4 @@
-import { createPostInputDTO, Post } from "../../Model/Post";
+import { createPostInputDTO, Post, POST_TYPES } from "../../Model/Post";
 import { Authenticator } from "../../Utilities/authenticator";
 import { IdGenerator } from "../../Utilities/idGenerator";
 import { PostRepository } from "./PostRepository";
@@ -73,6 +73,47 @@ export default class PostBusiness {
             throw new Error("Não existe um post com esse id")
         }
 
+        return result
+    }
+
+    get = async (inputHeaders:string | undefined) => {
+        const token = inputHeaders
+
+        if(!token || token === undefined){
+            throw new Error("É necessário uma autorização!")
+        }
+
+        const authenticator = await this.authenticator.getTokenData(token)
+
+        const userId = authenticator.id
+
+        const result = await this.postData.getPosts(userId)
+        
+        return result
+    }
+
+    getPostsByType = async (inputHeaders:string | undefined, input: POST_TYPES) => {
+        const token = inputHeaders
+        const inputParams = input
+
+        if(!inputParams){
+            throw new Error("Preencha todos os campos!")
+        }
+
+        if(inputParams !== 'normal' && inputParams !== 'event'){
+            throw new Error("Não é um tipo de post válido!")
+        }
+
+        if(!token || token === undefined){
+            throw new Error("É necessário uma autorização!")
+        }
+
+        const authenticator = await this.authenticator.getTokenData(token)
+
+        const userId = authenticator.id
+
+        const result = await this.postData.getPostsByEvent(userId, inputParams)
+        
         return result
     }
 }
