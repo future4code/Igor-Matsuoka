@@ -9,7 +9,9 @@ import { useHistory } from "react-router-dom"
 
 const SearchPage = () => {
     const history = useHistory();
+
     const {form, handleInputOnChange} = useForm({userFilter: ""})
+
     const users = useRequestData([], `${BASE_URL}/users`)
 
     const usersResult = users
@@ -31,6 +33,7 @@ const SearchPage = () => {
     return (
         <div>
             <button onClick = {() => goToHistoryPage(history)}>History</button>
+
             <TextField
                 name={"userFilter"}
                 value={form.login}
@@ -41,6 +44,7 @@ const SearchPage = () => {
                 fullWidth
                 margin={"dense"}
             />
+
             <div>
                 {usersResult}
             </div>  

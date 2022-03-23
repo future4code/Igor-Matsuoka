@@ -1,5 +1,5 @@
 export const goToProfilePage = (history, username) => {
-    history.push(`/users/${username}`)    
+    history.push(`/users/${username}`) 
 } 
 
 export const goToSearchPage = (history) => {
