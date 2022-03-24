@@ -20,21 +20,24 @@ const HistoryPage = () => {
         .toLowerCase()
         .includes(states.userHistory)
     })
+
+    const usersResult2 = usersResult
     .map((user)=>{
-        return <div key={user.id}>
-            <UserCard
+        console.log(user)
+        return (
+            <UserCard key={user.id}
                 src = {user.avatar_url}
                 name = {user.name}
                 login = {user.login}
             />
-        </div>
+        )
     })
 
     return(<div>
         <button onClick = {() => goToSearchPage(history)}>Voltar</button>
         <div>History</div>
             <div>
-                {usersResult}
+            {usersResult2.length > 0 ? usersResult : <h3>Você ainda não realizou nenhuma busca!</h3>}
             </div>  
         </div>
     )
