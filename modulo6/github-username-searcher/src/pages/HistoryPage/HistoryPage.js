@@ -4,40 +4,28 @@ import { useHistory } from "react-router-dom";
 import UserCard from "../../components/UserCard";
 import { useContext } from "react";
 import GlobalStateContext from "../../Global/GlobalStateContexts";
-import { useRequestData } from "../../hooks/useRequestData";
-import { BASE_URL } from "../../constants/urls";
 
 const HistoryPage = () => {
     const history = useHistory();
     const { states } = useContext(GlobalStateContext)
 
-    console.log(states.userHistory)
-    const users = useRequestData([], `${BASE_URL}/users`)
-    
-    const usersResult = users
-    .filter((user)=>{
-        return user.login
-        .toLowerCase()
-        .includes(states.userHistory)
-    })
-
-    const usersResult2 = usersResult
-    .map((user)=>{
-        console.log(user)
-        return (
+    const usersResult = states.userHistory.map((user)=>{
+        return(
             <UserCard key={user.id}
-                src = {user.avatar_url}
-                name = {user.name}
-                login = {user.login}
+                user={user}
             />
         )
     })
+
+    const reverseUsersResult = usersResult.reverse()
 
     return(<div>
         <button onClick = {() => goToSearchPage(history)}>Voltar</button>
         <div>History</div>
             <div>
-            {usersResult2.length > 0 ? usersResult : <h3>Você ainda não realizou nenhuma busca!</h3>}
+            {reverseUsersResult.length > 0 
+            ? reverseUsersResult 
+            : <h3>Você ainda não realizou nenhuma busca!</h3>}
             </div>  
         </div>
     )

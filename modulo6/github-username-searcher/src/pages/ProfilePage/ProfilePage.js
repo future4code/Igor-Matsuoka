@@ -4,8 +4,11 @@ import { BASE_URL } from "../../constants/urls"
 import { useRequestData } from "../../hooks/useRequestData"
 import RepoCard from "../../components/RepoCard"
 import ProfileCard from "../../components/ProfileCard"
+import { useHistory } from "react-router-dom"
+import { goToSearchPage } from "../../routes/coordinator"
 
 const ProfilePage = () => {
+    const history = useHistory()
     const params = useParams()
     
     const user = useRequestData([], `${BASE_URL}/users/${params.username}`)
@@ -26,19 +29,10 @@ const ProfilePage = () => {
 
     return (
         <div>
+            <button onClick = {() => goToSearchPage(history)}>Voltar</button>
             <ProfileCard
-                src = {user.avatar_url}
-                name = {user.name}
-                login = {user.login}
-                location = {user.location}
-                company = {user.company}
-                email = {user.email}
-                public_repos = {user.public_repos}
-                public_gists = {user.public_gists}
-                followers = {user.followers}
-                following = {user.following}
+                user={user}
             />
-
             {reposResult}
         </div>
     )

@@ -1,17 +1,20 @@
 const ProfileCard = (props) => {
     return (
-      <div>
-          <img src={props.src} alt={props.name} />
-          <div>{props.login}</div>
-          <div>Name: {props.name}</div>
-          <div>Location: {props.location}</div>
-          <div>Company: {props.company}</div>
-          <div>Public Repositories: {props.public_repos}</div>
-          <div>Public gists: {props.public_gists}</div>
-          <div>Followers: {props.followers}</div>
-          <div>Following: {props.following}</div>
+      <div key={props.user.id}>
+        <div>
+            <img src={props.user.avatar_url} alt={props.user.name} />
+            <div>{props.user.login}</div>
+            <div>Name: {props.user.name}</div>
+            <div>Location: {props.user.location}</div>
+            <div>Company: {props.user.company}</div>
+            <div>Public Repositories: {props.user.public_repos}</div>
+            <div>Public gists: {props.user.public_gists}</div>
+            <div>Followers: {props.user.followers}</div>
+            <div>Following: {props.user.following}</div>
         </div>
+      </div>
     );
-};
   
-  export default ProfileCard;
+};
+    
+export default ProfileCard;

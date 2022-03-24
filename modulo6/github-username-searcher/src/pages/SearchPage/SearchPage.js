@@ -21,13 +21,12 @@ const SearchPage = () => {
         .includes(form.userFilter.toLowerCase())
     })
     .map((user)=>{
-        return <div key={user.id}>
+        return(
             <UserCard
-                src = {user.avatar_url}
-                name = {user.name}
-                login = {user.login}
+                key={user.id}
+                user={user}
             />
-        </div>
+        )
     })
 
     return (

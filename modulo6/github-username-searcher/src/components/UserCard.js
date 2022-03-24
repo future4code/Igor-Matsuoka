@@ -7,16 +7,16 @@ const UserCard = (props) => {
   const history = useHistory();
   const { setters } = useContext(GlobalStateContext)
 
-  const submitHistory = (login) => {
-    setters.addHistory(login)
-    goToProfilePage(history, login)
+  const submitHistory = (user) => {
+    setters.addHistory(user)
+    goToProfilePage(history, props.user.login)
   }
 
   return (
-    <div>
-      <div onClick={() => submitHistory(props.login)}>
-        <img src={props.src} alt={props.name} />
-        <div>{props.login}</div>
+    <div key={props.user.id}>
+      <div onClick={() => submitHistory(props.user)}>
+        <img src={props.user.avatar_url} alt={props.user.name} />
+        <div>{props.user.login}</div>
       </div>
     </div>
   );

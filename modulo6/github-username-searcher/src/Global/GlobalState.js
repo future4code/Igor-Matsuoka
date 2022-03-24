@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import GlobalStateContext from "./GlobalStateContexts";
 
+
 const GlobalState = (props) => {
+
     const [userHistory, setUserHistory] = useState([])
 
     const addHistory = (login) => {
