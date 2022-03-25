@@ -7,7 +7,7 @@ const GlobalState = (props) => {
     const [userHistory, setUserHistory] = useState([])
 
     const addHistory = (login) => {
-        const newHistory = [...userHistory, login]
+        let newHistory = [...userHistory, login]
         setUserHistory(newHistory)
     }
 

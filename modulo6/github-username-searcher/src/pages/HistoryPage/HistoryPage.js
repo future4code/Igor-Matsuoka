@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import UserCard from "../../components/UserCard";
 import { useContext } from "react";
 import GlobalStateContext from "../../Global/GlobalStateContexts";
+import { ButtonContainer, HistoryContainer, MessageContainer } from "./StyledHistoryPage";
+import { Button } from "@material-ui/core";
 
 const HistoryPage = () => {
     const history = useHistory();
@@ -20,12 +22,14 @@ const HistoryPage = () => {
     const reverseUsersResult = usersResult.reverse()
 
     return(<div>
-        <button onClick = {() => goToSearchPage(history)}>Voltar</button>
-        <div>History</div>
+        <ButtonContainer>
+        <Button variant="contained" onClick = {() => goToSearchPage(history)}>Voltar</Button>
+        </ButtonContainer>
+        <HistoryContainer>SEARCH HISTORY</HistoryContainer>
             <div>
             {reverseUsersResult.length > 0 
             ? reverseUsersResult 
-            : <h3>Você ainda não realizou nenhuma busca!</h3>}
+            : <MessageContainer>Você ainda não realizou nenhuma busca!</MessageContainer>}
             </div>  
         </div>
     )
