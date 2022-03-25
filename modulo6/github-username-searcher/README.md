@@ -24,4 +24,4 @@
 - **Pesquisar um usuário já pesquisado através do histórico**
    
 ### Link Surge 
-[GithubSearcher](kindly-receipt.surge.sh)
+- kindly-receipt.surge.sh
