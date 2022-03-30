@@ -85,16 +85,18 @@ export default class DogWalkingBusiness {
             throw new Error("Insira um horário válido")
         }
 
+        const walkId = await this.dogWalkingData.getWalkById(id)
+
         const horaInicio = this.formatHours.FormataStringHora(horario_inicio)
         const horaInicioFormatada = this.formatHours.formatar_segundos(Number(horaInicio[0]), Number(horaInicio[1]), Number(horaInicio[2]))
-        const horaTermino = 
+        
+        const horaTermino = walkId.horario_termino
+        console.log(horaTermino)
         const horaTerminoFormatada = this.formatHours.formatar_segundos(Number(horaTermino[0]), Number(horaTermino[1]), Number(horaTermino[2]))
        
         if(horaInicioFormatada > horaTerminoFormatada){
             throw new Error("O horário de início não pode ser maior que o horário de término")
         }
-
-        const walkId = await this.dogWalkingData.getWalkById(id)
         
         if(!walkId){
             throw new Error("Esse passeio não existe!")
