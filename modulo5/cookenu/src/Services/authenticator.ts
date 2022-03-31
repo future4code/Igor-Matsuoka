@@ -4,7 +4,7 @@ import { USER_ROLES } from "../Types/Admin";
 export interface AuthenticationDataAdmin {
     id: string,
     role: USER_ROLES
-}
+} 
 
 export interface AuthenticationData {
     id: string
