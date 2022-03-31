@@ -3,6 +3,12 @@ export enum DURACAO {
     HORA = "60",
 }
 
+export enum STATUS {
+    INICIANDO = "NÃO REALIZADO",
+    ANDAMENTO = "EM ANDAMENTO",
+    FINALIZADO = "FINALIZADO"
+}
+
 export type CreateWalkInputDTO = {
     data_de_agendamento: string, 
     duracao: DURACAO, 
@@ -24,8 +30,10 @@ export type FinishWalkInputDTO = {
 }
 
 export class Walk {
+
     constructor(
         private id: string,
+        private status: STATUS,
         private data_de_agendamento: string,
         private preco: number,
         private duracao: string,
@@ -36,6 +44,7 @@ export class Walk {
         private horario_termino: string
     ){
         this.id = id,
+        this.status = status,
         this.data_de_agendamento = data_de_agendamento,
         this.preco = preco,
         this.duracao = duracao,
@@ -48,6 +57,11 @@ export class Walk {
     public getId() {
         return this.id
     }
+
+    public getStatus() {
+        return this.status
+    }
+
     public getDataDeAgendamento() {
         return this.data_de_agendamento
     }
@@ -83,6 +97,7 @@ export class Walk {
     static toWalkModel(data:any):Walk{
         return new Walk(
             data.id, 
+            data.status,
             data.data_de_agendamento, 
             data.preco, data.duracao, 
             data.latitude, 

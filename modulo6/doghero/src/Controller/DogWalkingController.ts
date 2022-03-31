@@ -77,4 +77,17 @@ export default class DogWalkingController {
             res.send({ message })
         }
     }
+
+    show = async (req: Request, res: Response) => {
+        const walkId = req.body
+
+        try {
+            const walkTime = await this.dogWalkingBusiness.show(walkId)
+            res.send({walk: walkTime})
+        } catch (error:any) {
+            res.statusCode = 400
+            let message = error.sqlMessage || error.message
+            res.send({ message })
+        }
+    }
 }

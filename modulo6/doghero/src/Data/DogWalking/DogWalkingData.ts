@@ -6,20 +6,9 @@ export default class DogWalkingData extends BaseDatabase {
 
     insert = async(walk: Walk) => {
         try {
-            await BaseDatabase.connection.raw(`
-            INSERT INTO ${this.TABLE_NAME} (id, data_de_agendamento, preco, duracao, latitude,longitude, pets, horario_inicio, horario_termino)
-            VALUES (
-            '${walk.getId()}', 
-            '${walk.getDataDeAgendamento()}', 
-            '${walk.getPreco()}',
-            '${walk.getDuracao()}',
-            '${walk.getLatitude()}',
-            '${walk.getLongitude()}',
-            '${walk.getPets()}',
-            '${walk.getHorarioInicio()}',
-            '${walk.getHorarioTermino()}'
-            )`
-         );
+            await BaseDatabase
+            .connection(this.TABLE_NAME)
+            .insert(walk)
 
             return walk
         } catch (error:any) {
@@ -40,7 +29,7 @@ export default class DogWalkingData extends BaseDatabase {
     //     }
     // }
 
-    start_walk = async (start_walk:string, id: string): Promise<void>  => {
+    start_walk = async (start_walk:string, id: string): Promise<undefined>  => {
         try {
             const result = await BaseDatabase.connection.raw(`
                 UPDATE ${this.TABLE_NAME} SET horario_inicio = '${start_walk}', status = "EM ANDAMENTO" WHERE id = '${id}'
@@ -53,7 +42,7 @@ export default class DogWalkingData extends BaseDatabase {
         }
     }
 
-    finish_walk = async (finish_walk:string, id: string): Promise<void> => {
+    finish_walk = async (finish_walk:string, id: string): Promise<undefined> => {
         try {
             const result = await BaseDatabase.connection.raw(`
                 UPDATE ${this.TABLE_NAME} SET horario_termino = '${finish_walk}', status = "FINALIZADO" WHERE id = '${id}'
@@ -65,14 +54,14 @@ export default class DogWalkingData extends BaseDatabase {
         }
     }
 
-    getWalkById = async (id: string) => {
+    getWalkById = async (id: string): Promise<void|any> => {
         try {
-            const queryResult: Walk = await BaseDatabase.connection.raw(`
+            const queryResult:Walk[] = await BaseDatabase.connection.raw(`
                 Select * FROM ${this.TABLE_NAME} WHERE id = '${id}'
                 `
             );
 
-            return queryResult
+            return queryResult[0]
         } catch (error:any) {
             throw new Error(error.sqlMessage || error.message)
         }

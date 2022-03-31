@@ -9,3 +9,4 @@ const dogWalkingController = new DogWalkingController();
 dogWalkingRouter.post("/create", dogWalkingController.create);
 dogWalkingRouter.post("/start", dogWalkingController.start)
 dogWalkingRouter.post("/finish", dogWalkingController.finish)
+dogWalkingRouter.get("/show", dogWalkingController.show)

@@ -1,4 +1,5 @@
-import { CreateWalkInputDTO, DURACAO, FinishWalkInputDTO, StartWalkInputDTO, Walk } from "../Model/Walk";
+import { convertCompilerOptionsFromJson } from "typescript";
+import { CreateWalkInputDTO, DURACAO, FinishWalkInputDTO, StartWalkInputDTO, STATUS, Walk } from "../Model/Walk";
 import { CalculatePrice } from "../Services/calculatePrice";
 import { FormataHoras } from "../Services/formatHours";
 import { IdGenerator } from "../Utilities/idGenerator";
@@ -56,11 +57,12 @@ export default class DogWalkingBusiness {
         }
 
         const id:string = this.idGenerator.generate()
-
+        const status = STATUS.INICIANDO
         const preco = this.calculatePrice.calculatePrice(pets, duracao)
 
         const walk = new Walk(
             id,
+            status,
             data_de_agendamento,
             preco as number,
             duracao,
@@ -85,17 +87,8 @@ export default class DogWalkingBusiness {
             throw new Error("Insira um horário válido")
         }
 
-        const horaInicio = this.formatHours.FormataStringHora(horario_inicio)
-        const horaInicioFormatada = this.formatHours.formatar_segundos(Number(horaInicio[0]), Number(horaInicio[1]), Number(horaInicio[2]))
-        const horaTermino = getHorarioTermino()
-        const horaTerminoFormatada = this.formatHours.formatar_segundos(Number(horaTermino[0]), Number(horaTermino[1]), Number(horaTermino[2]))
-       
-        if(horaInicioFormatada > horaTerminoFormatada){
-            throw new Error("O horário de início não pode ser maior que o horário de término")
-        }
-
         const walkId = await this.dogWalkingData.getWalkById(id)
-        
+    
         if(!walkId){
             throw new Error("Esse passeio não existe!")
         }
@@ -118,7 +111,6 @@ export default class DogWalkingBusiness {
 
         const walkId = await this.dogWalkingData.getWalkById(id)
 
-
         if(!walkId){
             throw new Error("Esse passeio não existe!")
         }
@@ -126,5 +118,24 @@ export default class DogWalkingBusiness {
         if(walkId){
             await this.dogWalkingData.finish_walk(horario_termino, id)
         }
+    }
+
+    show = async (input: string) => {
+        const walkId = input
+
+        if(!walkId){
+            throw new Error("Insira todos os campos!")
+        }
+
+        const verifyWalkId = await this.dogWalkingData.getWalkById(walkId)
+
+        if(!verifyWalkId){
+            throw new Error("Esse passeio não existe!")
+        }
+
+        const tempoInicio = verifyWalkId.horario_inicio
+        console.log(tempoInicio)
+        const tempoTermino = verifyWalkId.horario_termino
+        console.log(tempoTermino)
     }
 }
