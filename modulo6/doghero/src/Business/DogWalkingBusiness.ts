@@ -49,6 +49,8 @@ export default class DogWalkingBusiness {
             throw new Error("O horário de início não pode ser maior que o horário de término")
         }
 
+        
+
         if(horario_termino.length !== 8 || horario_inicio.length !== 8){
             throw new Error("Insira um horário válido")
         }
