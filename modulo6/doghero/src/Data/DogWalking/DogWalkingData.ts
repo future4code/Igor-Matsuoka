@@ -16,19 +16,6 @@ export default class DogWalkingData extends BaseDatabase {
         }
     }
 
-    // index = async(status: string) => {
-    //     try {
-    //        const queryResult: Walk[] = await BaseDatabase
-    //         .connection(this.TABLE_NAME)
-    //         .select()
-    //         .where({status: "NÃO REALIZADO"})
-    //         return queryResult[0]
-
-    //     } catch (error:any) {
-    //         throw new Error(error.message)   
-    //     }
-    // }
-
     start_walk = async (start_walk:string, id: string): Promise<undefined>  => {
         try {
             const result = await BaseDatabase.connection.raw(`
@@ -56,12 +43,38 @@ export default class DogWalkingData extends BaseDatabase {
 
     getWalkById = async (id: string): Promise<void|any> => {
         try {
-            const queryResult:Walk[] = await BaseDatabase.connection.raw(`
-                Select * FROM ${this.TABLE_NAME} WHERE id = '${id}'
-                `
-            );
-
+            
+            const queryResult = await BaseDatabase.connection(this.TABLE_NAME)
+            .select()
+            .where('id', id)
+            
             return queryResult[0]
+        } catch (error:any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    getAllWalks = async (): Promise<Walk[]> => {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                SELECT * FROM ${this.TABLE_NAME}
+            `
+            );
+            
+            return result[0]
+        } catch (error:any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    getAllWalksPaged = async (page: number, walksPerPage:number): Promise<Walk[]> => {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                SELECT * FROM ${this.TABLE_NAME} LIMIT ${page-1}, ${walksPerPage}
+            `
+            );
+            
+            return result[0]
         } catch (error:any) {
             throw new Error(error.sqlMessage || error.message)
         }

@@ -1,4 +1,3 @@
-import { convertCompilerOptionsFromJson } from "typescript";
 import { CreateWalkInputDTO, DURACAO, FinishWalkInputDTO, StartWalkInputDTO, STATUS, Walk } from "../Model/Walk";
 import { CalculatePrice } from "../Services/calculatePrice";
 import { FormataHoras } from "../Services/formatHours";
@@ -44,11 +43,9 @@ export default class DogWalkingBusiness {
         }
         
         const horaInicio = this.formatHours.FormataStringHora(horario_inicio)
-        const horaInicioFormatada = this.formatHours.formatar_segundos(Number(horaInicio[0]), Number(horaInicio[1]), Number(horaInicio[2]))
         const horaTermino = this.formatHours.FormataStringHora(horario_termino)
-        const horaTerminoFormatada = this.formatHours.formatar_segundos(Number(horaTermino[0]), Number(horaTermino[1]), Number(horaTermino[2]))
 
-        if(horaInicioFormatada > horaTerminoFormatada){
+        if(horaInicio > horaTermino){
             throw new Error("O horário de início não pode ser maior que o horário de término")
         }
 
@@ -88,7 +85,12 @@ export default class DogWalkingBusiness {
         }
 
         const walkId = await this.dogWalkingData.getWalkById(id)
-    
+        const status = walkId.status
+
+        if(status !== STATUS.INICIANDO){
+            throw new Error("Esse passeio já foi iniciado ou já foi finalizado")
+        }
+
         if(!walkId){
             throw new Error("Esse passeio não existe!")
         }
@@ -110,6 +112,29 @@ export default class DogWalkingBusiness {
         }
 
         const walkId = await this.dogWalkingData.getWalkById(id)
+        const status = walkId.status
+        const duracao = Number(walkId.duracao)
+        const horarioInicio = walkId.horario_inicio
+
+        const horarioInicioFormatado = this.formatHours.FormataStringHora(horarioInicio)
+        const horarioTerminoFormatado = this.formatHours.FormataStringHora(horario_termino)
+        console.log(horarioTerminoFormatado - horarioInicioFormatado)
+
+        if(status !== STATUS.ANDAMENTO){
+            throw new Error("Esse passeio ainda não foi iniciado!")
+        }
+
+        if(duracao === 30 && (horarioTerminoFormatado - horarioInicioFormatado) < (30*60) ){
+            throw new Error("Esse passeio não teve a duração mínima!")
+        }
+
+        if(duracao === 60 && (horarioTerminoFormatado - horarioInicioFormatado) < (60*60) ){
+            throw new Error("Esse passeio não teve a duração mínima!")
+        }
+
+        if(horarioTerminoFormatado < horarioInicioFormatado){
+            throw new Error("Não há como finalizar a corrida antes do horário de início!")
+        }
 
         if(!walkId){
             throw new Error("Esse passeio não existe!")
@@ -121,8 +146,8 @@ export default class DogWalkingBusiness {
     }
 
     show = async (input: string) => {
-        const walkId = input
-
+        const  walkId  = input
+       
         if(!walkId){
             throw new Error("Insira todos os campos!")
         }
@@ -133,9 +158,47 @@ export default class DogWalkingBusiness {
             throw new Error("Esse passeio não existe!")
         }
 
+        const status = verifyWalkId.status
+
+        if(status !== STATUS.FINALIZADO){
+            throw new Error("Esse passeio ainda não foi encerrado!")
+        }
+
         const tempoInicio = verifyWalkId.horario_inicio
-        console.log(tempoInicio)
         const tempoTermino = verifyWalkId.horario_termino
-        console.log(tempoTermino)
+
+        const tempoInicioFormatado = this.formatHours.FormataStringHora(tempoInicio)
+        const tempoTerminoFormatado = this.formatHours.FormataStringHora(tempoTermino)
+
+        const diferenca = this.formatHours.diferenca(tempoTerminoFormatado, tempoInicioFormatado)
+        const diferencaFormatada = this.formatHours.segundosParaHora(diferenca)
+
+        return diferencaFormatada
+
+    }
+
+    index = async(page: number|any, walksPerPage:number|any) => {
+        const pageInput = page
+        const walksPerPageInput = walksPerPage
+
+        if(pageInput === 0){
+            throw new Error("A página não pode ser igual a 0")
+        }
+
+        if((pageInput || pageInput === "") && !walksPerPageInput){
+            throw new Error("Insira todos os campos")
+        }
+
+        if(!pageInput && (walksPerPageInput || walksPerPageInput === "")){
+            throw new Error("Insira todos os campos")
+        }
+
+        if(pageInput && walksPerPageInput){
+            const result = await this.dogWalkingData.getAllWalksPaged(pageInput, walksPerPageInput)
+            return result
+        } else {
+            const result = await this.dogWalkingData.getAllWalks()
+            return result
+        }
     }
 }
