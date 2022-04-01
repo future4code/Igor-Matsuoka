@@ -57,7 +57,7 @@ export default class DogWalkingData extends BaseDatabase {
     getAllWalks = async (): Promise<Walk[]> => {
         try {
             const result = await BaseDatabase.connection.raw(`
-                SELECT * FROM ${this.TABLE_NAME}
+                SELECT * FROM ${this.TABLE_NAME} ORDER BY status ASC
             `
             );
             
@@ -70,7 +70,7 @@ export default class DogWalkingData extends BaseDatabase {
     getAllWalksPaged = async (page: number, walksPerPage:number): Promise<Walk[]> => {
         try {
             const result = await BaseDatabase.connection.raw(`
-                SELECT * FROM ${this.TABLE_NAME} LIMIT ${page-1}, ${walksPerPage}
+                SELECT * FROM ${this.TABLE_NAME} ORDER BY status ASC LIMIT ${page-1}, ${walksPerPage}
             `
             );
             
