@@ -49,8 +49,6 @@ export default class DogWalkingBusiness {
             throw new Error("O horário de início não pode ser maior que o horário de término")
         }
 
-        
-
         if(horario_termino.length !== 8 || horario_inicio.length !== 8){
             throw new Error("Insira um horário válido")
         }
@@ -120,7 +118,6 @@ export default class DogWalkingBusiness {
 
         const horarioInicioFormatado = this.formatHours.FormataStringHora(horarioInicio)
         const horarioTerminoFormatado = this.formatHours.FormataStringHora(horario_termino)
-        console.log(horarioTerminoFormatado - horarioInicioFormatado)
 
         if(status !== STATUS.ANDAMENTO){
             throw new Error("Esse passeio ainda não foi iniciado!")

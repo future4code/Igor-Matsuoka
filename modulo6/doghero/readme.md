@@ -10,7 +10,7 @@ Acesse o postman aqui 👉 https://documenter.getpostman.com/view/18386394/UVysv
 
 - Igor Eiiji Avelar Matsuoka
 
-Tecnologias utilizadas: 
+### Tecnologias utilizadas: 
 - Typescript
 - Node
 - SQL
@@ -25,14 +25,15 @@ Tecnologias utilizadas:
 - json
 - jest
 
-Funcionalidades:
+### Funcionalidades:
 - Cadastrar passeio;
 - Iniciar passeio;
 - Finalizar passeio;
 - Mostrar tempo real do passeio;
 - Retornar todos passeios com ou sem paginação;
 
-Testes:
-- Testes de creat (Cadastrar passeio)
-- Outros testes em progresso...
+### Testes:
+- Testes de create (Cadastrar passeio)
+- Testes de mostrar passeios
+- Testes de iniciar e terminar corrida
 
