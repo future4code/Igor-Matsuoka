@@ -2,13 +2,13 @@ export class User {
     constructor (
         private id: string,
         private name: string,
-        private email: string,
-        private password: string
+        private lastName: string,
+        private participation: number
     ){
         this.id = id;
         this.name = name;
-        this.email = email;
-        this.password = password;
+        this.lastName = lastName;
+        this.participation = participation;
     }
 
         public getId() {
@@ -19,33 +19,22 @@ export class User {
             return this.name
         }
     
-        public getEmail() {
-            return this.email
+        public getLastName() {
+            return this.lastName
         }
     
-        public getPassword() {
-            return this.password
+        public getParticipation() {
+            return this.participation
         }
     
         static toUserModel(data: any): User {
-            return new User(data.id, data.name, data.email, data.password)
+            return new User(data.id, data.name, data.lastName, data.participation)
         }
 }
 
-export type SignupInputDTO = {
+export type InputDTO = {
     name: string
-    email: string
-    password: string
+    lastName: string
+    participation: number
 }
 
-export type LoginInputDTO = {
-    email: string
-    password: string
-}
-
-export type user = {
-    id: string,
-    name: string,
-    email: string,
-    password: string
-}
