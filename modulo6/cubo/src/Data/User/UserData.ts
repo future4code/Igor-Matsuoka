@@ -42,13 +42,13 @@ export default class UserData extends BaseDatabase implements UserRepository{
         }
     }
 
-    existingUser = async (id:string): Promise<User> => {
+    existingUser = async (name: string, lastName:string): Promise<User[]> => {
         try {
             const result = await BaseDatabase
             .connection.raw(`
-                SELECT * FROM ${this.TABLE_NAME} WHERE id='${id}';
+                SELECT * FROM ${this.TABLE_NAME} WHERE name='${name}' AND lastName='${lastName}';
             `)
-           console.log(result[0])
+           
             return result[0]
         } catch (error:any) {
             throw new Error("Erro ao verificar participação de usuário existente!")

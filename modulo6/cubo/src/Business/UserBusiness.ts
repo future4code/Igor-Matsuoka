@@ -39,40 +39,25 @@ export default class UserBusiness {
         )
 
         let sum = await this.userData.sum()
-            
+        
         if (sum >= 100) {
             throw new Error("A participação já atingiu seu máximo de 100%!")
         }
 
-        const verifyUser = await this.userData.existingUser(id)
+        if (sum < 100) {
+            const maxValue = 100 - sum
 
-        if(!verifyUser && sum === 0){
-            await this.userData.insert(user)
+            if (participation > maxValue) {
+                throw new Error(`A máxima participação permitida é igual a ${maxValue}`)
+            }
         }
 
-        if (!verifyUser) {
-    
-            if (sum < 100) {
-                const maxValue = 100 - sum
-    
-                if (participation > maxValue) {
-                    throw new Error(`A máxima participação permitida é igual a ${maxValue}`)
-                }
-            }
-    
+        const verifyUser = await this.userData.existingUser(name, lastName)
+        
+        if(verifyUser?.length === 0){
             await this.userData.insert(user)
-        }
-
-        if(verifyUser){
-            if (sum < 100) {
-                const maxValue = 100 - sum
-    
-                if (participation > maxValue) {
-                    throw new Error(`A máxima participação permitida é igual a ${maxValue}`)
-                }
-    
-                await this.userData.updateParticipation(participation, name, lastName)
-            }
+        } else {
+            await this.userData.updateParticipation(participation, name, lastName)
         }
 
     }
