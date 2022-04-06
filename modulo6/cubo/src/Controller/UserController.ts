@@ -19,10 +19,22 @@ export default class UserController {
             lastName,
             participation
         }
-
+        
         try {
-            const user = await this.userBusiness.insertUser(input)
-            res.send({message: "Usuário inserido com sucesso!", user})
+            await this.userBusiness.insertUser(input)
+            res.send({message: "Usuário inserido com sucesso!"})
+
+        } catch (error:any) {
+            res.statusCode = 400
+            let message = error.sqlMessage || error.message
+            res.send({ message })
+        }
+    }
+
+    showUsers = async (req: Request, res: Response) => {
+        try {
+            const user = await this.userBusiness.getUsers()
+            res.send({user})
 
         } catch (error:any) {
             res.statusCode = 400

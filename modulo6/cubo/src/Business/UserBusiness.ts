@@ -14,11 +14,19 @@ export default class UserBusiness {
         this.idGenerator = new IdGenerator()
     }
 
-    insertUser = async (input: InputDTO) => {
+    insertUser = async (input: InputDTO):Promise<void> => {
         const {name, lastName, participation} = input
 
         if(!name || !lastName || !participation){
             throw new Error("Insira todos os campos!")
+        }
+
+        if(participation < 0) {
+            throw new Error("Não é possível uma participação negativa!")
+        }
+
+        if(participation > 100) {
+            throw new Error("Não é possível uma participação acima da porcentagem máxima!")
         }
 
         const id:string = this.idGenerator.generate()
@@ -30,6 +38,52 @@ export default class UserBusiness {
             participation
         )
 
-        await this.userData.insert(user)
+        let sum = await this.userData.sum()
+            
+        if (sum >= 100) {
+            throw new Error("A participação já atingiu seu máximo de 100%!")
+        }
+
+        const verifyUser = await this.userData.existingUser(id)
+
+        if(!verifyUser && sum === 0){
+            await this.userData.insert(user)
+        }
+
+        if (!verifyUser) {
+    
+            if (sum < 100) {
+                const maxValue = 100 - sum
+    
+                if (participation > maxValue) {
+                    throw new Error(`A máxima participação permitida é igual a ${maxValue}`)
+                }
+            }
+    
+            await this.userData.insert(user)
+        }
+
+        if(verifyUser){
+            if (sum < 100) {
+                const maxValue = 100 - sum
+    
+                if (participation > maxValue) {
+                    throw new Error(`A máxima participação permitida é igual a ${maxValue}`)
+                }
+    
+                await this.userData.updateParticipation(participation, name, lastName)
+            }
+        }
+
+    }
+
+    getUsers = async ():Promise<User[]> => {
+        const result = await this.userData.get()
+
+        if(!result) {
+            throw new Error("Ainda não existem usuários!")
+        }
+       
+        return result
     }
 }

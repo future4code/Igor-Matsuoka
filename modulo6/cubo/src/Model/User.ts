@@ -3,7 +3,7 @@ export class User {
         private id: string,
         private name: string,
         private lastName: string,
-        private participation: number
+        private participation: number,
     ){
         this.id = id;
         this.name = name;
