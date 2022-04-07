@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { getUsers } from "../API/getUsers";
+import 
 
 const UsersTable = () => {
 
-    const [person, setPerson] = useState([])
-
     useEffect(() => {
-        getUsers(setPerson)
+        getUsers()
     }, [])
 
-    const usersResult = person && person.map((user)=> {
+    const usersResult = states.person && states.person.map((user)=> {
         let index = person.indexOf(user)
         let position = index + 1
 

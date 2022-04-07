@@ -10,7 +10,7 @@ const HomePage = () => {
         <Header/>
         DATA
         <UsersTable/>
-        <Graphic/>
+        {/* <Graphic/> */}
         </div>
     )
 }
