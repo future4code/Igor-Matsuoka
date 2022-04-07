@@ -1,36 +1,32 @@
-// import React, { useContext } from "react";
-// import { Chart } from "react-google-charts"
-// import GlobalStateContext from "../global/globalStateContext";
+import React, { useContext } from "react";
+import { Chart } from "react-google-charts";
+import GlobalStateContext from "../global/globalStateContext";
 
-// export const Graphic = () => {
+const ParticipationGraphic = () => {
 
-//     const { states } = useContext(GlobalStateContext)
+    const { states } = useContext(GlobalStateContext)
 
-//     const options = {
-//         title: "",
-//         legend: "none",
-//         is3D: false,
-//         pieHole: 0.4,
-//     };
+    const data = states.person && states.person.map((user) => {
+        return [`${user.name} ${user.lastName}`, user.participation]
+    })
 
-//     const data = states.person && states.person.map((user) => {
-//         return [`${user.name} ${user.lastName}`, user.participation]
-//     })
+    const options = {
+        title: "",
+        pieHole: 0.4,
+        is3D: false,
+    };
 
-//     return ( <div>
+    return (
 
-//             <Chart
-//                 chartType="PieChart"
-//                 data={[["Name", "Participation"],
-//                 ...data]}
-//                 options={options}
-//                 width={"100%"}
-//                 height={"100%"}
-//                 padding={"0px"}
-//                 backgroundColor={'red'}
-//             />
+        <Chart
+            chartType="PieChart"
+            width="100%"
+            height="100px"
+            data={[["Name", "Participation"], ...data]}
+            options={options}
+        />
 
-//         </div>
+    );
+}
 
-//     )
-// }
+export default ParticipationGraphic

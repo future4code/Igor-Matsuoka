@@ -1,16 +1,28 @@
 import React from "react"
-import { isPropertySignature } from "typescript"
-import { Graphic } from "../components/participationGraphic"
 import UsersTable from "../components/usersTable"
 import Header from "../constants/Header"
+import ParticipationGraphic from "../components/participationGraphic"
 
 const HomePage = () => {
-
+  
     return (<div>
+
+        <div>
         <Header/>
+        </div>
+
+        <div>
         <h1>DATA</h1>
+        </div>
+
+        <div>
         <UsersTable/>
-        {/* <Graphic/> */}
+        </div>
+
+        <div>
+        <ParticipationGraphic/>
+        </div>
+        
         </div>
     )
 }

@@ -6,10 +6,15 @@ import GlobalStyle from "./global/globalStyle";
 function App() {
 
   return (<div>
+
     <GlobalState>
+
     <GlobalStyle/>
+
     <HomePage/>
+
     </GlobalState>
+    
     </div>
   );
 }
