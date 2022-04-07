@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { getUsers } from "../API/getUsers";
-import 
+import React, { useContext, useEffect }from "react";
+import GlobalStateContext from "../global/globalStateContext";
 
 const UsersTable = () => {
 
+    const { states, setters } = useContext(GlobalStateContext)
+
     useEffect(() => {
-        getUsers()
+        setters.getUsers()
     }, [])
 
     const usersResult = states.person && states.person.map((user)=> {
-        let index = person.indexOf(user)
+        let index = states.person.indexOf(user)
         let position = index + 1
 
         return <div key={user.id}>

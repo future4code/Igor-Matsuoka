@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext }from "react";
 import useForm from "../hooks/useForm";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
-import { send } from "../API/sendUser";
+import GlobalStateContext from "../global/globalStateContext";
 
 const HeaderForm = () => {
+
+    const { setters } = useContext(GlobalStateContext)
+
     const {form, handleInputOnChange, clear} = useForm({name:"", lastName:"", participation:""})
 
     const onSubmitForm = (event) => {
-        send()
+        setters.send(form)
         event.preventDefault()
         clear()
     }

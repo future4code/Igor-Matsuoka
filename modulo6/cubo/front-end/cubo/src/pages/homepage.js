@@ -8,7 +8,7 @@ const HomePage = () => {
 
     return (<div>
         <Header/>
-        DATA
+        <h1>DATA</h1>
         <UsersTable/>
         {/* <Graphic/> */}
         </div>
