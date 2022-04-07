@@ -1,11 +1,28 @@
 const checkBrackets = (string: string) => {
-    if(string.length % 2 !== 0){
-        return false
-    } else if(string.length === 0){
-        return true
+    const stack: any = [];
+
+    for (let char of string) {
+        if (char === "(" || char === "[" || char === "{") {
+            stack.push(char);
+        } else {
+            const lastOpeningChar = stack.pop();
+            if (!lastOpeningChar) {
+                return false
+            } else if (
+                (lastOpeningChar === "(" && char !== ")") ||
+                (lastOpeningChar === "[" && char !== "]") ||
+                (lastOpeningChar === "{" && char !== "}")
+            ) {
+                return false;
+            }
+        }
     }
 
-    console.log(string.length)
+    if (stack.length > 0) {
+        return false;
+    }
+
+    return true;
 }
 
 console.log(checkBrackets("{}"))
