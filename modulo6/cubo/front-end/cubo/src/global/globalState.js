@@ -13,7 +13,6 @@ const GlobalState = (props) => {
         const url = `${baseUrl}/users`
         axios.get(url)
         .then((res)=>{
-            console.log(res.data)
             setPerson(res.data.user)
         })
         .catch((error)=>{
