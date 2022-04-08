@@ -4,6 +4,8 @@ import Header from "../constants/Header"
 import ParticipationGraphic from "../components/participationGraphic"
 import { HomePageContainer } from "./styledHomePage"
 import { InfoContainer } from "./styledHomePage"
+import { GraphicContainer } from "./styledHomePage"
+import { TitleContainer } from "./styledHomePage"
 
 const HomePage = () => {
   
@@ -15,18 +17,20 @@ const HomePage = () => {
 
         <HomePageContainer>
 
-        <div>
+        <TitleContainer>
         <h1>DATA</h1>
-        </div>
+        <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h4>
+        </TitleContainer>
 
         <InfoContainer>
         <div>
         <UsersTable/>
         </div>
 
-        <div>
+        <GraphicContainer>
         <ParticipationGraphic/>
-        </div>
+        </GraphicContainer>
+
         </InfoContainer>
 
         </HomePageContainer>

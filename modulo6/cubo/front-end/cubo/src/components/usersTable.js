@@ -25,20 +25,20 @@ const UsersTable = () => {
     })
 
     return (<TableContainer>
-
+          
             <table id="collapseTable">
-
+            <tbody>
             <tr>
                 <th></th>
                 <th>Name</th>
                 <th>Last Name</th>
                 <th>Participation(%)</th>
             </tr>
-
+         
             {usersResult}
-
+            </tbody>
             </table>
-
+           
         </TableContainer>
     )
 }

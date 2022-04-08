@@ -15,3 +15,14 @@ export const InfoContainer = styled.div`
     align-items: center;
     width: 100%;
 `
+
+export const GraphicContainer = styled.div`
+    width: 30vw;
+`
+
+export const TitleContainer = styled.div`
+    margin: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
