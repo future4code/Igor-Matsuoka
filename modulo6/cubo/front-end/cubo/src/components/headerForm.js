@@ -1,8 +1,7 @@
 import React, { useContext }from "react";
 import useForm from "../hooks/useForm";
-import { TextField } from "@mui/material";
-import { Button } from "@mui/material";
 import GlobalStateContext from "../global/globalStateContext";
+import { HeaderContainer } from "./styledHeader";
 
 const HeaderForm = () => {
 
@@ -16,54 +15,41 @@ const HeaderForm = () => {
         clear()
     }
 
-    return (<div>
+    return (<HeaderContainer>
         <form onSubmit={onSubmitForm}>
-        <TextField
+
+        <input
             name={"name"}
             value={form.name}
             onChange={handleInputOnChange}
-            label={"Name"}
+            placeholder={"Name"}
             type={"text"}
-            variant={"outlined"}
-            margin={"dense"}
-            width={200}
-            required
         />
 
-        <TextField
+        <input
             name={"lastName"}
             value={form.lastName}
             onChange={handleInputOnChange}
-            label={"Last name"}
+            placeholder={"Last name"}
             type={"text"}
-            variant={"outlined"}
-            margin={"dense"}
-            width={200}
-            required
         />
 
-        <TextField
+        <input
             name={"participation"}
             value={form.participation}
             onChange={handleInputOnChange}
-            label={"Participation"}
+            placeholder={"Participation"}
             type={"text"}
-            variant={"outlined"}
-            margin={"dense"}
-            width={200}
-            required
         />
 
-        <Button
+        <button
             type={"submit"}
-            size={"large"}
-            variant={"outlined"}
-            color={"primary"}
         >
             SEND
-        </Button>
+        </button>
+
         </form>
-        </div>
+        </HeaderContainer>
     )
 }
 

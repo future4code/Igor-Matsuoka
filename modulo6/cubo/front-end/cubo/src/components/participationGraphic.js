@@ -21,7 +21,7 @@ const ParticipationGraphic = () => {
         <Chart
             chartType="PieChart"
             width="100%"
-            height="100px"
+            height="400px"
             data={[["Name", "Participation"], ...data]}
             options={options}
         />
