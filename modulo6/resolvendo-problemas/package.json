@@ -1,0 +1,19 @@
+{
+  "name": "resolvendo-problemas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+		"start:dev": "ts-node-dev ./src/index.ts",
+    "start": "tsc && node ./build/index.js",
+    "build": "tsc"  
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^17.0.23",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.3"
+  }
+}
