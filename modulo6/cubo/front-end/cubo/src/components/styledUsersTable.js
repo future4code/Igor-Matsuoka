@@ -30,8 +30,21 @@ export const TableContainer = styled.div`
             padding: 0 0.5em;
             border: 1px solid black;
         }
+
+        td:nth-child(5){
+            text-align: center;
+            padding: 0 0.5em;
+            border: 1px solid black;
+        }
     }
 
+`
+
+export const ButtonDelete = styled.button`
+    border:1px solid black;
+    border-radius: 10px;
+    background-color: #5DADE2;
+    color: white;
 `
 
 

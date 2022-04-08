@@ -6,6 +6,8 @@ import axios from "axios";
 const GlobalState = (props) => {
 
     const [person, setPerson] = useState([])
+    const [update, setUpdate] = useState(0)
+
 
     const getUsers = () => {
         const url = `${baseUrl}/users`
@@ -29,9 +31,20 @@ const GlobalState = (props) => {
         })
     }
 
+    const deleteUser = (id) => {
+        const url = `${baseUrl}/users/delete/${id}`
+        axios.delete(url)
+        .then((res)=>{
+            getUsers()
+        })
+        .catch((error)=>{
+            console.log(error.response)
+        })
+    }
 
-    const states = { person }
-    const setters = { setPerson, getUsers, send }
+
+    const states = { person, update }
+    const setters = { setPerson, getUsers, send, setUpdate, deleteUser }
 
     return (
         <GlobalStateContext.Provider value={{states, setters}}>

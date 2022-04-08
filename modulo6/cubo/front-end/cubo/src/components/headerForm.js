@@ -1,11 +1,16 @@
-import React, { useContext }from "react";
+import React, { useContext, useEffect }from "react";
 import useForm from "../hooks/useForm";
 import GlobalStateContext from "../global/globalStateContext";
 import { HeaderContainer } from "./styledHeader";
 
+
 const HeaderForm = () => {
 
-    const { setters } = useContext(GlobalStateContext)
+    const { states, setters } = useContext(GlobalStateContext)
+
+    useEffect(() => {
+        setters.getUsers()
+    }, [states.update])
 
     const {form, handleInputOnChange, clear} = useForm({name:"", lastName:"", participation:""})
 
@@ -13,6 +18,7 @@ const HeaderForm = () => {
         setters.send(form)
         event.preventDefault()
         clear()
+        setters.setUpdate(states.update + 1)
     }
 
     return (<HeaderContainer>

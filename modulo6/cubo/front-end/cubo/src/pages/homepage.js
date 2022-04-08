@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import UsersTable from "../components/usersTable"
 import Header from "../constants/Header"
 import ParticipationGraphic from "../components/participationGraphic"
@@ -19,7 +19,7 @@ const HomePage = () => {
 
         <TitleContainer>
         <h1>DATA</h1>
-        <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h4>
+        <h4>Adicione seu nome, sobrenome e participação e veja em porcentagem(%) a sua participação!</h4>
         </TitleContainer>
 
         <InfoContainer>
