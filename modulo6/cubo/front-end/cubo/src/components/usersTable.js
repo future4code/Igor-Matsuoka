@@ -14,29 +14,30 @@ const UsersTable = () => {
         let index = states.person.indexOf(user)
         let position = index + 1
 
-        return <table key={user.id}>
-            
-            <tr>
+        return <tr key={user.id}>
+        
             <td>{position}</td>
             <td>{user.name}</td>
             <td>{user.lastName}</td>
             <td>{user.participation}%</td>
-            </tr>
 
-            </table>
+            </tr>
     })
 
     return (<TableContainer>
 
-            <table>
+            <table id="collapseTable">
+
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Last Name</th>
                 <th>Participation(%)</th>
             </tr>
-            </table>
 
             {usersResult}
+
+            </table>
 
         </TableContainer>
     )
