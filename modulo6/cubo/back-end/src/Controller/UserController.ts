@@ -43,4 +43,18 @@ export default class UserController {
         }
     }
 
+    deleteById = async (req: Request, res: Response) => {
+        const id: string = req.params.id
+
+        try{
+            await this.userBusiness.deleteById(id)
+
+            res.status(200).send({message: "Usuário deletado!"})
+        } catch (error: any) {
+            res.statusCode = 400
+            let message = error.sqlMessage || error.message
+            res.send({ message })
+        }
+    }
+
 }

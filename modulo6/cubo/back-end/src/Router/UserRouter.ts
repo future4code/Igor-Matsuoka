@@ -7,3 +7,4 @@ const userController = new UserController();
 
 userRouter.post("/submit", userController.submitUser)
 userRouter.get("/", userController.showUsers)
+userRouter.delete("/delete/:id", userController.deleteById)

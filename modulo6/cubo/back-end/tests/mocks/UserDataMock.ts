@@ -14,9 +14,7 @@ export default class UserDataMock extends BaseDatabase implements UserRepository
        return [userMock1, userMock2]
     }
 
-    sum = async (): Promise<number> => {
-       return 80
-    }
+    delete = async (): Promise<void> => {}
 
     existingUser = async (name: string, lastName:string): Promise<User[] | null> => {
         if(name === "name" && lastName === "lastName"){

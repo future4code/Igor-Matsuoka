@@ -53,4 +53,8 @@ export default class UserBusiness {
        
         return result
     }
+
+    deleteById = async (id: string) => {
+        await this.userData.delete(id)
+    } 
 }

@@ -29,14 +29,13 @@ export default class UserData extends BaseDatabase implements UserRepository{
         }
     }
 
-    sum = async (): Promise<number> => {
+    delete = async (id:string): Promise<void> => {
         try {
-            const result = await BaseDatabase
+            await BaseDatabase
             .connection.raw(`
-                SELECT SUM(participation) as total FROM ${this.TABLE_NAME};
+            DELETE FROM ${this.TABLE_NAME} WHERE id = '${id}';
             `)
             
-            return result[0][0].total
         } catch (error:any) {
             throw new Error("Erro ao pegar soma no banco de dados!")
         }
