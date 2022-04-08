@@ -1,13 +1,14 @@
-## Labook:
+# Projeto Cubo Full-Stack
 
 ### Documentação: https://documenter.getpostman.com/view/18386394/UVyvutqu
 
-Projeto Cubo Full-Stack
+### Desenvolvedor:
+- Igor Matsuoka
 
 ### Back-end
 1. Usuários 
 
-Insersação de usuários a partir de um: nome, sobrenome e participação(em %). O máximo de porcentagem permitida é 100%, caso a pessoa coloque mais de 100% de participação, um erro é acionado. Caso a participação a ser colocada é maior que a participação restante dos 100%, um outro erro também é acionado. Não é permitido a inserção de participações negativas.
+Insersação de usuários a partir de um: nome, sobrenome e participação que será transformada em porcentagem depois de calculada o total de participações. Não é permitido a inserção de participações negativas.
 
 As funcionalidades básicas são:
 
@@ -15,10 +16,11 @@ As funcionalidades básicas são:
     
 - **Pegar usuários**
 
+- **Deletar usuário**
+
 ### Testes
 - Input vazio;
 - Participação negativa;
-- Participação maior que 100%;
 - Situação ideal;
        
 ## Tecnologias utilizadas
@@ -36,5 +38,18 @@ As funcionalidades básicas são:
 - UUID
 - Bcrypt
 - json
+- cors
+- Arquitetura de Software
 
 ### Front-end
+
+O projeto consiste em fornecer 3 dados (nome, sobrenome e participação), o usuário irá inserir a participação como sendo uma unidade e ela será transformada em porcentagem com relação ao total de participações, também é possível deletar um usuário já fornecido. O usuário é capaz de ver a alteração na tabela e gráfico instantaneamente.
+
+As apis utilizadas foram desenvolvidas pelo próprio desenvolvedor.
+
+## Tecnologias utilizadas
+- React
+- CSS, Styled-Components
+- Axios
+- Cosméticos exteriores como: Fontes do Google e Icones de sites.
+- API Rest
