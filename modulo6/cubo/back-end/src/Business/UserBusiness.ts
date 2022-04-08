@@ -25,10 +25,6 @@ export default class UserBusiness {
             throw new Error("Não é possível uma participação negativa!")
         }
 
-        if(participation > 100) {
-            throw new Error("Não é possível uma participação acima da porcentagem máxima!")
-        }
-
         const id:string = this.idGenerator.generate()
 
         const user = new User(
@@ -37,20 +33,6 @@ export default class UserBusiness {
             lastName,
             participation
         )
-
-        let sum = await this.userData.sum()
-        
-        if (sum >= 100) {
-            throw new Error("A participação já atingiu seu máximo de 100%!")
-        }
-
-        if (sum < 100) {
-            const maxValue = 100 - sum
-
-            if (participation > maxValue) {
-                throw new Error(`A máxima participação permitida é igual a ${maxValue}`)
-            }
-        }
 
         const verifyUser = await this.userData.existingUser(name, lastName)
         
