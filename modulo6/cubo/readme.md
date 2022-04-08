@@ -47,7 +47,7 @@ O projeto consiste em fornecer 3 dados (nome, sobrenome e participação), o usu
 
 As apis utilizadas foram desenvolvidas pelo próprio desenvolvedor.
 
-### Confira aqui: https://exultant-flowers.surge.sh
+### Confira aqui: https://marked-receipt.surge.sh
 
 ## Tecnologias utilizadas
 - React
