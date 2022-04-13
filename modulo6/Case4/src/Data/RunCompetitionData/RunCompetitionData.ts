@@ -1,5 +1,5 @@
 import { RunCompetitionRepository } from "../../Business/RunCompetition/RunCompetitionRepository";
-import { Competition } from "../../Model/Competition";
+import { Competition, SITUACAO } from "../../Model/Competition";
 import BaseDatabase from "../BaseDatabase";
 
 export default class RunData extends BaseDatabase implements RunCompetitionRepository {
@@ -19,14 +19,76 @@ export default class RunData extends BaseDatabase implements RunCompetitionRepos
 
     getByAtleta = async (atleta: string) => {
         try {
-            const result = await BaseDatabase
-            .connection(this.TABLE_NAME)
-            .select()
-            .where("atleta", atleta)
+            const result = await BaseDatabase.connection.raw(`
+                SELECT * FROM Run_competition WHERE atleta = '${atleta}';
+            `)
             
             return result[0]
         } catch (error:any) {
-            throw new Error("Erro ao buscar usuário pelo nome no banco de dados!")
+            throw new Error("Erro ao buscar atleta pelo nome no banco de dados!")
         }
     }
+
+    getCompetitionByName = async (competition: string) => {
+        try {
+            const result = await BaseDatabase
+            .connection(this.TABLE_NAME)
+            .select()
+            .where("competicao", competition)
+            
+            return result[0] 
+        } catch (error:any) {
+            throw new Error("Erro ao buscar competição pelo nome no banco de dados!")
+        }
+    }
+
+    getCompetitionAndAthlete = async (competition: string) => {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                SELECT atleta FROM Run_competition WHERE competicao = '${competition}';
+            `)
+            
+            return result[0]
+        } catch (error:any) {
+            throw new Error("Erro ao buscar atleta por competição!")
+        }
+    }
+
+
+    getSituationByName = async (competition: string, situation: SITUACAO.FINALIZADO) => {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                SELECT situacao FROM Run_competition WHERE competicao = '${competition}' and situacao = '${situation}';
+            `)
+            
+            return result[0]
+        } catch (error:any) {
+            throw new Error("Erro ao buscar situação da competição no banco de dados!")
+        }
+    }
+
+    updateSituation = async (situation: SITUACAO.FINALIZADO, competition: string) => {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                UPDATE Run_competition SET situacao = '${situation}' WHERE competicao = '${competition}';
+            `)
+        
+            return result[0]
+        } catch (error:any) {
+            throw new Error("Erro ao atualizar competição pelo nome e situação no banco de dados!")
+        }
+    }
+
+    getRanking = async (competition:string) => {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                SELECT * FROM Run_competition WHERE competicao = '${competition}' ORDER BY valor ASC;
+            `)
+            
+            return result[0]
+        } catch (error:any) {
+            throw new Error("Erro ao buscar ranking da competição no banco de dados!")
+        }
+    }
+
 }

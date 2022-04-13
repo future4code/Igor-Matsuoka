@@ -3,14 +3,14 @@ export class Competition {
         private id: string,
         private competicao: string,
         private atleta: string,
-        private value: string,
+        private valor: string,
         private unidade: string,
         private situacao: SITUACAO
     ){
         this.id = id;
         this.competicao = competicao;
         this.atleta = atleta;
-        this.value = value;
+        this.valor = valor;
         this.unidade = unidade;
         this.situacao = situacao
     }
@@ -28,7 +28,7 @@ export class Competition {
     }
 
     public getValue(){
-        return this.value
+        return this.valor
     }
 
     public getUnidade(){
@@ -40,7 +40,7 @@ export class Competition {
     }
 
     static toCompetitionModel(data: any): Competition {
-        return new Competition(data.id, data.competicao, data.atleta, data.value, data.unidade, data.situacao)
+        return new Competition(data.id, data.competicao, data.atleta, data.valor, data.unidade, data.situacao)
     }
 
 }
@@ -48,11 +48,15 @@ export class Competition {
 export type InputDTO = {
     competicao: string,
     atleta: string,
-    value: string,
+    valor: string,
     unidade: string
 }
 
 export enum SITUACAO {
     ANDAMENTO = "EM ANDAMENTO",
     FINALIZADO = "FINALIZADO"
+}
+
+export type InputCompeticaoDTO = {
+    competicao: string
 }

@@ -1,4 +1,4 @@
-import { Competition, InputDTO, SITUACAO } from "../../Model/Competition";
+import { Competition, InputCompeticaoDTO, InputDTO, SITUACAO } from "../../Model/Competition";
 import { IdGenerator } from "../../Services/IdGenerator";
 import { RunCompetitionRepository } from "./RunCompetitionRepository";
 
@@ -14,25 +14,31 @@ export default class RunCompetitionBusiness {
     }
 
     insertRun = async(input: InputDTO):Promise<void> => {
-        const {competicao, atleta, value, unidade} = input
+        const {competicao, atleta, valor, unidade} = input
         
-        if(!competicao || !atleta || !value || !unidade){
+        if(!competicao || !atleta || !valor || !unidade){
             throw new Error("Insira todos os campos!")
         }
 
-        if(typeof competicao !== "string" || typeof atleta !== "string" || typeof value !== "string" || typeof unidade !== "string"){
+        if(typeof competicao !== "string" || typeof atleta !== "string" || typeof valor !== "string" || typeof unidade !== "string"){
             throw new Error("Insira valores válidos!")
         }
 
-        // const verificaCompetidor = await this.competitionData.getByAtleta(atleta)
+        const verificaSituacaoCompeticao = await this.competitionData.getSituationByName(competicao, SITUACAO.FINALIZADO)
 
-        // console.log(verificaCompetidor)
+        if(verificaSituacaoCompeticao.length > 0){
+            throw new Error("Essa competição já foi finalizada!")
+        }
 
-        // if(verificaCompetidor){
-        //     throw new Error("Esse atleta já terminou a prova!")
-        // }
+        const verificaCompetidor = await this.competitionData.getByAtleta(atleta)
 
-        // if(!verificaCompetidor){
+        if(verificaCompetidor){
+            const verificaQualCompeticao = await this.competitionData.getCompetitionAndAthlete(competicao)
+
+            if(verificaQualCompeticao === atleta){
+                throw new Error("Esse atleta já realizou esta prova!")
+            }
+
             const id = this.idGenerator.generate()
 
             const situacao = SITUACAO.ANDAMENTO
@@ -41,12 +47,40 @@ export default class RunCompetitionBusiness {
                 id,
                 competicao,
                 atleta,
-                value,
+                valor,
                 unidade,
                 situacao
             )
 
             await this.competitionData.insert(novaCompeticao)
-        // }
+        }  
+    }
+
+    finishRun = async(input: string) => {
+        const competicao  = input
+        
+        const situacao = SITUACAO.FINALIZADO
+
+        const verificaCompeticao = await this.competitionData.getCompetitionByName(competicao)
+
+        if(!verificaCompeticao){
+            throw new Error("Essa competição/modalidade não existe!")
+        }
+
+        await this.competitionData.updateSituation(situacao, competicao)
+    }
+
+    getRanking = async(input: string) => {
+        const competicao  = input
+        
+        const verificaCompeticao = await this.competitionData.getCompetitionByName(competicao)
+
+        if(!verificaCompeticao){
+            throw new Error("Essa competição/modalidade não existe!")
+        }
+
+        const resultado = await this.competitionData.getRanking(competicao)
+        
+        return resultado
     }
 }
