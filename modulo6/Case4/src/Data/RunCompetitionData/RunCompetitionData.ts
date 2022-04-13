@@ -45,7 +45,7 @@ export default class RunCompetitionData extends BaseDatabase implements RunCompe
     getCompetitionAndAthlete = async (competition: string) => {
         try {
             const result = await BaseDatabase.connection.raw(`
-                SELECT atleta FROM Run_competition WHERE competicao = '${competition}';
+                SELECT atleta FROM ${this.TABLE_NAME} WHERE competicao = '${competition}';
             `)
             
             return result[0]
@@ -58,7 +58,7 @@ export default class RunCompetitionData extends BaseDatabase implements RunCompe
     getSituationByName = async (competition: string, situation: SITUACAO.FINALIZADO) => {
         try {
             const result = await BaseDatabase.connection.raw(`
-                SELECT situacao FROM Run_competition WHERE competicao = '${competition}' and situacao = '${situation}';
+                SELECT situacao FROM ${this.TABLE_NAME} WHERE competicao = '${competition}' and situacao = '${situation}';
             `)
             
             return result[0]
@@ -70,7 +70,7 @@ export default class RunCompetitionData extends BaseDatabase implements RunCompe
     updateSituation = async (situation: SITUACAO.FINALIZADO, competition: string) => {
         try {
             const result = await BaseDatabase.connection.raw(`
-                UPDATE Run_competition SET situacao = '${situation}' WHERE competicao = '${competition}';
+                UPDATE ${this.TABLE_NAME} SET situacao = '${situation}' WHERE competicao = '${competition}';
             `)
         
             return result[0]
@@ -82,7 +82,7 @@ export default class RunCompetitionData extends BaseDatabase implements RunCompe
     getRanking = async (competition:string) => {
         try {
             const result = await BaseDatabase.connection.raw(`
-                SELECT * FROM Run_competition WHERE competicao = '${competition}' ORDER BY valor ASC;
+                SELECT * FROM ${this.TABLE_NAME} WHERE competicao = '${competition}' ORDER BY valor ASC;
             `)
             
             return result[0]

@@ -24,6 +24,10 @@ export default class RunCompetitionBusiness {
             throw new Error("Insira valores válidos!")
         }
 
+        if(unidade !== "s"){
+            throw new Error("Unidade inválida!")
+        }
+
         const verificaSituacaoCompeticao = await this.competitionData.getSituationByName(competicao, SITUACAO.FINALIZADO)
 
         if(verificaSituacaoCompeticao.length > 0){
