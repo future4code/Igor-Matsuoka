@@ -1,8 +1,8 @@
-import { RunCompetitionRepository } from "../../Business/RunCompetition/RunCompetitionRepository";
+import { DartCompetitionRepository } from "../../Business/DartCompetition/DartCompetitionRepository";
 import { Competition, SITUACAO } from "../../Model/Competition";
 import BaseDatabase from "../BaseDatabase";
 
-export default class RunCompetitionData extends BaseDatabase implements RunCompetitionRepository {
+export default class DartCompetitionData extends BaseDatabase implements DartCompetitionRepository {
     protected TABLE_NAME = "Run_competition"
 
     insert = async (competition: Competition) => {

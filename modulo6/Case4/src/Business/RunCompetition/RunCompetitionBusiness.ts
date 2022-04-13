@@ -1,4 +1,4 @@
-import { Competition, InputCompeticaoDTO, InputDTO, SITUACAO } from "../../Model/Competition";
+import { Competition, InputDTO, SITUACAO } from "../../Model/Competition";
 import { IdGenerator } from "../../Services/IdGenerator";
 import { RunCompetitionRepository } from "./RunCompetitionRepository";
 
@@ -80,7 +80,7 @@ export default class RunCompetitionBusiness {
         }
 
         const resultado = await this.competitionData.getRanking(competicao)
-        
+
         return resultado
     }
 }
