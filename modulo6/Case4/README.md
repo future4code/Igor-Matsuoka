@@ -1,37 +1,63 @@
-Backend
-=======
+# Jogos Olímpicos - Estante Virtual
+- Case de back-End
 
-Prerequisites
--------------
+Esse projeto consiste em construir uma API REST em Ruby para o COB (Comitê Olímico Brasileiro), que será responsável por marcar e dizer os vencedores das seguintes modalidades:
 
-* [Git](http://git-scm.com/)
-* [MySQL](https://www.mysql.com/)
+- 100m rasos: Menor tempo vence
+- Lançamento de Dardo: Maior distância vence
 
-Option one
-* [nodejs](https://nodejs.org/en/)
-* nodejs framework of your choice
-
-Option two
-* [Ruby](https://www.ruby-lang.org)
-* Ruby framework of your choice
+- Documentação API:
+Acesse o postman aqui 👉 https://documenter.getpostman.com/view/18386394/Uyr4L1JG
 
 
-* You can use any additional libraries you want.
+## Desenvolvedor 
 
-Project description
--------------------
+- Igor Eiiji Avelar Matsuoka
 
-**Pizzeria**
+### Tecnologias utilizadas: 
+- Typescript
+- Node
+- SQL
+- MySQL
+- Express
+- Cors
+- Dotenv
+- Knex
+- React
+- Axios
+- UUID
+- json
+- jest
 
-This application serves the purpose of exposing a JSON API to be consumed by a frontend client for ordering pizza.
+### Funcionalidades:
+- Cadastrar atleta em uma determinada competição (100m ou dardo), inserindo:
+    - Nome da competição (se o nome não existir irá ser criada uma nova, se a competição já tiver sido finalizada, não será possível a inserção do atleta), 
+    - Nome do atleta,
+    - O valor da sua corrida/arremesso,
+    - unidade em que serão feitas as medidas (m = metros, s = segundos)
 
-The following entities should be created (including proper relations):
+- Finalizar a competição a partir do nome da competição;
 
-* *pizza* - has a name and price (e.g. Margherita $5, Pepperoni $6, ...)
-* *order* - has items
-* *order item* - has a pizza and quantity
+- Mostrar a colocação dos atletas desde o primeiro colocado ao último a partir do nome da competição.
 
-The following endpoints should return a JSON response:
-* `/api/orders` (list of orders)
-* `/api/orders/:id` (details of an individual order)
-* `/api/pizzas` (list of pizzas; see './backend/example-pizzas.json')
+### Testes para os 100m:
+- Erro ao passar algum input vazio na hora de cadastrar
+- Erro ao passar unidade diferente de "s" na hora de cadastrar
+- Erro ao tentar cadastrar em uma competição finalizada
+- Erro ao cadastrar competidor já que já terminou a competição
+- Teste de sucesso ao cadastrar
+- Teste ao passar alguma competição inexistente na hora de terminar uma competição
+- Teste de sucesso ao finalizar competição
+- Teste ao passar alguma competição inexistente na hora pegar o ranking da competição
+- Teste de sucesso ao pegar ranking da corrida
+
+### Testes para o arremesso de dardo:
+- Erro ao passar algum input vazio na hora de cadastrar
+- Erro ao passar unidade diferente de "m" na hora de cadastrar
+- Erro ao tentar cadastrar em uma competição finalizada
+- Erro ao cadastrar competidor já que realizou os 3 lançamentos
+- Teste de sucesso ao cadastrar
+- Teste ao passar alguma competição inexistente na hora de terminar uma competição
+- Teste de sucesso ao finalizar competição
+- Teste ao passar alguma competição inexistente na hora pegar o ranking da competição
+- Teste de sucesso ao pegar ranking da corrida
