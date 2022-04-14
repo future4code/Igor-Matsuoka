@@ -1,6 +1,6 @@
-import { Competition, SITUACAO } from "../../Model/Competition";
+import { Competition, SITUACAO } from "../../../src/Model/Competition"
 
-export interface RunCompetitionRepository {
+export interface RunCompetitionRepositoryMock {
     insert(competition: Competition):Promise<Competition>
     getByAtleta(atleta: string):Promise<Competition>
     getCompetitionByName(competition: string):Promise<Competition>

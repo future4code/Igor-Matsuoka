@@ -91,4 +91,16 @@ export default class RunCompetitionData extends BaseDatabase implements RunCompe
         }
     }
 
+    getAthleteCount = async (athlete:string, competition:string) => {
+        try {
+            const result = await BaseDatabase.connection.raw(`
+                SELECT COUNT(atleta) as chances FROM ${this.TABLE_NAME} WHERE atleta = '${athlete}' AND competicao = '${competition}';
+            `)
+            
+            return result[0][0].chances
+        } catch (error:any) {
+            throw new Error("Erro ao buscar chances do atleta no banco de dados!")
+        }
+    }
+
 }

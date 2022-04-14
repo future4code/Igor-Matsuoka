@@ -3,7 +3,7 @@ import DartCompetitionBusiness from "../../Business/DartCompetition/DartCompetit
 import DartCompetitionData from "../../Data/DartCompetition/DartCompetitionData";
 import { InputDTO } from "../../Model/Competition";
 
-export default class RunCompetitionController {
+export default class DartCompetitionController {
     private dartCompetitionBusiness: DartCompetitionBusiness;
     constructor(
     ){

@@ -2,7 +2,7 @@ import { Competition, InputDTO, SITUACAO } from "../../Model/Competition";
 import { IdGenerator } from "../../Services/IdGenerator";
 import { DartCompetitionRepository } from "./DartCompetitionRepository";
 
-export default class RunCompetitionBusiness {
+export default class DartCompetitionBusiness {
     private idGenerator: IdGenerator;
     private competitionData: DartCompetitionRepository;
 
