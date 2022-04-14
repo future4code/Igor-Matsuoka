@@ -16,19 +16,19 @@ export default class RunCompetitionDataMock extends BaseDatabase implements RunC
 
     getCompetitionByName = async (competition: string) => {
         return competitionMock2
-       
     }
 
     getCompetitionAndAthlete = async (competition: string)=> {
         return "atleta1"
     }
 
-
     getSituationByName = async (competition: string, situation: SITUACAO) => {
         if(competition === "competicao1" && situation === SITUACAO.FINALIZADO){
             return "FINALIZADO"
-        } else if(competition === "competicao2" && situation === SITUACAO.ANDAMENTO){
-            return "ANDAMENTO"
+        } else if(competition === "competicao2" && situation === SITUACAO.FINALIZADO){
+            return 0
+        } else {
+            undefined
         }
     }
 
