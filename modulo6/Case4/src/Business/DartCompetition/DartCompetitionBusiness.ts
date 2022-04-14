@@ -24,6 +24,10 @@ export default class DartCompetitionBusiness {
             throw new Error("Insira valores válidos!")
         }
 
+        if(unidade !== "m"){
+            throw new Error("Unidade inválida!")
+        }
+
         const verificaSituacaoCompeticao = await this.competitionData.getSituationByName(competicao, SITUACAO.FINALIZADO)
 
         if(verificaSituacaoCompeticao?.length > 0){
